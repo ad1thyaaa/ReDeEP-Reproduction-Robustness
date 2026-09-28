@@ -1,0 +1,2 @@
+<frozen site>:101: RuntimeWarning: Unexpected value in sys.prefix, expected /home/adiii/semVII/work/Deep Learning/deepLenv, got /home/adiii/semVII/work/Deep Learning/redeep/../deepLenv
+<frozen site>:101: RuntimeWarning: Unexpected value in sys.exec_prefix, expected /home/adiii/semVII/work/Deep Learning/deepLenv, got /home/adiii/semVII/work/Deep Learning/redeep/../deepLenv
