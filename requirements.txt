@@ -1,9 +1,16 @@
-torch --index-url https://download.pytorch.org/whl/cpu
-transformers
+# GPU (CUDA 12.8 wheels, works on RTX 40xx). For CPU-only use
+#   --index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch
+transformers>=5
 accelerate
+bitsandbytes          # 4-bit loading for 3B/7B models on 6GB VRAM
 scikit-learn
 scipy
 pandas
 matplotlib
 sentencepiece
 protobuf
+hf_xet
+openai                # GPT judge (OpenAI / GitHub Models / Groq endpoints)
+google-genai          # Gemini judge

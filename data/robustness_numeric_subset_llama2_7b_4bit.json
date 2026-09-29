@@ -1,0 +1,22 @@
+{
+  "all": {
+    "n": 150,
+    "n_halluc": 75,
+    "score_accurate": 0.5205404164894536,
+    "score_contradictory": 0.5103649036523425,
+    "score_shift": -0.010175512837110955,
+    "score_shift_p": 5.684201000424135e-06,
+    "E_A_shift": 0.027994278681774933,
+    "frac_score_increased": 0.29333333333333333
+  },
+  "response_numbers_contradicted": {
+    "n": 122,
+    "n_halluc": 61,
+    "score_accurate": 0.5189654003898515,
+    "score_contradictory": 0.5095753028458329,
+    "score_shift": -0.009390097544018672,
+    "score_shift_p": 0.0002022089722801487,
+    "E_A_shift": 0.03201245843264901,
+    "frac_score_increased": 0.3114754098360656
+  }
+}

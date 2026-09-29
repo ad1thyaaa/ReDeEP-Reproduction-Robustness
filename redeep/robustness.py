@@ -26,6 +26,7 @@ under 2 and 3) versus secretly measuring "matches world knowledge"
 """
 import random
 import re
+import zlib
 
 import numpy as np
 
@@ -66,7 +67,9 @@ def perturb_numbers(text, rng=None, scale_range=(1.3, 3.0)):
 
 
 def build_robustness_conditions(example, all_examples, rng=None):
-    rng = rng or random.Random(hash(example["id"]) % (2**32))
+    # crc32, not hash(): str hashing is randomised per process, which made
+    # the corrupted contexts differ from run to run
+    rng = rng or random.Random(zlib.crc32(str(example["id"]).encode()))
     conditions = {"accurate": example["prompt"]}
     swapped = swap_source_info(example, all_examples, rng)
     if swapped is not None:
@@ -75,12 +78,16 @@ def build_robustness_conditions(example, all_examples, rng=None):
     return conditions
 
 
-def run_robustness_sweep(mech, examples, all_examples, n=10, max_len=768):
+def run_robustness_sweep(mech, examples, all_examples, n=10, max_len=768,
+                         heads_A=None, layers_F=None):
     """For a handful of examples, compute response-level ECS/PKS under each
     condition and return a list of per-example dicts for later aggregation
     / plotting. Uses the example's *original* response for scoring, i.e.
     tests how the detector's internal signals shift purely due to a
-    corrupted context, holding the (possibly hallucinated) response fixed."""
+    corrupted context, holding the (possibly hallucinated) response fixed.
+    If heads_A / layers_F (the detector's selected Copying Heads and
+    Knowledge FFNs) are given, the detector-relevant aggregates E_A / P_F
+    are recorded too."""
     results = []
     for ex in examples[:n]:
         conditions = build_robustness_conditions(ex, all_examples)
@@ -94,5 +101,9 @@ def run_robustness_sweep(mech, examples, all_examples, n=10, max_len=768):
             scored = mech.score_example(prompt_ids, response_ids, max_len=max_len)
             row[f"E_mean_{cond_name}"] = float(scored["E"].mean())
             row[f"P_mean_{cond_name}"] = float(scored["P"].mean())
+            if heads_A:
+                row[f"E_A_{cond_name}"] = float(np.mean([scored["E"][l, h] for l, h in heads_A]))
+            if layers_F:
+                row[f"P_F_{cond_name}"] = float(np.mean(scored["P"][list(layers_F)]))
         results.append(row)
     return results

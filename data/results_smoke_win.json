@@ -1,0 +1,77 @@
+{
+  "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "tag": "smoke_win",
+  "n": 10,
+  "n_hallucinated": 5,
+  "args": {
+    "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "n_per_class": 5,
+    "max_len": 768,
+    "max_prompt_chars": 4000,
+    "n_copying_heads": 8,
+    "n_knowledge_ffns": 5,
+    "tag": "smoke_win",
+    "test_frac": 0.3,
+    "cv": 0,
+    "split": "train",
+    "response_models": null,
+    "device": "cuda",
+    "dtype": null,
+    "load_in_4bit": false
+  },
+  "single_split": {
+    "AUC": 0.5,
+    "PCC": -0.16993345946724414,
+    "Acc": 0.6666666666666666,
+    "Rec": 0.5,
+    "F1": 0.6666666666666666,
+    "PPL_AUC": 1.0,
+    "LNEnt_AUC": 1.0
+  },
+  "heads_A": [
+    [
+      3,
+      24
+    ],
+    [
+      3,
+      25
+    ],
+    [
+      4,
+      22
+    ],
+    [
+      0,
+      23
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      2,
+      30
+    ]
+  ],
+  "layers_F": [
+    1,
+    7,
+    4,
+    9,
+    19
+  ],
+  "test_ids": [
+    "12683",
+    "6123",
+    "15663"
+  ]
+}

@@ -1,0 +1,477 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W0928 20:06:06.121000 13328 Lib\site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+[1/4] Loading RAGTruth examples...
+  -> 415 examples (212 hallucinated)
+[2/4] Loading model unsloth/Llama-3.2-3B-Instruct on cuda (torch.float16, 4-bit) ...
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:47<00:47, 47.99s/it]Fetching 2 files: 100%|██████████| 2/2 [01:08<00:00, 31.66s/it]Fetching 2 files: 100%|██████████| 2/2 [01:08<00:00, 34.11s/it]
+Loading weights:   0%|          | 0/254 [00:00<?, ?it/s]Loading weights:   0%|          | 1/254 [00:01<05:27,  1.29s/it]Loading weights:   1%|          | 3/254 [00:01<01:36,  2.59it/s]Loading weights:   2%|▏         | 5/254 [00:01<00:55,  4.45it/s]Loading weights:   5%|▍         | 12/254 [00:01<00:18, 13.27it/s]Loading weights:   6%|▌         | 15/254 [00:01<00:15, 15.55it/s]Loading weights:   8%|▊         | 21/254 [00:01<00:10, 22.93it/s]Loading weights:  10%|▉         | 25/254 [00:02<00:08, 26.18it/s]Loading weights:  12%|█▏        | 31/254 [00:02<00:07, 30.54it/s]Loading weights:  15%|█▌        | 39/254 [00:02<00:05, 38.14it/s]Loading weights:  17%|█▋        | 44/254 [00:02<00:05, 39.15it/s]Loading weights:  19%|█▉        | 49/254 [00:02<00:05, 39.80it/s]Loading weights:  22%|██▏       | 57/254 [00:02<00:04, 44.44it/s]Loading weights:  24%|██▍       | 62/254 [00:02<00:04, 43.14it/s]Loading weights:  26%|██▋       | 67/254 [00:02<00:04, 42.53it/s]Loading weights:  30%|██▉       | 75/254 [00:03<00:03, 47.21it/s]Loading weights:  31%|███▏      | 80/254 [00:03<00:03, 45.74it/s]Loading weights:  33%|███▎      | 85/254 [00:03<00:03, 43.82it/s]Loading weights:  35%|███▌      | 90/254 [00:03<00:03, 44.66it/s]Loading weights:  37%|███▋      | 95/254 [00:03<00:04, 37.03it/s]Loading weights:  40%|████      | 102/254 [00:03<00:03, 43.57it/s]Loading weights:  42%|████▏     | 107/254 [00:03<00:03, 38.78it/s]Loading weights:  44%|████▍     | 112/254 [00:04<00:03, 37.01it/s]Loading weights:  46%|████▌     | 117/254 [00:04<00:03, 38.57it/s]Loading weights:  48%|████▊     | 122/254 [00:04<00:03, 33.69it/s]Loading weights:  51%|█████     | 129/254 [00:04<00:03, 40.89it/s]Loading weights:  53%|█████▎    | 134/254 [00:04<00:03, 39.29it/s]Loading weights:  55%|█████▍    | 139/254 [00:04<00:02, 38.75it/s]Loading weights:  57%|█████▋    | 145/254 [00:04<00:02, 43.68it/s]Loading weights:  59%|█████▉    | 150/254 [00:05<00:02, 40.14it/s]Loading weights:  61%|██████▏   | 156/254 [00:05<00:02, 44.68it/s]Loading weights:  63%|██████▎   | 161/254 [00:05<00:02, 43.93it/s]Loading weights:  65%|██████▌   | 166/254 [00:05<00:02, 43.34it/s]Loading weights:  69%|██████▊   | 174/254 [00:05<00:01, 47.12it/s]Loading weights:  70%|███████   | 179/254 [00:05<00:01, 45.22it/s]Loading weights:  72%|███████▏  | 184/254 [00:05<00:01, 42.66it/s]Loading weights:  76%|███████▌  | 192/254 [00:05<00:01, 45.46it/s]Loading weights:  78%|███████▊  | 197/254 [00:06<00:01, 42.43it/s]Loading weights:  80%|███████▉  | 202/254 [00:06<00:01, 38.55it/s]Loading weights:  81%|████████▏ | 207/254 [00:06<00:01, 39.84it/s]Loading weights:  83%|████████▎ | 212/254 [00:06<00:01, 33.92it/s]Loading weights:  86%|████████▌ | 219/254 [00:06<00:00, 39.31it/s]Loading weights:  88%|████████▊ | 224/254 [00:06<00:00, 34.23it/s]Loading weights:  90%|████████▉ | 228/254 [00:06<00:00, 33.81it/s]Loading weights:  91%|█████████▏| 232/254 [00:07<00:00, 30.72it/s]Loading weights:  93%|█████████▎| 237/254 [00:07<00:00, 31.51it/s]Loading weights:  95%|█████████▍| 241/254 [00:07<00:00, 29.34it/s]Loading weights:  97%|█████████▋| 246/254 [00:07<00:00, 30.52it/s]Loading weights:  98%|█████████▊| 250/254 [00:07<00:00, 28.41it/s]Loading weights: 100%|██████████| 254/254 [00:07<00:00, 32.35it/s]
+  computing copying-head scores (cached after first run)...
+    copying-head layer 1/28 done
+    copying-head layer 2/28 done
+    copying-head layer 3/28 done
+    copying-head layer 4/28 done
+    copying-head layer 5/28 done
+    copying-head layer 6/28 done
+    copying-head layer 7/28 done
+    copying-head layer 8/28 done
+    copying-head layer 9/28 done
+    copying-head layer 10/28 done
+    copying-head layer 11/28 done
+    copying-head layer 12/28 done
+    copying-head layer 13/28 done
+    copying-head layer 14/28 done
+    copying-head layer 15/28 done
+    copying-head layer 16/28 done
+    copying-head layer 17/28 done
+    copying-head layer 18/28 done
+    copying-head layer 19/28 done
+    copying-head layer 20/28 done
+    copying-head layer 21/28 done
+    copying-head layer 22/28 done
+    copying-head layer 23/28 done
+    copying-head layer 24/28 done
+    copying-head layer 25/28 done
+    copying-head layer 26/28 done
+    copying-head layer 27/28 done
+    copying-head layer 28/28 done
+  done in 4.8s. top head: (np.int64(27), np.int64(20))
+[3/4] Scoring examples...
+  [1/415] label=1 task=QA n_prompt=305 n_resp=216 took 2.3s (eta 15.9 min)
+  [2/415] label=1 task=Data2txt n_prompt=723 n_resp=138 took 1.3s (eta 12.5 min)
+  [3/415] label=1 task=QA n_prompt=284 n_resp=211 took 1.5s (eta 11.7 min)
+  [4/415] label=0 task=QA n_prompt=486 n_resp=232 took 1.7s (eta 11.6 min)
+  [5/415] label=1 task=QA n_prompt=515 n_resp=436 took 2.8s (eta 13.1 min)
+  [6/415] label=1 task=Data2txt n_prompt=865 n_resp=159 took 1.5s (eta 12.5 min)
+  [7/415] label=0 task=Summary n_prompt=522 n_resp=89 took 0.9s (eta 11.6 min)
+  [8/415] label=0 task=QA n_prompt=314 n_resp=167 took 1.2s (eta 11.2 min)
+  [9/415] label=1 task=Summary n_prompt=684 n_resp=133 took 1.3s (eta 10.9 min)
+  [10/415] label=0 task=QA n_prompt=446 n_resp=306 took 2.1s (eta 11.2 min)
+  [11/415] label=1 task=Data2txt n_prompt=856 n_resp=168 took 1.5s (eta 11.1 min)
+  [12/415] label=1 task=Data2txt n_prompt=572 n_resp=170 took 1.3s (eta 10.9 min)
+  [13/415] label=0 task=QA n_prompt=488 n_resp=139 took 1.2s (eta 10.6 min)
+  [14/415] label=1 task=Summary n_prompt=204 n_resp=46 took 0.6s (eta 10.2 min)
+  [15/415] label=1 task=Data2txt n_prompt=635 n_resp=157 took 1.4s (eta 10.1 min)
+  [16/415] label=0 task=Summary n_prompt=587 n_resp=136 took 1.2s (eta 9.9 min)
+  [17/415] label=1 task=Data2txt n_prompt=794 n_resp=230 took 1.8s (eta 10.0 min)
+  [18/415] label=0 task=Summary n_prompt=372 n_resp=99 took 0.9s (eta 9.8 min)
+  [19/415] label=0 task=Data2txt n_prompt=692 n_resp=140 took 1.4s (eta 9.7 min)
+  [20/415] label=0 task=Summary n_prompt=426 n_resp=82 took 0.9s (eta 9.5 min)
+  [21/415] label=1 task=Data2txt n_prompt=730 n_resp=294 took 2.3s (eta 9.7 min)
+  [22/415] label=0 task=Summary n_prompt=199 n_resp=30 took 0.6s (eta 9.4 min)
+  [23/415] label=1 task=Data2txt n_prompt=549 n_resp=137 took 1.3s (eta 9.4 min)
+  [24/415] label=0 task=Data2txt n_prompt=759 n_resp=158 took 1.5s (eta 9.4 min)
+  [25/415] label=1 task=Summary n_prompt=849 n_resp=175 took 1.6s (eta 9.4 min)
+  [26/415] label=1 task=QA n_prompt=261 n_resp=207 took 1.5s (eta 9.4 min)
+  [27/415] label=0 task=Data2txt n_prompt=810 n_resp=164 took 1.5s (eta 9.4 min)
+  [28/415] label=1 task=Data2txt n_prompt=627 n_resp=155 took 1.4s (eta 9.3 min)
+  [29/415] label=0 task=Summary n_prompt=761 n_resp=125 took 1.3s (eta 9.3 min)
+  [30/415] label=1 task=Data2txt n_prompt=739 n_resp=117 took 1.2s (eta 9.2 min)
+  [31/415] label=0 task=QA n_prompt=418 n_resp=250 took 1.8s (eta 9.2 min)
+  [32/415] label=1 task=Summary n_prompt=571 n_resp=105 took 1.1s (eta 9.1 min)
+  [33/415] label=1 task=QA n_prompt=471 n_resp=164 took 1.3s (eta 9.1 min)
+  [34/415] label=0 task=QA n_prompt=259 n_resp=260 took 1.9s (eta 9.2 min)
+  [35/415] label=1 task=Data2txt n_prompt=756 n_resp=172 took 1.5s (eta 9.2 min)
+  [36/415] label=1 task=Data2txt n_prompt=664 n_resp=135 took 1.3s (eta 9.1 min)
+  [37/415] label=0 task=QA n_prompt=327 n_resp=240 took 1.6s (eta 9.1 min)
+  [38/415] label=1 task=QA n_prompt=263 n_resp=172 took 1.3s (eta 9.1 min)
+  [39/415] label=0 task=QA n_prompt=467 n_resp=317 took 2.3s (eta 9.2 min)
+  [40/415] label=0 task=QA n_prompt=481 n_resp=115 took 1.1s (eta 9.1 min)
+  [41/415] label=0 task=QA n_prompt=579 n_resp=197 took 1.6s (eta 9.1 min)
+  [42/415] label=0 task=QA n_prompt=451 n_resp=271 took 2.1s (eta 9.2 min)
+  [43/415] label=1 task=Summary n_prompt=899 n_resp=125 took 1.3s (eta 9.1 min)
+  [44/415] label=0 task=Summary n_prompt=892 n_resp=132 took 1.4s (eta 9.1 min)
+  [45/415] label=0 task=Data2txt n_prompt=847 n_resp=174 took 1.6s (eta 9.1 min)
+  [46/415] label=1 task=Data2txt n_prompt=707 n_resp=151 took 1.4s (eta 9.0 min)
+  [47/415] label=1 task=QA n_prompt=294 n_resp=269 took 2.0s (eta 9.1 min)
+  [48/415] label=0 task=Summary n_prompt=859 n_resp=165 took 1.5s (eta 9.1 min)
+  [49/415] label=0 task=Summary n_prompt=464 n_resp=105 took 1.0s (eta 9.0 min)
+  [50/415] label=0 task=Summary n_prompt=420 n_resp=95 took 1.0s (eta 8.9 min)
+  [51/415] label=1 task=QA n_prompt=247 n_resp=101 took 0.9s (eta 8.8 min)
+  [52/415] label=1 task=Data2txt n_prompt=774 n_resp=250 took 2.0s (eta 8.8 min)
+  [53/415] label=1 task=Summary n_prompt=772 n_resp=155 took 1.5s (eta 8.8 min)
+  [54/415] label=0 task=Summary n_prompt=627 n_resp=122 took 1.2s (eta 8.8 min)
+  [55/415] label=0 task=QA n_prompt=494 n_resp=193 took 1.6s (eta 8.8 min)
+  [56/415] label=1 task=Data2txt n_prompt=739 n_resp=117 took 1.2s (eta 8.7 min)
+  [57/415] label=1 task=Data2txt n_prompt=670 n_resp=193 took 1.6s (eta 8.7 min)
+  [58/415] label=1 task=Data2txt n_prompt=609 n_resp=165 took 1.4s (eta 8.7 min)
+  [59/415] label=1 task=Data2txt n_prompt=628 n_resp=133 took 1.3s (eta 8.6 min)
+  [60/415] label=1 task=Data2txt n_prompt=645 n_resp=166 took 1.5s (eta 8.6 min)
+  [61/415] label=1 task=Data2txt n_prompt=721 n_resp=303 took 2.4s (eta 8.7 min)
+  [62/415] label=1 task=Data2txt n_prompt=769 n_resp=255 took 1.9s (eta 8.7 min)
+  [63/415] label=1 task=QA n_prompt=253 n_resp=187 took 1.3s (eta 8.7 min)
+  [64/415] label=1 task=QA n_prompt=327 n_resp=105 took 1.0s (eta 8.6 min)
+  [65/415] label=0 task=QA n_prompt=406 n_resp=194 took 1.5s (eta 8.6 min)
+  [66/415] label=0 task=QA n_prompt=458 n_resp=286 took 2.1s (eta 8.6 min)
+  [67/415] label=1 task=QA n_prompt=328 n_resp=393 took 2.6s (eta 8.7 min)
+  [68/415] label=0 task=QA n_prompt=496 n_resp=134 took 1.2s (eta 8.6 min)
+  [69/415] label=0 task=Data2txt n_prompt=586 n_resp=102 took 1.1s (eta 8.6 min)
+  [70/415] label=0 task=Summary n_prompt=401 n_resp=102 took 1.0s (eta 8.5 min)
+  [71/415] label=0 task=QA n_prompt=366 n_resp=180 took 1.4s (eta 8.5 min)
+  [72/415] label=1 task=QA n_prompt=454 n_resp=158 took 1.3s (eta 8.4 min)
+  [73/415] label=1 task=Data2txt n_prompt=764 n_resp=173 took 1.5s (eta 8.4 min)
+  [74/415] label=0 task=QA n_prompt=507 n_resp=247 took 1.8s (eta 8.4 min)
+  [75/415] label=0 task=QA n_prompt=412 n_resp=179 took 1.4s (eta 8.4 min)
+  [76/415] label=1 task=Data2txt n_prompt=736 n_resp=159 took 1.5s (eta 8.3 min)
+  [77/415] label=0 task=QA n_prompt=378 n_resp=109 took 1.0s (eta 8.3 min)
+  [78/415] label=1 task=Data2txt n_prompt=603 n_resp=154 took 1.4s (eta 8.3 min)
+  [79/415] label=0 task=QA n_prompt=331 n_resp=177 took 1.3s (eta 8.2 min)
+  [80/415] label=1 task=Data2txt n_prompt=831 n_resp=193 took 1.7s (eta 8.2 min)
+  [81/415] label=0 task=Summary n_prompt=476 n_resp=102 took 1.0s (eta 8.2 min)
+  [82/415] label=0 task=Summary n_prompt=334 n_resp=62 took 0.8s (eta 8.1 min)
+  [83/415] label=1 task=Data2txt n_prompt=759 n_resp=265 took 2.2s (eta 8.1 min)
+  [84/415] label=0 task=QA n_prompt=351 n_resp=299 took 2.1s (eta 8.1 min)
+  [85/415] label=0 task=Summary n_prompt=536 n_resp=85 took 1.0s (eta 8.1 min)
+  [86/415] label=1 task=Data2txt n_prompt=716 n_resp=136 took 1.4s (eta 8.0 min)
+  [87/415] label=1 task=Data2txt n_prompt=849 n_resp=175 took 1.6s (eta 8.0 min)
+  [88/415] label=1 task=Summary n_prompt=713 n_resp=125 took 1.3s (eta 8.0 min)
+  [89/415] label=0 task=Summary n_prompt=553 n_resp=159 took 1.4s (eta 8.0 min)
+  [90/415] label=1 task=QA n_prompt=373 n_resp=294 took 2.1s (eta 8.0 min)
+  [91/415] label=0 task=QA n_prompt=386 n_resp=272 took 2.0s (eta 8.0 min)
+  [92/415] label=1 task=Data2txt n_prompt=667 n_resp=301 took 2.3s (eta 8.0 min)
+  [93/415] label=0 task=QA n_prompt=311 n_resp=198 took 1.5s (eta 8.0 min)
+  [94/415] label=0 task=QA n_prompt=449 n_resp=152 took 1.3s (eta 7.9 min)
+  [95/415] label=1 task=Data2txt n_prompt=768 n_resp=256 took 2.0s (eta 7.9 min)
+  [96/415] label=1 task=Data2txt n_prompt=673 n_resp=175 took 1.5s (eta 7.9 min)
+  [97/415] label=1 task=Data2txt n_prompt=809 n_resp=145 took 1.4s (eta 7.9 min)
+  [98/415] label=1 task=Data2txt n_prompt=693 n_resp=133 took 1.3s (eta 7.9 min)
+  [99/415] label=1 task=QA n_prompt=480 n_resp=284 took 2.1s (eta 7.9 min)
+  [100/415] label=0 task=QA n_prompt=238 n_resp=334 took 2.2s (eta 7.9 min)
+  [101/415] label=1 task=QA n_prompt=309 n_resp=269 took 2.0s (eta 7.9 min)
+  [102/415] label=0 task=Summary n_prompt=880 n_resp=144 took 1.4s (eta 7.9 min)
+  [103/415] label=1 task=QA n_prompt=283 n_resp=229 took 1.6s (eta 7.8 min)
+  [104/415] label=1 task=Summary n_prompt=885 n_resp=139 took 1.4s (eta 7.8 min)
+  [105/415] label=1 task=Data2txt n_prompt=690 n_resp=123 took 1.2s (eta 7.8 min)
+  [106/415] label=0 task=QA n_prompt=358 n_resp=238 took 1.7s (eta 7.7 min)
+  [107/415] label=1 task=Summary n_prompt=858 n_resp=166 took 1.5s (eta 7.7 min)
+  [108/415] label=0 task=Summary n_prompt=337 n_resp=78 took 0.9s (eta 7.7 min)
+  [109/415] label=1 task=Data2txt n_prompt=778 n_resp=131 took 1.4s (eta 7.6 min)
+  [110/415] label=0 task=Summary n_prompt=385 n_resp=90 took 0.9s (eta 7.6 min)
+  [111/415] label=1 task=QA n_prompt=242 n_resp=156 took 1.2s (eta 7.5 min)
+  [112/415] label=0 task=Data2txt n_prompt=729 n_resp=150 took 1.4s (eta 7.5 min)
+  [113/415] label=1 task=Summary n_prompt=476 n_resp=78 took 1.0s (eta 7.5 min)
+  [114/415] label=0 task=Data2txt n_prompt=685 n_resp=134 took 1.3s (eta 7.4 min)
+  [115/415] label=0 task=Summary n_prompt=548 n_resp=134 took 1.3s (eta 7.4 min)
+  [116/415] label=1 task=Data2txt n_prompt=662 n_resp=169 took 1.5s (eta 7.4 min)
+  [117/415] label=0 task=Summary n_prompt=869 n_resp=155 took 1.5s (eta 7.4 min)
+  [118/415] label=0 task=Data2txt n_prompt=780 n_resp=127 took 1.3s (eta 7.3 min)
+  [119/415] label=1 task=QA n_prompt=345 n_resp=263 took 2.0s (eta 7.3 min)
+  [120/415] label=1 task=Data2txt n_prompt=584 n_resp=151 took 1.3s (eta 7.3 min)
+  [121/415] label=0 task=Summary n_prompt=382 n_resp=88 took 0.9s (eta 7.2 min)
+  [122/415] label=0 task=QA n_prompt=237 n_resp=105 took 0.9s (eta 7.2 min)
+  [123/415] label=1 task=Data2txt n_prompt=636 n_resp=160 took 1.4s (eta 7.2 min)
+  [124/415] label=1 task=Data2txt n_prompt=746 n_resp=133 took 1.3s (eta 7.1 min)
+  [125/415] label=1 task=Summary n_prompt=525 n_resp=91 took 1.0s (eta 7.1 min)
+  [126/415] label=0 task=Summary n_prompt=382 n_resp=100 took 1.0s (eta 7.1 min)
+  [127/415] label=0 task=QA n_prompt=438 n_resp=89 took 1.0s (eta 7.0 min)
+  [128/415] label=0 task=QA n_prompt=475 n_resp=134 took 1.2s (eta 7.0 min)
+  [129/415] label=1 task=Summary n_prompt=616 n_resp=123 took 1.2s (eta 6.9 min)
+  [130/415] label=0 task=QA n_prompt=331 n_resp=217 took 1.6s (eta 6.9 min)
+  [131/415] label=0 task=Summary n_prompt=428 n_resp=91 took 1.0s (eta 6.9 min)
+  [132/415] label=0 task=QA n_prompt=309 n_resp=177 took 1.3s (eta 6.8 min)
+  [133/415] label=1 task=Data2txt n_prompt=806 n_resp=144 took 1.4s (eta 6.8 min)
+  [134/415] label=0 task=Summary n_prompt=554 n_resp=132 took 1.3s (eta 6.8 min)
+  [135/415] label=0 task=Data2txt n_prompt=826 n_resp=198 took 1.7s (eta 6.8 min)
+  [136/415] label=1 task=Data2txt n_prompt=808 n_resp=136 took 1.4s (eta 6.8 min)
+  [137/415] label=1 task=Summary n_prompt=846 n_resp=178 took 1.6s (eta 6.7 min)
+  [138/415] label=0 task=QA n_prompt=500 n_resp=103 took 1.0s (eta 6.7 min)
+  [139/415] label=0 task=QA n_prompt=518 n_resp=145 took 1.3s (eta 6.7 min)
+  [140/415] label=1 task=QA n_prompt=479 n_resp=248 took 1.8s (eta 6.7 min)
+  [141/415] label=1 task=Data2txt n_prompt=837 n_resp=187 took 1.6s (eta 6.6 min)
+  [142/415] label=0 task=Data2txt n_prompt=557 n_resp=153 took 1.4s (eta 6.6 min)
+  [143/415] label=1 task=Summary n_prompt=478 n_resp=122 took 1.1s (eta 6.6 min)
+  [144/415] label=1 task=Data2txt n_prompt=861 n_resp=163 took 1.5s (eta 6.5 min)
+  [145/415] label=1 task=Summary n_prompt=362 n_resp=77 took 0.9s (eta 6.5 min)
+  [146/415] label=0 task=QA n_prompt=369 n_resp=150 took 1.3s (eta 6.5 min)
+  [147/415] label=0 task=QA n_prompt=324 n_resp=163 took 1.2s (eta 6.4 min)
+  [148/415] label=0 task=QA n_prompt=240 n_resp=134 took 1.1s (eta 6.4 min)
+  [149/415] label=1 task=Data2txt n_prompt=808 n_resp=190 took 1.6s (eta 6.4 min)
+  [150/415] label=0 task=Data2txt n_prompt=690 n_resp=135 took 1.3s (eta 6.4 min)
+  [151/415] label=0 task=Summary n_prompt=436 n_resp=84 took 0.9s (eta 6.3 min)
+  [152/415] label=0 task=QA n_prompt=290 n_resp=169 took 1.3s (eta 6.3 min)
+  [153/415] label=1 task=QA n_prompt=496 n_resp=225 took 1.7s (eta 6.3 min)
+  [154/415] label=1 task=Summary n_prompt=565 n_resp=118 took 1.1s (eta 6.2 min)
+  [155/415] label=1 task=Data2txt n_prompt=635 n_resp=140 took 1.3s (eta 6.2 min)
+  [156/415] label=1 task=QA n_prompt=218 n_resp=180 took 1.3s (eta 6.2 min)
+  [157/415] label=1 task=Data2txt n_prompt=664 n_resp=238 took 1.9s (eta 6.2 min)
+  [158/415] label=0 task=Data2txt n_prompt=735 n_resp=158 took 1.5s (eta 6.2 min)
+  [159/415] label=1 task=QA n_prompt=559 n_resp=88 took 1.0s (eta 6.1 min)
+  [160/415] label=0 task=Data2txt n_prompt=689 n_resp=139 took 1.4s (eta 6.1 min)
+  [161/415] label=1 task=Data2txt n_prompt=848 n_resp=176 took 1.6s (eta 6.1 min)
+  [162/415] label=0 task=QA n_prompt=492 n_resp=110 took 1.1s (eta 6.0 min)
+  [163/415] label=0 task=QA n_prompt=522 n_resp=189 took 1.5s (eta 6.0 min)
+  [164/415] label=0 task=QA n_prompt=264 n_resp=66 took 0.8s (eta 6.0 min)
+  [165/415] label=0 task=QA n_prompt=416 n_resp=166 took 1.3s (eta 6.0 min)
+  [166/415] label=1 task=Summary n_prompt=576 n_resp=114 took 1.1s (eta 5.9 min)
+  [167/415] label=1 task=Data2txt n_prompt=634 n_resp=147 took 1.4s (eta 5.9 min)
+  [168/415] label=0 task=Summary n_prompt=333 n_resp=75 took 0.9s (eta 5.9 min)
+  [169/415] label=0 task=Summary n_prompt=581 n_resp=95 took 1.0s (eta 5.8 min)
+  [170/415] label=0 task=Summary n_prompt=546 n_resp=136 took 1.3s (eta 5.8 min)
+  [171/415] label=0 task=QA n_prompt=502 n_resp=232 took 1.7s (eta 5.8 min)
+  [172/415] label=1 task=Data2txt n_prompt=765 n_resp=212 took 1.8s (eta 5.8 min)
+  [173/415] label=0 task=QA n_prompt=290 n_resp=152 took 1.2s (eta 5.7 min)
+  [174/415] label=0 task=QA n_prompt=239 n_resp=100 took 0.9s (eta 5.7 min)
+  [175/415] label=1 task=Data2txt n_prompt=904 n_resp=120 took 1.3s (eta 5.7 min)
+  [176/415] label=1 task=Summary n_prompt=402 n_resp=97 took 1.0s (eta 5.6 min)
+  [177/415] label=1 task=Data2txt n_prompt=772 n_resp=148 took 1.4s (eta 5.6 min)
+  [178/415] label=1 task=Data2txt n_prompt=876 n_resp=148 took 1.5s (eta 5.6 min)
+  [179/415] label=1 task=Summary n_prompt=545 n_resp=80 took 1.0s (eta 5.6 min)
+  [180/415] label=0 task=Summary n_prompt=670 n_resp=111 took 1.2s (eta 5.5 min)
+  [181/415] label=0 task=Summary n_prompt=808 n_resp=157 took 1.5s (eta 5.5 min)
+  [182/415] label=1 task=Summary n_prompt=294 n_resp=91 took 0.9s (eta 5.5 min)
+  [183/415] label=1 task=Summary n_prompt=465 n_resp=82 took 0.9s (eta 5.4 min)
+  [184/415] label=1 task=Summary n_prompt=525 n_resp=119 took 1.1s (eta 5.4 min)
+  [185/415] label=0 task=QA n_prompt=461 n_resp=166 took 1.3s (eta 5.4 min)
+  [186/415] label=1 task=Summary n_prompt=262 n_resp=62 took 0.8s (eta 5.4 min)
+  [187/415] label=1 task=Data2txt n_prompt=881 n_resp=143 took 1.5s (eta 5.3 min)
+  [188/415] label=1 task=Data2txt n_prompt=854 n_resp=165 took 1.5s (eta 5.3 min)
+  [189/415] label=1 task=QA n_prompt=299 n_resp=218 took 1.6s (eta 5.3 min)
+  [190/415] label=1 task=Data2txt n_prompt=586 n_resp=151 took 1.3s (eta 5.3 min)
+  [191/415] label=0 task=Summary n_prompt=440 n_resp=85 took 0.9s (eta 5.2 min)
+  [192/415] label=1 task=Data2txt n_prompt=785 n_resp=239 took 1.9s (eta 5.2 min)
+  [193/415] label=1 task=Summary n_prompt=480 n_resp=105 took 1.0s (eta 5.2 min)
+  [194/415] label=0 task=Data2txt n_prompt=630 n_resp=144 took 1.4s (eta 5.2 min)
+  [195/415] label=1 task=Data2txt n_prompt=678 n_resp=148 took 1.4s (eta 5.1 min)
+  [196/415] label=1 task=QA n_prompt=383 n_resp=418 took 2.7s (eta 5.1 min)
+  [197/415] label=1 task=Data2txt n_prompt=640 n_resp=129 took 1.3s (eta 5.1 min)
+  [198/415] label=0 task=Summary n_prompt=419 n_resp=62 took 0.8s (eta 5.1 min)
+  [199/415] label=1 task=Data2txt n_prompt=626 n_resp=131 took 1.3s (eta 5.1 min)
+  [200/415] label=1 task=Data2txt n_prompt=864 n_resp=160 took 1.5s (eta 5.0 min)
+  [201/415] label=0 task=QA n_prompt=385 n_resp=161 took 1.3s (eta 5.0 min)
+  [202/415] label=1 task=QA n_prompt=402 n_resp=296 took 2.1s (eta 5.0 min)
+  [203/415] label=1 task=Data2txt n_prompt=637 n_resp=172 took 1.5s (eta 5.0 min)
+  [204/415] label=1 task=Summary n_prompt=683 n_resp=142 took 1.4s (eta 5.0 min)
+  [205/415] label=0 task=Summary n_prompt=405 n_resp=98 took 1.0s (eta 4.9 min)
+  [206/415] label=1 task=QA n_prompt=370 n_resp=162 took 1.3s (eta 4.9 min)
+  [207/415] label=1 task=QA n_prompt=407 n_resp=205 took 1.6s (eta 4.9 min)
+  [208/415] label=0 task=QA n_prompt=269 n_resp=253 took 1.7s (eta 4.9 min)
+  [209/415] label=1 task=Data2txt n_prompt=754 n_resp=120 took 1.2s (eta 4.8 min)
+  [210/415] label=1 task=Data2txt n_prompt=517 n_resp=149 took 1.3s (eta 4.8 min)
+  [211/415] label=1 task=Data2txt n_prompt=847 n_resp=177 took 1.6s (eta 4.8 min)
+  [212/415] label=0 task=Data2txt n_prompt=578 n_resp=105 took 1.1s (eta 4.8 min)
+  [213/415] label=0 task=Summary n_prompt=250 n_resp=49 took 0.7s (eta 4.7 min)
+  [214/415] label=1 task=Data2txt n_prompt=556 n_resp=121 took 1.2s (eta 4.7 min)
+  [215/415] label=1 task=QA n_prompt=272 n_resp=202 took 1.5s (eta 4.7 min)
+  [216/415] label=0 task=QA n_prompt=268 n_resp=148 took 1.2s (eta 4.6 min)
+  [217/415] label=0 task=Summary n_prompt=468 n_resp=111 took 1.1s (eta 4.6 min)
+  [218/415] label=1 task=Data2txt n_prompt=794 n_resp=230 took 1.9s (eta 4.6 min)
+  [219/415] label=0 task=Summary n_prompt=897 n_resp=127 took 1.3s (eta 4.6 min)
+  [220/415] label=1 task=Data2txt n_prompt=511 n_resp=169 took 1.4s (eta 4.6 min)
+  [221/415] label=1 task=Data2txt n_prompt=604 n_resp=144 took 1.3s (eta 4.5 min)
+  [222/415] label=0 task=Data2txt n_prompt=704 n_resp=133 took 1.3s (eta 4.5 min)
+  [223/415] label=0 task=QA n_prompt=323 n_resp=229 took 1.6s (eta 4.5 min)
+  [224/415] label=0 task=Data2txt n_prompt=626 n_resp=108 took 1.1s (eta 4.5 min)
+  [225/415] label=1 task=Data2txt n_prompt=772 n_resp=252 took 1.9s (eta 4.4 min)
+  [226/415] label=0 task=QA n_prompt=330 n_resp=185 took 1.4s (eta 4.4 min)
+  [227/415] label=1 task=Data2txt n_prompt=633 n_resp=152 took 1.4s (eta 4.4 min)
+  [228/415] label=0 task=Summary n_prompt=540 n_resp=131 took 1.2s (eta 4.4 min)
+  [229/415] label=1 task=Data2txt n_prompt=675 n_resp=103 took 1.2s (eta 4.3 min)
+  [230/415] label=0 task=Summary n_prompt=214 n_resp=74 took 0.8s (eta 4.3 min)
+  [231/415] label=1 task=QA n_prompt=516 n_resp=176 took 1.4s (eta 4.3 min)
+  [232/415] label=1 task=Summary n_prompt=307 n_resp=59 took 0.8s (eta 4.3 min)
+  [233/415] label=0 task=QA n_prompt=320 n_resp=271 took 2.0s (eta 4.2 min)
+  [234/415] label=0 task=QA n_prompt=247 n_resp=209 took 1.5s (eta 4.2 min)
+  [235/415] label=0 task=QA n_prompt=491 n_resp=215 took 1.6s (eta 4.2 min)
+  [236/415] label=0 task=Data2txt n_prompt=747 n_resp=154 took 1.5s (eta 4.2 min)
+  [237/415] label=1 task=Data2txt n_prompt=803 n_resp=128 took 1.3s (eta 4.2 min)
+  [238/415] label=0 task=Summary n_prompt=398 n_resp=122 took 1.1s (eta 4.1 min)
+  [239/415] label=0 task=QA n_prompt=345 n_resp=204 took 1.5s (eta 4.1 min)
+  [240/415] label=0 task=Summary n_prompt=396 n_resp=72 took 0.9s (eta 4.1 min)
+  [241/415] label=1 task=QA n_prompt=253 n_resp=256 took 1.7s (eta 4.1 min)
+  [242/415] label=0 task=QA n_prompt=323 n_resp=256 took 1.7s (eta 4.0 min)
+  [243/415] label=1 task=Data2txt n_prompt=638 n_resp=321 took 2.3s (eta 4.0 min)
+  [244/415] label=0 task=QA n_prompt=487 n_resp=259 took 2.0s (eta 4.0 min)
+  [245/415] label=1 task=Data2txt n_prompt=659 n_resp=180 took 1.5s (eta 4.0 min)
+  [246/415] label=1 task=QA n_prompt=501 n_resp=331 took 2.3s (eta 4.0 min)
+  [247/415] label=1 task=Data2txt n_prompt=732 n_resp=211 took 1.8s (eta 3.9 min)
+  [248/415] label=1 task=Summary n_prompt=410 n_resp=90 took 0.9s (eta 3.9 min)
+  [249/415] label=0 task=QA n_prompt=365 n_resp=163 took 1.3s (eta 3.9 min)
+  [250/415] label=1 task=QA n_prompt=240 n_resp=189 took 1.3s (eta 3.9 min)
+  [251/415] label=0 task=Summary n_prompt=880 n_resp=140 took 1.4s (eta 3.8 min)
+  [252/415] label=0 task=QA n_prompt=393 n_resp=206 took 1.5s (eta 3.8 min)
+  [253/415] label=1 task=Data2txt n_prompt=637 n_resp=194 took 1.7s (eta 3.8 min)
+  [254/415] label=1 task=QA n_prompt=534 n_resp=351 took 2.4s (eta 3.8 min)
+  [255/415] label=0 task=QA n_prompt=330 n_resp=292 took 2.1s (eta 3.8 min)
+  [256/415] label=0 task=Summary n_prompt=235 n_resp=43 took 0.7s (eta 3.7 min)
+  [257/415] label=0 task=QA n_prompt=281 n_resp=113 took 1.0s (eta 3.7 min)
+  [258/415] label=0 task=QA n_prompt=478 n_resp=198 took 1.6s (eta 3.7 min)
+  [259/415] label=1 task=Data2txt n_prompt=841 n_resp=183 took 1.6s (eta 3.7 min)
+  [260/415] label=0 task=Summary n_prompt=592 n_resp=132 took 1.3s (eta 3.6 min)
+  [261/415] label=1 task=Data2txt n_prompt=666 n_resp=165 took 1.5s (eta 3.6 min)
+  [262/415] label=0 task=QA n_prompt=245 n_resp=130 took 1.1s (eta 3.6 min)
+  [263/415] label=0 task=Data2txt n_prompt=839 n_resp=156 took 1.5s (eta 3.6 min)
+  [264/415] label=1 task=Data2txt n_prompt=605 n_resp=131 took 1.3s (eta 3.6 min)
+  [265/415] label=0 task=QA n_prompt=256 n_resp=310 took 2.1s (eta 3.5 min)
+  [266/415] label=1 task=Data2txt n_prompt=639 n_resp=236 took 1.8s (eta 3.5 min)
+  [267/415] label=1 task=QA n_prompt=374 n_resp=84 took 0.9s (eta 3.5 min)
+  [268/415] label=0 task=Data2txt n_prompt=575 n_resp=102 took 1.1s (eta 3.5 min)
+  [269/415] label=0 task=QA n_prompt=269 n_resp=120 took 1.0s (eta 3.4 min)
+  [270/415] label=1 task=QA n_prompt=418 n_resp=114 took 1.0s (eta 3.4 min)
+  [271/415] label=0 task=QA n_prompt=468 n_resp=179 took 1.4s (eta 3.4 min)
+  [272/415] label=1 task=QA n_prompt=326 n_resp=337 took 2.3s (eta 3.4 min)
+  [273/415] label=0 task=Summary n_prompt=244 n_resp=63 took 0.7s (eta 3.3 min)
+  [274/415] label=1 task=Data2txt n_prompt=880 n_resp=144 took 1.4s (eta 3.3 min)
+  [275/415] label=1 task=Data2txt n_prompt=511 n_resp=162 took 1.3s (eta 3.3 min)
+  [276/415] label=1 task=Data2txt n_prompt=511 n_resp=146 took 1.3s (eta 3.3 min)
+  [277/415] label=0 task=Data2txt n_prompt=543 n_resp=165 took 1.4s (eta 3.2 min)
+  [278/415] label=0 task=Summary n_prompt=381 n_resp=90 took 0.9s (eta 3.2 min)
+  [279/415] label=0 task=QA n_prompt=275 n_resp=199 took 1.5s (eta 3.2 min)
+  [280/415] label=0 task=Summary n_prompt=429 n_resp=106 took 1.0s (eta 3.2 min)
+  [281/415] label=0 task=QA n_prompt=407 n_resp=245 took 1.7s (eta 3.1 min)
+  [282/415] label=0 task=Summary n_prompt=817 n_resp=151 took 1.4s (eta 3.1 min)
+  [283/415] label=1 task=Data2txt n_prompt=762 n_resp=146 took 1.5s (eta 3.1 min)
+  [284/415] label=1 task=Data2txt n_prompt=749 n_resp=275 took 2.3s (eta 3.1 min)
+  [285/415] label=1 task=Data2txt n_prompt=740 n_resp=134 took 1.4s (eta 3.1 min)
+  [286/415] label=0 task=Summary n_prompt=467 n_resp=107 took 1.1s (eta 3.0 min)
+  [287/415] label=0 task=QA n_prompt=511 n_resp=240 took 1.7s (eta 3.0 min)
+  [288/415] label=0 task=Summary n_prompt=602 n_resp=126 took 1.2s (eta 3.0 min)
+  [289/415] label=1 task=Data2txt n_prompt=706 n_resp=187 took 1.6s (eta 3.0 min)
+  [290/415] label=0 task=QA n_prompt=342 n_resp=223 took 1.6s (eta 2.9 min)
+  [291/415] label=0 task=QA n_prompt=306 n_resp=114 took 1.0s (eta 2.9 min)
+  [292/415] label=1 task=Summary n_prompt=248 n_resp=41 took 0.7s (eta 2.9 min)
+  [293/415] label=1 task=QA n_prompt=275 n_resp=224 took 1.6s (eta 2.9 min)
+  [294/415] label=1 task=Data2txt n_prompt=715 n_resp=149 took 1.4s (eta 2.8 min)
+  [295/415] label=0 task=Summary n_prompt=548 n_resp=132 took 1.3s (eta 2.8 min)
+  [296/415] label=1 task=QA n_prompt=381 n_resp=223 took 1.6s (eta 2.8 min)
+  [297/415] label=1 task=QA n_prompt=465 n_resp=224 took 1.7s (eta 2.8 min)
+  [298/415] label=0 task=Data2txt n_prompt=866 n_resp=130 took 1.4s (eta 2.7 min)
+  [299/415] label=1 task=Data2txt n_prompt=788 n_resp=167 took 1.5s (eta 2.7 min)
+  [300/415] label=1 task=Data2txt n_prompt=807 n_resp=217 took 1.8s (eta 2.7 min)
+  [301/415] label=0 task=Data2txt n_prompt=714 n_resp=139 took 1.4s (eta 2.7 min)
+  [302/415] label=0 task=QA n_prompt=533 n_resp=277 took 2.1s (eta 2.7 min)
+  [303/415] label=0 task=QA n_prompt=314 n_resp=140 took 1.2s (eta 2.6 min)
+  [304/415] label=0 task=QA n_prompt=285 n_resp=423 took 2.7s (eta 2.6 min)
+  [305/415] label=0 task=Summary n_prompt=438 n_resp=86 took 1.0s (eta 2.6 min)
+  [306/415] label=0 task=QA n_prompt=262 n_resp=158 took 1.2s (eta 2.6 min)
+  [307/415] label=0 task=Summary n_prompt=401 n_resp=95 took 0.9s (eta 2.5 min)
+  [308/415] label=1 task=Data2txt n_prompt=686 n_resp=136 took 1.4s (eta 2.5 min)
+  [309/415] label=1 task=QA n_prompt=407 n_resp=164 took 1.3s (eta 2.5 min)
+  [310/415] label=1 task=Summary n_prompt=566 n_resp=136 took 1.3s (eta 2.5 min)
+  [311/415] label=1 task=Data2txt n_prompt=748 n_resp=138 took 1.4s (eta 2.4 min)
+  [312/415] label=1 task=Summary n_prompt=580 n_resp=102 took 1.1s (eta 2.4 min)
+  [313/415] label=1 task=Data2txt n_prompt=558 n_resp=113 took 1.1s (eta 2.4 min)
+  [314/415] label=0 task=Summary n_prompt=446 n_resp=91 took 1.0s (eta 2.4 min)
+  [315/415] label=1 task=QA n_prompt=305 n_resp=242 took 1.7s (eta 2.3 min)
+  [316/415] label=0 task=QA n_prompt=284 n_resp=81 took 0.8s (eta 2.3 min)
+  [317/415] label=0 task=QA n_prompt=314 n_resp=206 took 1.5s (eta 2.3 min)
+  [318/415] label=1 task=Data2txt n_prompt=653 n_resp=148 took 1.4s (eta 2.3 min)
+  [319/415] label=1 task=Data2txt n_prompt=654 n_resp=146 took 1.4s (eta 2.3 min)
+  [320/415] label=1 task=Summary n_prompt=511 n_resp=121 took 1.1s (eta 2.2 min)
+  [321/415] label=1 task=Summary n_prompt=395 n_resp=89 took 0.9s (eta 2.2 min)
+  [322/415] label=0 task=Summary n_prompt=433 n_resp=116 took 1.1s (eta 2.2 min)
+  [323/415] label=1 task=Data2txt n_prompt=758 n_resp=197 took 1.7s (eta 2.2 min)
+  [324/415] label=1 task=Summary n_prompt=879 n_resp=145 took 1.5s (eta 2.1 min)
+  [325/415] label=0 task=Summary n_prompt=387 n_resp=76 took 0.9s (eta 2.1 min)
+  [326/415] label=0 task=Summary n_prompt=236 n_resp=65 took 0.8s (eta 2.1 min)
+  [327/415] label=1 task=Summary n_prompt=845 n_resp=179 took 1.6s (eta 2.1 min)
+  [328/415] label=1 task=QA n_prompt=496 n_resp=353 took 2.4s (eta 2.0 min)
+  [329/415] label=0 task=QA n_prompt=499 n_resp=287 took 2.2s (eta 2.0 min)
+  [330/415] label=1 task=Data2txt n_prompt=834 n_resp=172 took 1.5s (eta 2.0 min)
+  [331/415] label=0 task=Summary n_prompt=774 n_resp=131 took 1.4s (eta 2.0 min)
+  [332/415] label=1 task=QA n_prompt=361 n_resp=167 took 1.3s (eta 1.9 min)
+  [333/415] label=0 task=QA n_prompt=604 n_resp=356 took 2.5s (eta 1.9 min)
+  [334/415] label=0 task=QA n_prompt=242 n_resp=231 took 1.6s (eta 1.9 min)
+  [335/415] label=1 task=QA n_prompt=504 n_resp=396 took 2.7s (eta 1.9 min)
+  [336/415] label=0 task=Summary n_prompt=534 n_resp=131 took 1.2s (eta 1.9 min)
+  [337/415] label=1 task=Data2txt n_prompt=523 n_resp=141 took 1.3s (eta 1.8 min)
+  [338/415] label=0 task=Summary n_prompt=431 n_resp=81 took 0.9s (eta 1.8 min)
+  [339/415] label=0 task=Data2txt n_prompt=802 n_resp=134 took 1.4s (eta 1.8 min)
+  [340/415] label=1 task=Data2txt n_prompt=777 n_resp=247 took 1.9s (eta 1.8 min)
+  [341/415] label=0 task=Summary n_prompt=483 n_resp=107 took 1.1s (eta 1.7 min)
+  [342/415] label=0 task=Data2txt n_prompt=491 n_resp=110 took 1.1s (eta 1.7 min)
+  [343/415] label=1 task=Data2txt n_prompt=686 n_resp=150 took 1.4s (eta 1.7 min)
+  [344/415] label=1 task=QA n_prompt=452 n_resp=107 took 1.0s (eta 1.7 min)
+  [345/415] label=0 task=QA n_prompt=274 n_resp=149 took 1.2s (eta 1.6 min)
+  [346/415] label=1 task=QA n_prompt=332 n_resp=236 took 1.6s (eta 1.6 min)
+  [347/415] label=1 task=Data2txt n_prompt=663 n_resp=156 took 1.4s (eta 1.6 min)
+  [348/415] label=0 task=QA n_prompt=360 n_resp=216 took 1.6s (eta 1.6 min)
+  [349/415] label=1 task=QA n_prompt=412 n_resp=145 took 1.2s (eta 1.6 min)
+  [350/415] label=1 task=Data2txt n_prompt=746 n_resp=188 took 1.6s (eta 1.5 min)
+  [351/415] label=1 task=Data2txt n_prompt=643 n_resp=120 took 1.2s (eta 1.5 min)
+  [352/415] label=0 task=QA n_prompt=417 n_resp=207 took 1.6s (eta 1.5 min)
+  [353/415] label=1 task=Data2txt n_prompt=588 n_resp=218 took 1.7s (eta 1.5 min)
+  [354/415] label=0 task=Summary n_prompt=459 n_resp=90 took 1.0s (eta 1.4 min)
+  [355/415] label=0 task=Summary n_prompt=585 n_resp=122 took 1.2s (eta 1.4 min)
+  [356/415] label=1 task=Summary n_prompt=488 n_resp=107 took 1.0s (eta 1.4 min)
+  [357/415] label=1 task=Data2txt n_prompt=600 n_resp=148 took 1.3s (eta 1.4 min)
+  [358/415] label=1 task=Data2txt n_prompt=882 n_resp=142 took 1.5s (eta 1.3 min)
+  [359/415] label=0 task=QA n_prompt=315 n_resp=97 took 0.9s (eta 1.3 min)
+  [360/415] label=0 task=Summary n_prompt=541 n_resp=127 took 1.2s (eta 1.3 min)
+  [361/415] label=1 task=Data2txt n_prompt=594 n_resp=146 took 1.3s (eta 1.3 min)
+  [362/415] label=1 task=QA n_prompt=255 n_resp=118 took 1.0s (eta 1.2 min)
+  [363/415] label=1 task=QA n_prompt=281 n_resp=196 took 1.4s (eta 1.2 min)
+  [364/415] label=0 task=Summary n_prompt=546 n_resp=144 took 1.3s (eta 1.2 min)
+  [365/415] label=0 task=Data2txt n_prompt=595 n_resp=162 took 1.4s (eta 1.2 min)
+  [366/415] label=0 task=Data2txt n_prompt=872 n_resp=152 took 1.5s (eta 1.1 min)
+  [367/415] label=0 task=QA n_prompt=301 n_resp=128 took 1.0s (eta 1.1 min)
+  [368/415] label=0 task=Summary n_prompt=522 n_resp=133 took 1.3s (eta 1.1 min)
+  [369/415] label=0 task=QA n_prompt=491 n_resp=209 took 1.6s (eta 1.1 min)
+  [370/415] label=1 task=QA n_prompt=414 n_resp=186 took 1.4s (eta 1.1 min)
+  [371/415] label=1 task=Data2txt n_prompt=607 n_resp=142 took 1.3s (eta 1.0 min)
+  [372/415] label=1 task=Summary n_prompt=504 n_resp=89 took 1.0s (eta 1.0 min)
+  [373/415] label=0 task=QA n_prompt=498 n_resp=161 took 1.4s (eta 1.0 min)
+  [374/415] label=1 task=Data2txt n_prompt=556 n_resp=118 took 1.1s (eta 1.0 min)
+  [375/415] label=0 task=QA n_prompt=519 n_resp=133 took 1.2s (eta 0.9 min)
+  [376/415] label=0 task=QA n_prompt=315 n_resp=219 took 1.6s (eta 0.9 min)
+  [377/415] label=0 task=QA n_prompt=299 n_resp=111 took 1.0s (eta 0.9 min)
+  [378/415] label=0 task=Summary n_prompt=444 n_resp=86 took 1.0s (eta 0.9 min)
+  [379/415] label=0 task=Summary n_prompt=447 n_resp=96 took 1.0s (eta 0.8 min)
+  [380/415] label=0 task=QA n_prompt=620 n_resp=264 took 2.1s (eta 0.8 min)
+  [381/415] label=1 task=Data2txt n_prompt=603 n_resp=141 took 1.3s (eta 0.8 min)
+  [382/415] label=1 task=QA n_prompt=304 n_resp=205 took 1.5s (eta 0.8 min)
+  [383/415] label=0 task=QA n_prompt=294 n_resp=226 took 1.6s (eta 0.7 min)
+  [384/415] label=1 task=Data2txt n_prompt=661 n_resp=159 took 1.4s (eta 0.7 min)
+  [385/415] label=0 task=Summary n_prompt=387 n_resp=95 took 0.9s (eta 0.7 min)
+  [386/415] label=1 task=Data2txt n_prompt=638 n_resp=150 took 1.4s (eta 0.7 min)
+  [387/415] label=1 task=Data2txt n_prompt=645 n_resp=141 took 1.4s (eta 0.7 min)
+  [388/415] label=0 task=Summary n_prompt=295 n_resp=67 took 0.8s (eta 0.6 min)
+  [389/415] label=1 task=Summary n_prompt=403 n_resp=86 took 0.9s (eta 0.6 min)
+  [390/415] label=0 task=Summary n_prompt=516 n_resp=118 took 1.1s (eta 0.6 min)
+  [391/415] label=0 task=Summary n_prompt=609 n_resp=116 took 1.2s (eta 0.6 min)
+  [392/415] label=0 task=Summary n_prompt=356 n_resp=93 took 0.9s (eta 0.5 min)
+  [393/415] label=1 task=Data2txt n_prompt=684 n_resp=156 took 1.4s (eta 0.5 min)
+  [394/415] label=0 task=QA n_prompt=268 n_resp=135 took 1.1s (eta 0.5 min)
+  [395/415] label=0 task=Summary n_prompt=238 n_resp=62 took 0.7s (eta 0.5 min)
+  [396/415] label=0 task=Summary n_prompt=568 n_resp=101 took 1.1s (eta 0.4 min)
+  [397/415] label=1 task=Summary n_prompt=693 n_resp=98 took 1.1s (eta 0.4 min)
+  [398/415] label=1 task=Data2txt n_prompt=769 n_resp=209 took 1.8s (eta 0.4 min)
+  [399/415] label=1 task=Summary n_prompt=793 n_resp=231 took 1.9s (eta 0.4 min)
+  [400/415] label=0 task=QA n_prompt=354 n_resp=162 took 1.3s (eta 0.3 min)
+  [401/415] label=0 task=QA n_prompt=419 n_resp=223 took 1.6s (eta 0.3 min)
+  [402/415] label=1 task=Summary n_prompt=656 n_resp=105 took 1.1s (eta 0.3 min)
+  [403/415] label=1 task=Summary n_prompt=335 n_resp=83 took 0.9s (eta 0.3 min)
+  [404/415] label=1 task=QA n_prompt=351 n_resp=277 took 2.0s (eta 0.3 min)
+  [405/415] label=0 task=Summary n_prompt=399 n_resp=83 took 0.9s (eta 0.2 min)
+  [406/415] label=0 task=Summary n_prompt=837 n_resp=187 took 1.6s (eta 0.2 min)
+  [407/415] label=0 task=Summary n_prompt=860 n_resp=164 took 1.5s (eta 0.2 min)
+  [408/415] label=0 task=Summary n_prompt=417 n_resp=123 took 1.1s (eta 0.2 min)
+  [409/415] label=1 task=Data2txt n_prompt=848 n_resp=176 took 1.6s (eta 0.1 min)
+  [410/415] label=0 task=QA n_prompt=361 n_resp=180 took 1.3s (eta 0.1 min)
+  [411/415] label=1 task=Data2txt n_prompt=805 n_resp=219 took 1.8s (eta 0.1 min)
+  [412/415] label=1 task=Data2txt n_prompt=606 n_resp=221 took 1.7s (eta 0.1 min)
+  [413/415] label=0 task=QA n_prompt=249 n_resp=150 took 1.2s (eta 0.0 min)
+  [414/415] label=0 task=QA n_prompt=402 n_resp=258 took 2.0s (eta 0.0 min)
+  [415/415] label=1 task=Summary n_prompt=442 n_resp=90 took 1.0s (eta 0.0 min)
+  scored 415 examples in 9.6 min
+[4/4] Fitting ReDeEP detector and evaluating (n=415)...
+
+=== Single held-out split (n_test=124) ===
+  AUC: 0.6661
+  PCC: 0.2912
+  Acc: 0.6290
+  Rec: 0.7143
+  F1: 0.6849
+  PPL_AUC: 0.6376
+  LNEnt_AUC: 0.6196
+  selected Copying Heads (layer,head): [(np.int64(27), np.int64(20)), (np.int64(27), np.int64(21)), (np.int64(27), np.int64(19)), (np.int64(27), np.int64(18)), (np.int64(3), np.int64(17)), (np.int64(4), np.int64(4)), (np.int64(1), np.int64(18)), (np.int64(6), np.int64(3))]
+  selected Knowledge FFN layers: [np.int64(16), np.int64(22), np.int64(15), np.int64(26), np.int64(27)]
+
+=== 5-fold stratified CV (mean +/- std) ===
+  AUC: 0.7269 +/- 0.0322
+  PCC: 0.3989 +/- 0.0579
+  Acc: 0.6458 +/- 0.0435
+  Rec: 0.7879 +/- 0.0555
+  F1: 0.6949 +/- 0.0264
+  PPL_AUC: 0.6539 +/- 0.0627
+  LNEnt_AUC: 0.6627 +/- 0.0576
+
+wrote C:\Users\Adithya K\OneDrive\Documents\projects\Deep_Learning_for_LOQ\redeep\data\results_llama3.2_3b_4bit.json

@@ -22,26 +22,54 @@ import torch
 import torch.nn.functional as F
 
 
+def _dense_weight(linear):
+    """Return a Linear layer's weight as a dense fp32 tensor, dequantizing
+    bitsandbytes 4-bit weights (used when the model is loaded with
+    --load_in_4bit so a 7B model fits in 6GB of VRAM)."""
+    w = linear.weight
+    if getattr(w, "quant_state", None) is not None:
+        import bitsandbytes.functional as bnbF
+        return bnbF.dequantize_4bit(w.data, w.quant_state).float()
+    return w.detach().float()
+
+
 class LlamaMechInterp:
-    def __init__(self, model_name, device="cpu", dtype=torch.float32, cache_dir=None):
+    def __init__(self, model_name, device="cpu", dtype=torch.float32, cache_dir=None,
+                 load_in_4bit=False):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         self.model_name = model_name
         self.device = device
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name, dtype=dtype, cache_dir=cache_dir, attn_implementation="eager"
-        ).to(device)
+        if load_in_4bit:
+            from transformers import BitsAndBytesConfig
+            qcfg = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                      bnb_4bit_compute_dtype=dtype)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name, dtype=dtype, cache_dir=cache_dir, attn_implementation="eager",
+                quantization_config=qcfg, device_map={"": device},
+            )
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name, dtype=dtype, cache_dir=cache_dir, attn_implementation="eager"
+            ).to(device)
         self.model.eval()
 
         cfg = self.model.config
         self.num_layers = cfg.num_hidden_layers
         self.num_heads = cfg.num_attention_heads
-        self.head_dim = cfg.hidden_size // cfg.num_attention_heads
+        self.head_dim = getattr(cfg, "head_dim", None) or cfg.hidden_size // cfg.num_attention_heads
         self.hidden_size = cfg.hidden_size
 
         self._mid_hidden = {}
         self._register_mid_hooks()
+        # Per-layer top-k attended context positions, filled by attention
+        # hooks during score_example. Keeping only these (instead of
+        # requesting every full [H, n, n] map via output_attentions) is
+        # what lets 7B-scale models fit in 6GB of VRAM.
+        self._attn_topk = {}
+        self._topk_req = None   # (resp_idx, n_prompt, k) while scoring, else None
+        self._register_attn_hooks()
 
     # ------------------------------------------------------------------
     # Hook plumbing: capture x^{mid,l} (residual stream right before the
@@ -58,6 +86,22 @@ class LlamaMechInterp:
         for i, layer in enumerate(layers):
             layer.post_attention_layernorm.register_forward_pre_hook(make_hook(i))
 
+    def _register_attn_hooks(self):
+        def make_hook(layer_idx):
+            def hook(module, inputs, output):
+                if self._topk_req is None:
+                    return
+                attn = output[1] if isinstance(output, tuple) and len(output) > 1 else None
+                if attn is None:
+                    raise RuntimeError("attention weights unavailable; model must use attn_implementation='eager'")
+                resp_idx, n_prompt, k = self._topk_req
+                ctx_scores = attn[0][:, resp_idx, :n_prompt]              # [H, R, n_prompt]
+                self._attn_topk[layer_idx] = torch.topk(ctx_scores, k, dim=-1).indices   # [H, R, k]
+            return hook
+
+        for i, layer in enumerate(self.model.model.layers):
+            layer.self_attn.register_forward_hook(make_hook(i))
+
     # ------------------------------------------------------------------
     # Static, input-independent: Copying Head Score C^{l,h} (Appendix B)
     # ------------------------------------------------------------------
@@ -66,7 +110,7 @@ class LlamaMechInterp:
             return np.load(cache_path)
 
         WE = self.model.model.embed_tokens.weight.detach()          # [V, d]
-        WU = self.model.lm_head.weight.detach()                      # [V, d] (LLaMA ties shapes this way)
+        WU = _dense_weight(self.model.lm_head)                       # [V, d] (LLaMA ties shapes this way)
         vocab_sample = min(500, WE.shape[0])
         # Full [V,V] eigen-analysis is infeasible on CPU for large vocabularies;
         # subsample a fixed random set of vocab rows (fixed seed) as in
@@ -75,6 +119,7 @@ class LlamaMechInterp:
         idx = torch.randperm(WE.shape[0], generator=g)[:vocab_sample].to(WE.device)
         WE_s = WE[idx].float()   # [v, d]  (upcast: eigen/trace math wants fp32 precision)
         WU_s = WU[idx].float()   # [v, d]
+        del WU
 
         layers = self.model.model.layers
         traces = np.zeros((self.num_layers, self.num_heads))
@@ -87,8 +132,8 @@ class LlamaMechInterp:
         with torch.no_grad():
             for l, layer in enumerate(layers):
                 attn = layer.self_attn
-                Wv = attn.v_proj.weight.detach().float()   # [num_kv_heads*dh, d] (out,in) Linear convention
-                Wo = attn.o_proj.weight.detach().float()   # [d, num_heads*dh]
+                Wv = _dense_weight(attn.v_proj)   # [num_kv_heads*dh, d] (out,in) Linear convention
+                Wo = _dense_weight(attn.o_proj)   # [d, num_heads*dh]
                 for h in range(self.num_heads):
                     kv_h = h // n_rep
                     kv_sl = slice(kv_h * self.head_dim, (kv_h + 1) * self.head_dim)
@@ -96,8 +141,9 @@ class LlamaMechInterp:
                     Wv_h = Wv[kv_sl, :]               # [dh, d]  (this head's shared KV projection)
                     Wo_h = Wo[:, q_sl]                # [d, dh]  (this query head's output slice)
                     # OV circuit for this head: x -> x @ Wv_h^T @ Wo_h^T
-                    W_ov = Wv_h.T @ Wo_h.T             # [d, d]
-                    M = WE_s @ W_ov @ WU_s.T            # [v, v]
+                    # (associativity: compute through the dh bottleneck
+                    # instead of materialising the [d, d] matrix)
+                    M = ((WE_s @ Wv_h.T) @ Wo_h.T) @ WU_s.T   # [v, v]
                     tr = torch.trace(M).item()
                     traces[l, h] = tr
 
@@ -110,7 +156,7 @@ class LlamaMechInterp:
                     iqr = q3 - q1
                     lo, hi = q1 - 1.5 * iqr, q3 + 1.5 * iqr
                     outlier_counts[l, h] = int(((pts < lo) | (pts > hi)).sum())
-                del M
+                del M, Wv, Wo
                 gc.collect()
                 print(f"    copying-head layer {l+1}/{self.num_layers} done", flush=True)
 
@@ -128,8 +174,8 @@ class LlamaMechInterp:
         return score
 
     # ------------------------------------------------------------------
-    # One forward pass producing everything needed for ECS + PKS for a
-    # single (prompt, response) example.
+    # One forward pass producing everything needed for ECS + PKS (and the
+    # perplexity / LN-entropy baselines) for a single (prompt, response).
     # ------------------------------------------------------------------
     @torch.no_grad()
     def score_example(self, prompt_ids, response_ids, top_k_pct=10, max_len=1024):
@@ -137,9 +183,11 @@ class LlamaMechInterp:
         Returns dict with:
           E: np.array [num_layers, num_heads]   response-level ECS per head
           P: np.array [num_layers]              response-level PKS per layer
+          ppl, lnent: perplexity / length-normalised entropy of the response
         Sequences longer than max_len are truncated from the left on the
         prompt side (keep all of the response).
         """
+        response_ids = response_ids[: max_len // 2]   # guarantee some prompt survives truncation
         full_ids = torch.cat([prompt_ids, response_ids], dim=0)
         if full_ids.shape[0] > max_len:
             overflow = full_ids.shape[0] - max_len
@@ -148,37 +196,42 @@ class LlamaMechInterp:
         n_prompt = prompt_ids.shape[0]
         n_total = full_ids.shape[0]
 
-        self._mid_hidden.clear()
-        input_ids = full_ids.unsqueeze(0).to(self.device)
-        out = self.model(
-            input_ids=input_ids,
-            output_attentions=True,
-            output_hidden_states=True,
-            use_cache=False,
-        )
-        # hidden_states: tuple len L+1, each [1, n, d]; hidden_states[l+1] == x^l
-        hidden_states = [h[0] for h in out.hidden_states]     # list len L+1
-        attentions = [a[0] for a in out.attentions]           # list len L, each [H, n, n]
-        final_hidden = hidden_states[-1]                       # x^L  [n, d]
-
-        k = max(1, int(np.ceil(top_k_pct / 100.0 * n_prompt)))
-
-        E = np.zeros((self.num_layers, self.num_heads))
         response_positions = list(range(n_prompt, n_total))
         if len(response_positions) == 0:
             response_positions = [n_total - 1]
-
-        norm_final = F.normalize(final_hidden, dim=-1)   # [n, d]
-        resp_idx = torch.tensor(response_positions, device=final_hidden.device)
+        resp_idx = torch.tensor(response_positions, device=self.device)
+        k = max(1, int(np.ceil(top_k_pct / 100.0 * n_prompt)))
         k_eff = min(k, n_prompt)
-        norm_final_resp = norm_final[resp_idx]           # [R, d]
+
+        self._mid_hidden.clear()
+        self._attn_topk.clear()
+        self._topk_req = (resp_idx, n_prompt, k_eff)
+        try:
+            input_ids = full_ids.unsqueeze(0).to(self.device)
+            out = self.model(
+                input_ids=input_ids,
+                output_hidden_states=True,
+                use_cache=False,
+            )
+        finally:
+            self._topk_req = None
+        # hidden_states: tuple len L+1, each [1, n, d]; hidden_states[l+1] == x^l
+        hidden_states = [h[0] for h in out.hidden_states]     # list len L+1
+        final_hidden = hidden_states[-1]                       # x^L  [n, d]
+
+        E = np.zeros((self.num_layers, self.num_heads))
+        norm_final = F.normalize(final_hidden.float(), dim=-1)   # [n, d]
+        norm_final_resp = norm_final[resp_idx]                    # [R, d]
+        norm_final_ctx = norm_final[:n_prompt]                    # [n_prompt, d]
 
         for l in range(self.num_layers):
-            attn_l = attentions[l]                        # [H, n, n]
-            ctx_scores = attn_l[:, resp_idx, :n_prompt]     # [H, R, n_prompt]
-            topk_idx = torch.topk(ctx_scores, k_eff, dim=-1).indices   # [H, R, k]
-            gathered = norm_final[topk_idx]                 # [H, R, k, d]
-            e = gathered.mean(dim=2)                         # [H, R, d]
+            topk_idx = self._attn_topk[l]                           # [H, R, k]
+            # mean of the top-k attended context rows, done as a (sparse)
+            # averaging matrix product rather than gathering [H, R, k, d]
+            H, R, _ = topk_idx.shape
+            avg = torch.zeros(H, R, n_prompt, device=norm_final.device)
+            avg.scatter_(-1, topk_idx, 1.0 / k_eff)
+            e = avg @ norm_final_ctx                                # [H, R, d]
             e = F.normalize(e, dim=-1)
             cos = (e * norm_final_resp.unsqueeze(0)).sum(dim=-1)   # [H, R]
             E[l, :] = cos.mean(dim=1).cpu().numpy()
@@ -189,18 +242,33 @@ class LlamaMechInterp:
         for l in range(self.num_layers):
             x_mid = self._mid_hidden[l][0]          # [n, d]
             x_post = hidden_states[l + 1]            # [n, d]  (x^l, after full layer)
-            resp = torch.tensor(response_positions, device=x_mid.device)
-            logits_mid = lm_head(final_norm_module(x_mid[resp])).float()
-            logits_post = lm_head(final_norm_module(x_post[resp])).float()
+            logits_mid = lm_head(final_norm_module(x_mid[resp_idx])).float()
+            logits_post = lm_head(final_norm_module(x_post[resp_idx])).float()
             p_mid = F.log_softmax(logits_mid, dim=-1)
             p_post = F.log_softmax(logits_post, dim=-1)
             m = 0.5 * (p_mid.exp() + p_post.exp())
             jsd = 0.5 * F.kl_div(p_mid, m, reduction="none").sum(-1) + \
                   0.5 * F.kl_div(p_post, m, reduction="none").sum(-1)
             P[l] = jsd.mean().item()
+            del logits_mid, logits_post, p_mid, p_post, m
 
-        del out, hidden_states, attentions, final_hidden
+        # Baselines from the same forward pass: logits[i-1] predicts token i.
+        pred_pos = [i - 1 for i in range(n_prompt, n_total) if i > 0]
+        if pred_pos:
+            pred_pos_t = torch.tensor(pred_pos, device=self.device)
+            logp = F.log_softmax(out.logits[0, pred_pos_t].float(), dim=-1)   # [R, V]
+            targets = input_ids[0, pred_pos_t + 1]
+            nll = -logp.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
+            ent = -(logp.exp() * logp).sum(-1)
+            ppl = float(torch.exp(nll.mean()).item())
+            lnent = float(ent.mean().item())
+        else:
+            ppl = lnent = float("nan")
+
+        del out, hidden_states, final_hidden
         self._mid_hidden.clear()
+        self._attn_topk.clear()
         gc.collect()
 
-        return {"E": E, "P": P, "n_prompt": n_prompt, "n_response": len(response_positions)}
+        return {"E": E, "P": P, "ppl": ppl, "lnent": lnent,
+                "n_prompt": n_prompt, "n_response": len(response_positions)}

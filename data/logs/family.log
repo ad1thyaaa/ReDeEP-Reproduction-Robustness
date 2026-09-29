@@ -1,0 +1,92 @@
+===== tinyllama_1.1b (TinyLlama/TinyLlama-1.1B-Chat-v1.0) Mon Sep 28 19:55:44 IST 2026
+  exit=0 Mon Sep 28 19:59:50 IST 2026
+=== Single held-out split (n_test=124) ===
+  AUC: 0.7696
+  PCC: 0.4522
+  Acc: 0.6613
+  Rec: 0.7000
+  F1: 0.7000
+  PPL_AUC: 0.6540
+  LNEnt_AUC: 0.6971
+  selected Copying Heads (layer,head): [(np.int64(3), np.int64(24)), (np.int64(3), np.int64(25)), (np.int64(4), np.int64(22)), (np.int64(0), np.int64(23)), (np.int64(6), np.int64(1)), (np.int64(3), np.int64(3)), (np.int64(7), np.int64(3)), (np.int64(2), np.int64(30))]
+  selected Knowledge FFN layers: [np.int64(20), np.int64(18), np.int64(19), np.int64(16), np.int64(17)]
+
+=== 5-fold stratified CV (mean +/- std) ===
+  AUC: 0.7708 +/- 0.0338
+  PCC: 0.4752 +/- 0.0571
+  Acc: 0.6819 +/- 0.0362
+  Rec: 0.7928 +/- 0.0593
+  F1: 0.7181 +/- 0.0220
+  PPL_AUC: 0.6558 +/- 0.0767
+  LNEnt_AUC: 0.6862 +/- 0.0682
+
+wrote C:\Users\Adithya K\OneDrive\Documents\projects\Deep_Learning_for_LOQ\redeep\data\results_tinyllama_1.1b.json
+===== llama3.2_1b (unsloth/Llama-3.2-1B-Instruct) Mon Sep 28 19:59:50 IST 2026
+  exit=0 Mon Sep 28 20:05:53 IST 2026
+=== Single held-out split (n_test=124) ===
+  AUC: 0.7201
+  PCC: 0.3755
+  Acc: 0.6452
+  Rec: 0.7714
+  F1: 0.7105
+  PPL_AUC: 0.6521
+  LNEnt_AUC: 0.6376
+  selected Copying Heads (layer,head): [(np.int64(3), np.int64(23)), (np.int64(0), np.int64(21)), (np.int64(3), np.int64(21)), (np.int64(4), np.int64(5)), (np.int64(4), np.int64(9)), (np.int64(3), np.int64(24)), (np.int64(1), np.int64(31)), (np.int64(3), np.int64(15))]
+  selected Knowledge FFN layers: [np.int64(14), np.int64(11), np.int64(0), np.int64(10), np.int64(15)]
+
+=== 5-fold stratified CV (mean +/- std) ===
+  AUC: 0.7439 +/- 0.0451
+  PCC: 0.4260 +/- 0.0792
+  Acc: 0.6578 +/- 0.0270
+  Rec: 0.7600 +/- 0.0904
+  F1: 0.6918 +/- 0.0405
+  PPL_AUC: 0.6485 +/- 0.0756
+  LNEnt_AUC: 0.6457 +/- 0.0613
+
+wrote C:\Users\Adithya K\OneDrive\Documents\projects\Deep_Learning_for_LOQ\redeep\data\results_llama3.2_1b.json
+===== llama3.2_3b_4bit (unsloth/Llama-3.2-3B-Instruct) Mon Sep 28 20:05:53 IST 2026
+  exit=0 Mon Sep 28 20:17:10 IST 2026
+=== Single held-out split (n_test=124) ===
+  AUC: 0.6661
+  PCC: 0.2912
+  Acc: 0.6290
+  Rec: 0.7143
+  F1: 0.6849
+  PPL_AUC: 0.6376
+  LNEnt_AUC: 0.6196
+  selected Copying Heads (layer,head): [(np.int64(27), np.int64(20)), (np.int64(27), np.int64(21)), (np.int64(27), np.int64(19)), (np.int64(27), np.int64(18)), (np.int64(3), np.int64(17)), (np.int64(4), np.int64(4)), (np.int64(1), np.int64(18)), (np.int64(6), np.int64(3))]
+  selected Knowledge FFN layers: [np.int64(16), np.int64(22), np.int64(15), np.int64(26), np.int64(27)]
+
+=== 5-fold stratified CV (mean +/- std) ===
+  AUC: 0.7269 +/- 0.0322
+  PCC: 0.3989 +/- 0.0579
+  Acc: 0.6458 +/- 0.0435
+  Rec: 0.7879 +/- 0.0555
+  F1: 0.6949 +/- 0.0264
+  PPL_AUC: 0.6539 +/- 0.0627
+  LNEnt_AUC: 0.6627 +/- 0.0576
+
+wrote C:\Users\Adithya K\OneDrive\Documents\projects\Deep_Learning_for_LOQ\redeep\data\results_llama3.2_3b_4bit.json
+===== llama2_7b_4bit (NousResearch/Llama-2-7b-chat-hf) Mon Sep 28 20:17:10 IST 2026
+  exit=0 Mon Sep 28 20:58:33 IST 2026
+=== Single held-out split (n_test=124) ===
+  AUC: 0.7214
+  PCC: 0.3896
+  Acc: 0.6774
+  Rec: 0.7143
+  F1: 0.7143
+  PPL_AUC: 0.6138
+  LNEnt_AUC: 0.6516
+  selected Copying Heads (layer,head): [(np.int64(31), np.int64(16)), (np.int64(31), np.int64(25)), (np.int64(31), np.int64(26)), (np.int64(31), np.int64(27)), (np.int64(0), np.int64(29)), (np.int64(31), np.int64(20)), (np.int64(31), np.int64(22)), (np.int64(4), np.int64(17))]
+  selected Knowledge FFN layers: [np.int64(20), np.int64(30), np.int64(21), np.int64(13), np.int64(17)]
+
+=== 5-fold stratified CV (mean +/- std) ===
+  AUC: 0.7386 +/- 0.0343
+  PCC: 0.4270 +/- 0.0601
+  Acc: 0.6289 +/- 0.0234
+  Rec: 0.8024 +/- 0.0947
+  F1: 0.6871 +/- 0.0146
+  PPL_AUC: 0.6272 +/- 0.0660
+  LNEnt_AUC: 0.6700 +/- 0.0630
+
+wrote C:\Users\Adithya K\OneDrive\Documents\projects\Deep_Learning_for_LOQ\redeep\data\results_llama2_7b_4bit.json

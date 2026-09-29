@@ -1,0 +1,221 @@
+detector fit on 265 examples; perturbing 150
+W0928 21:03:13.085000 26508 Lib\site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   0%|          | 1/291 [00:00<01:57,  2.46it/s]Loading weights:   1%|          | 2/291 [00:00<01:47,  2.69it/s]Loading weights:   1%|▏         | 4/291 [00:00<00:53,  5.41it/s]Loading weights:   2%|▏         | 5/291 [00:01<00:46,  6.17it/s]Loading weights:   2%|▏         | 6/291 [00:01<00:43,  6.61it/s]Loading weights:   3%|▎         | 9/291 [00:01<00:24, 11.69it/s]Loading weights:   4%|▍         | 13/291 [00:01<00:19, 14.48it/s]Loading weights:   5%|▌         | 15/291 [00:01<00:23, 11.83it/s]Loading weights:   7%|▋         | 19/291 [00:01<00:16, 16.60it/s]Loading weights:   8%|▊         | 22/291 [00:01<00:15, 17.23it/s]Loading weights:   8%|▊         | 24/291 [00:02<00:19, 13.94it/s]Loading weights:  10%|▉         | 28/291 [00:02<00:15, 17.43it/s]Loading weights:  11%|█         | 31/291 [00:02<00:15, 17.10it/s]Loading weights:  11%|█▏        | 33/291 [00:02<00:18, 14.15it/s]Loading weights:  13%|█▎        | 37/291 [00:02<00:13, 18.35it/s]Loading weights:  14%|█▎        | 40/291 [00:03<00:13, 18.65it/s]Loading weights:  15%|█▍        | 43/291 [00:03<00:14, 16.74it/s]Loading weights:  16%|█▌        | 46/291 [00:03<00:13, 18.66it/s]Loading weights:  17%|█▋        | 49/291 [00:03<00:12, 18.83it/s]Loading weights:  18%|█▊        | 52/291 [00:03<00:14, 16.63it/s]Loading weights:  19%|█▉        | 55/291 [00:03<00:12, 18.74it/s]Loading weights:  20%|█▉        | 58/291 [00:04<00:12, 18.14it/s]Loading weights:  21%|██        | 60/291 [00:04<00:15, 14.72it/s]Loading weights:  22%|██▏       | 64/291 [00:04<00:12, 18.90it/s]Loading weights:  23%|██▎       | 67/291 [00:04<00:12, 18.33it/s]Loading weights:  24%|██▍       | 70/291 [00:04<00:14, 15.69it/s]Loading weights:  25%|██▌       | 73/291 [00:04<00:12, 17.46it/s]Loading weights:  26%|██▌       | 76/291 [00:05<00:12, 17.02it/s]Loading weights:  27%|██▋       | 78/291 [00:05<00:15, 14.03it/s]Loading weights:  28%|██▊       | 82/291 [00:05<00:11, 18.17it/s]Loading weights:  29%|██▉       | 85/291 [00:05<00:11, 17.89it/s]Loading weights:  30%|██▉       | 87/291 [00:05<00:14, 14.10it/s]Loading weights:  31%|███▏      | 91/291 [00:06<00:11, 17.34it/s]Loading weights:  32%|███▏      | 94/291 [00:06<00:11, 16.72it/s]Loading weights:  33%|███▎      | 96/291 [00:06<00:15, 12.88it/s]Loading weights:  34%|███▍      | 100/291 [00:06<00:11, 16.07it/s]Loading weights:  35%|███▌      | 103/291 [00:06<00:11, 15.68it/s]Loading weights:  36%|███▌      | 105/291 [00:07<00:15, 12.23it/s]Loading weights:  37%|███▋      | 109/291 [00:07<00:11, 15.50it/s]Loading weights:  38%|███▊      | 112/291 [00:07<00:11, 15.26it/s]Loading weights:  39%|███▉      | 114/291 [00:07<00:14, 12.17it/s]Loading weights:  41%|████      | 118/291 [00:07<00:11, 15.50it/s]Loading weights:  42%|████▏     | 121/291 [00:08<00:10, 15.45it/s]Loading weights:  42%|████▏     | 123/291 [00:08<00:13, 12.44it/s]Loading weights:  44%|████▎     | 127/291 [00:08<00:10, 15.86it/s]Loading weights:  45%|████▍     | 130/291 [00:08<00:10, 15.59it/s]Loading weights:  45%|████▌     | 132/291 [00:09<00:12, 12.54it/s]Loading weights:  47%|████▋     | 136/291 [00:09<00:09, 15.85it/s]Loading weights:  48%|████▊     | 139/291 [00:09<00:09, 15.58it/s]Loading weights:  48%|████▊     | 141/291 [00:09<00:11, 12.58it/s]Loading weights:  50%|████▉     | 145/291 [00:09<00:09, 15.89it/s]Loading weights:  51%|█████     | 148/291 [00:10<00:09, 15.76it/s]Loading weights:  52%|█████▏    | 150/291 [00:10<00:11, 12.75it/s]Loading weights:  53%|█████▎    | 153/291 [00:10<00:08, 15.59it/s]Loading weights:  53%|█████▎    | 155/291 [00:10<00:08, 16.37it/s]Loading weights:  54%|█████▍    | 157/291 [00:10<00:08, 15.76it/s]Loading weights:  55%|█████▍    | 159/291 [00:10<00:11, 11.50it/s]Loading weights:  56%|█████▌    | 162/291 [00:11<00:09, 14.30it/s]Loading weights:  57%|█████▋    | 166/291 [00:11<00:08, 15.13it/s]Loading weights:  58%|█████▊    | 168/291 [00:11<00:10, 12.22it/s]Loading weights:  59%|█████▉    | 172/291 [00:11<00:07, 15.74it/s]Loading weights:  60%|██████    | 175/291 [00:11<00:07, 15.58it/s]Loading weights:  61%|██████    | 177/291 [00:12<00:09, 12.56it/s]Loading weights:  62%|██████▏   | 181/291 [00:12<00:06, 15.85it/s]Loading weights:  63%|██████▎   | 184/291 [00:12<00:06, 15.67it/s]Loading weights:  64%|██████▍   | 186/291 [00:12<00:08, 12.55it/s]Loading weights:  65%|██████▌   | 190/291 [00:12<00:06, 15.79it/s]Loading weights:  66%|██████▋   | 193/291 [00:13<00:06, 15.40it/s]Loading weights:  67%|██████▋   | 195/291 [00:13<00:07, 12.53it/s]Loading weights:  68%|██████▊   | 199/291 [00:13<00:05, 16.02it/s]Loading weights:  69%|██████▉   | 202/291 [00:13<00:05, 15.83it/s]Loading weights:  70%|███████   | 204/291 [00:14<00:06, 12.65it/s]Loading weights:  71%|███████▏  | 208/291 [00:14<00:05, 16.05it/s]Loading weights:  73%|███████▎  | 211/291 [00:14<00:05, 14.97it/s]Loading weights:  73%|███████▎  | 213/291 [00:14<00:06, 11.17it/s]Loading weights:  74%|███████▍  | 216/291 [00:14<00:05, 13.51it/s]Loading weights:  76%|███████▌  | 220/291 [00:15<00:04, 14.53it/s]Loading weights:  76%|███████▋  | 222/291 [00:15<00:05, 12.07it/s]Loading weights:  78%|███████▊  | 226/291 [00:15<00:04, 15.36it/s]Loading weights:  79%|███████▊  | 229/291 [00:15<00:04, 15.32it/s]Loading weights:  79%|███████▉  | 231/291 [00:15<00:04, 12.59it/s]Loading weights:  80%|████████  | 234/291 [00:16<00:03, 15.36it/s]Loading weights:  81%|████████  | 236/291 [00:16<00:03, 16.21it/s]Loading weights:  82%|████████▏ | 238/291 [00:16<00:03, 15.40it/s]Loading weights:  82%|████████▏ | 240/291 [00:16<00:04, 11.81it/s]Loading weights:  84%|████████▎ | 243/291 [00:16<00:03, 14.95it/s]Loading weights:  85%|████████▍ | 247/291 [00:16<00:02, 15.40it/s]Loading weights:  86%|████████▌ | 249/291 [00:17<00:03, 11.04it/s]Loading weights:  87%|████████▋ | 252/291 [00:17<00:02, 13.66it/s]Loading weights:  87%|████████▋ | 254/291 [00:17<00:02, 14.53it/s]Loading weights:  88%|████████▊ | 256/291 [00:17<00:02, 13.04it/s]Loading weights:  89%|████████▊ | 258/291 [00:18<00:03, 10.44it/s]Loading weights:  90%|█████████ | 262/291 [00:18<00:02, 14.20it/s]Loading weights:  91%|█████████ | 265/291 [00:18<00:01, 14.16it/s]Loading weights:  92%|█████████▏| 267/291 [00:18<00:02, 11.50it/s]Loading weights:  93%|█████████▎| 271/291 [00:18<00:01, 14.98it/s]Loading weights:  94%|█████████▍| 274/291 [00:19<00:01, 14.53it/s]Loading weights:  95%|█████████▍| 276/291 [00:19<00:01, 11.37it/s]Loading weights:  96%|█████████▌| 279/291 [00:19<00:00, 14.12it/s]Loading weights:  97%|█████████▋| 281/291 [00:19<00:00, 14.81it/s]Loading weights:  97%|█████████▋| 283/291 [00:19<00:00, 14.03it/s]Loading weights:  98%|█████████▊| 285/291 [00:20<00:00,  9.77it/s]Loading weights:  99%|█████████▉| 288/291 [00:20<00:00, 12.36it/s]Loading weights: 100%|█████████▉| 290/291 [00:20<00:00, 13.51it/s]Loading weights: 100%|██████████| 291/291 [00:20<00:00, 14.31it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  [1/150] label=1 accurate=0.126 irrelevant=0.320 contradictory=0.117  (14s)
+  [2/150] label=1 accurate=0.841 irrelevant=0.809 contradictory=0.874  (28s)
+  [3/150] label=0 accurate=0.483 irrelevant=0.814 contradictory=0.467  (39s)
+  [4/150] label=1 accurate=0.655 irrelevant=0.909 contradictory=0.648  (51s)
+  [5/150] label=0 accurate=0.311 irrelevant=0.609 contradictory=0.320  (68s)
+  [6/150] label=1 accurate=0.547 irrelevant=0.879 contradictory=0.601  (81s)
+  [7/150] label=0 accurate=0.355 irrelevant=0.897 contradictory=0.329  (101s)
+  [8/150] label=0 accurate=0.827 irrelevant=0.870 contradictory=0.818  (114s)
+  [9/150] label=0 accurate=0.695 irrelevant=0.789 contradictory=0.652  (127s)
+  [10/150] label=1 accurate=0.776 irrelevant=0.900 contradictory=0.755  (139s)
+  [11/150] label=1 accurate=0.804 irrelevant=0.902 contradictory=0.825  (152s)
+  [12/150] label=0 accurate=0.277 irrelevant=0.610 contradictory=0.234  (166s)
+  [13/150] label=0 accurate=0.170 irrelevant=0.517 contradictory=0.131  (179s)
+  [14/150] label=0 accurate=0.236 irrelevant=0.436 contradictory=0.222  (190s)
+  [15/150] label=1 accurate=0.703 irrelevant=0.775 contradictory=0.661  (201s)
+  [16/150] label=1 accurate=0.721 irrelevant=0.845 contradictory=0.715  (214s)
+  [17/150] label=1 accurate=0.801 irrelevant=0.783 contradictory=0.805  (228s)
+  [18/150] label=1 accurate=0.232 irrelevant=0.517 contradictory=0.212  (239s)
+  [19/150] label=0 accurate=0.498 irrelevant=0.813 contradictory=0.446  (253s)
+  [20/150] label=0 accurate=0.432 irrelevant=0.671 contradictory=0.409  (266s)
+  [21/150] label=0 accurate=0.376 irrelevant=0.957 contradictory=0.355  (285s)
+  [22/150] label=0 accurate=0.397 irrelevant=0.737 contradictory=0.352  (298s)
+  [23/150] label=0 accurate=0.432 irrelevant=0.839 contradictory=0.429  (321s)
+  [24/150] label=0 accurate=0.186 irrelevant=0.818 contradictory=0.183  (333s)
+  [25/150] label=0 accurate=0.812 irrelevant=0.962 contradictory=0.762  (348s)
+  [26/150] label=1 accurate=0.838 irrelevant=0.876 contradictory=0.828  (360s)
+  [27/150] label=1 accurate=0.812 irrelevant=0.814 contradictory=0.803  (376s)
+  [28/150] label=0 accurate=0.282 irrelevant=0.845 contradictory=0.266  (391s)
+  [29/150] label=1 accurate=0.362 irrelevant=0.627 contradictory=0.357  (405s)
+  [30/150] label=0 accurate=0.506 irrelevant=0.844 contradictory=0.517  (418s)
+  [31/150] label=1 accurate=0.640 irrelevant=0.731 contradictory=0.626  (430s)
+  [32/150] label=0 accurate=0.480 irrelevant=0.707 contradictory=0.490  (454s)
+  [33/150] label=0 accurate=0.319 irrelevant=0.750 contradictory=0.316  (490s)
+  [34/150] label=1 accurate=0.738 irrelevant=0.662 contradictory=0.714  (502s)
+  [35/150] label=1 accurate=0.288 irrelevant=0.449 contradictory=0.224  (515s)
+  [36/150] label=0 accurate=0.557 irrelevant=0.876 contradictory=0.544  (529s)
+  [37/150] label=1 accurate=0.360 irrelevant=0.493 contradictory=0.330  (539s)
+  [38/150] label=1 accurate=0.775 irrelevant=0.895 contradictory=0.802  (551s)
+  [39/150] label=0 accurate=0.297 irrelevant=0.799 contradictory=0.304  (562s)
+  [40/150] label=0 accurate=0.748 irrelevant=0.830 contradictory=0.768  (575s)
+  [41/150] label=1 accurate=0.783 irrelevant=0.841 contradictory=0.741  (587s)
+  [42/150] label=0 accurate=0.356 irrelevant=0.895 contradictory=0.404  (598s)
+  [43/150] label=1 accurate=0.834 irrelevant=0.818 contradictory=0.816  (613s)
+  [44/150] label=1 accurate=0.443 irrelevant=0.945 contradictory=0.527  (627s)
+  [45/150] label=0 accurate=0.204 irrelevant=0.679 contradictory=0.206  (644s)
+  [46/150] label=0 accurate=0.200 irrelevant=0.602 contradictory=0.187  (673s)
+  [47/150] label=0 accurate=0.241 irrelevant=0.801 contradictory=0.235  (706s)
+  [48/150] label=1 accurate=0.925 irrelevant=0.903 contradictory=0.926  (738s)
+  [49/150] label=1 accurate=0.253 irrelevant=0.649 contradictory=0.252  (749s)
+  [50/150] label=0 accurate=0.299 irrelevant=0.773 contradictory=0.260  (761s)
+  [51/150] label=0 accurate=0.766 irrelevant=0.872 contradictory=0.748  (774s)
+  [52/150] label=0 accurate=0.481 irrelevant=0.605 contradictory=0.338  (812s)
+  [53/150] label=0 accurate=0.281 irrelevant=0.582 contradictory=0.256  (824s)
+  [54/150] label=0 accurate=0.308 irrelevant=0.579 contradictory=0.279  (835s)
+  [55/150] label=1 accurate=0.411 irrelevant=0.868 contradictory=0.373  (860s)
+  [56/150] label=1 accurate=0.624 irrelevant=0.752 contradictory=0.535  (873s)
+  [57/150] label=0 accurate=0.686 irrelevant=0.836 contradictory=0.691  (883s)
+  [58/150] label=0 accurate=0.581 irrelevant=0.675 contradictory=0.536  (894s)
+  [59/150] label=0 accurate=0.332 irrelevant=0.784 contradictory=0.290  (920s)
+  [60/150] label=0 accurate=0.241 irrelevant=0.813 contradictory=0.264  (934s)
+  [61/150] label=1 accurate=0.526 irrelevant=0.828 contradictory=0.523  (943s)
+  [62/150] label=1 accurate=0.753 irrelevant=0.704 contradictory=0.753  (956s)
+  [63/150] label=1 accurate=0.840 irrelevant=0.808 contradictory=0.849  (969s)
+  [64/150] label=1 accurate=0.755 irrelevant=0.884 contradictory=0.743  (980s)
+  [65/150] label=1 accurate=0.747 irrelevant=0.836 contradictory=0.735  (992s)
+  [66/150] label=1 accurate=0.276 irrelevant=0.837 contradictory=0.322  (1036s)
+  [67/150] label=0 accurate=0.442 irrelevant=0.891 contradictory=0.438  (1059s)
+  [68/150] label=0 accurate=0.211 irrelevant=0.909 contradictory=0.224  (1077s)
+  [69/150] label=0 accurate=0.910 irrelevant=0.928 contradictory=0.886  (1090s)
+  [70/150] label=1 accurate=0.937 irrelevant=0.938 contradictory=0.940  (1103s)
+  [71/150] label=1 accurate=0.280 irrelevant=0.599 contradictory=0.252  (1113s)
+  [72/150] label=0 accurate=0.674 irrelevant=0.798 contradictory=0.663  (1126s)
+  [73/150] label=0 accurate=0.898 irrelevant=0.791 contradictory=0.888  (1136s)
+  [74/150] label=1 accurate=0.851 irrelevant=0.926 contradictory=0.871  (1150s)
+  [75/150] label=1 accurate=0.262 irrelevant=0.401 contradictory=0.262  (1172s)
+  [76/150] label=0 accurate=0.447 irrelevant=0.716 contradictory=0.450  (1188s)
+  [77/150] label=0 accurate=0.529 irrelevant=0.675 contradictory=0.525  (1205s)
+  [78/150] label=0 accurate=0.263 irrelevant=0.891 contradictory=0.251  (1224s)
+  [79/150] label=1 accurate=0.776 irrelevant=0.859 contradictory=0.785  (1237s)
+  [80/150] label=1 accurate=0.741 irrelevant=0.927 contradictory=0.756  (1250s)
+  [81/150] label=1 accurate=0.166 irrelevant=0.817 contradictory=0.165  (1277s)
+  [82/150] label=1 accurate=0.565 irrelevant=0.918 contradictory=0.558  (1290s)
+  [83/150] label=0 accurate=0.502 irrelevant=0.771 contradictory=0.557  (1316s)
+  [84/150] label=0 accurate=0.586 irrelevant=0.781 contradictory=0.577  (1333s)
+  [85/150] label=0 accurate=0.080 irrelevant=0.619 contradictory=0.080  (1344s)
+  [86/150] label=1 accurate=0.838 irrelevant=0.923 contradictory=0.841  (1356s)
+  [87/150] label=0 accurate=0.307 irrelevant=0.382 contradictory=0.252  (1367s)
+  [88/150] label=0 accurate=0.724 irrelevant=0.791 contradictory=0.689  (1379s)
+  [89/150] label=0 accurate=0.167 irrelevant=0.530 contradictory=0.156  (1393s)
+  [90/150] label=1 accurate=0.274 irrelevant=0.397 contradictory=0.252  (1406s)
+  [91/150] label=0 accurate=0.379 irrelevant=0.794 contradictory=0.338  (1417s)
+  [92/150] label=1 accurate=0.834 irrelevant=0.912 contradictory=0.851  (1429s)
+  [93/150] label=1 accurate=0.645 irrelevant=0.872 contradictory=0.644  (1440s)
+  [94/150] label=1 accurate=0.772 irrelevant=0.837 contradictory=0.769  (1452s)
+  [95/150] label=0 accurate=0.240 irrelevant=0.573 contradictory=0.210  (1481s)
+  [96/150] label=0 accurate=0.227 irrelevant=0.808 contradictory=0.243  (1501s)
+  [97/150] label=1 accurate=0.269 irrelevant=0.876 contradictory=0.244  (1515s)
+  [98/150] label=1 accurate=0.385 irrelevant=0.503 contradictory=0.355  (1542s)
+  [99/150] label=0 accurate=0.313 irrelevant=0.755 contradictory=0.349  (1556s)
+  [100/150] label=1 accurate=0.664 irrelevant=0.966 contradictory=0.758  (1585s)
+  [101/150] label=1 accurate=0.724 irrelevant=0.780 contradictory=0.736  (1598s)
+  [102/150] label=1 accurate=0.752 irrelevant=0.851 contradictory=0.729  (1610s)
+  [103/150] label=0 accurate=0.722 irrelevant=0.859 contradictory=0.683  (1624s)
+  [104/150] label=0 accurate=0.728 irrelevant=0.748 contradictory=0.706  (1648s)
+  [105/150] label=1 accurate=0.511 irrelevant=0.883 contradictory=0.509  (1661s)
+  [106/150] label=1 accurate=0.806 irrelevant=0.822 contradictory=0.791  (1673s)
+  [107/150] label=1 accurate=0.470 irrelevant=0.830 contradictory=0.525  (1707s)
+  [108/150] label=1 accurate=0.539 irrelevant=0.905 contradictory=0.536  (1718s)
+  [109/150] label=1 accurate=0.866 irrelevant=0.857 contradictory=0.854  (1729s)
+  [110/150] label=1 accurate=0.408 irrelevant=0.771 contradictory=0.408  (1742s)
+  [111/150] label=0 accurate=0.798 irrelevant=0.986 contradictory=0.768  (1754s)
+  [112/150] label=1 accurate=0.439 irrelevant=0.774 contradictory=0.410  (1768s)
+  [113/150] label=1 accurate=0.799 irrelevant=0.810 contradictory=0.782  (1780s)
+  [114/150] label=0 accurate=0.491 irrelevant=0.855 contradictory=0.452  (1793s)
+  [115/150] label=1 accurate=0.300 irrelevant=0.568 contradictory=0.260  (1804s)
+  [116/150] label=0 accurate=0.274 irrelevant=0.560 contradictory=0.289  (1817s)
+  [117/150] label=1 accurate=0.352 irrelevant=0.430 contradictory=0.335  (1832s)
+  [118/150] label=0 accurate=0.190 irrelevant=0.809 contradictory=0.226  (1842s)
+  [119/150] label=0 accurate=0.917 irrelevant=0.930 contradictory=0.901  (1855s)
+  [120/150] label=0 accurate=0.821 irrelevant=0.926 contradictory=0.831  (1869s)
+  [121/150] label=1 accurate=0.832 irrelevant=0.772 contradictory=0.842  (1885s)
+  [122/150] label=1 accurate=0.293 irrelevant=0.413 contradictory=0.228  (1906s)
+  [123/150] label=1 accurate=0.818 irrelevant=0.878 contradictory=0.820  (1917s)
+  [124/150] label=0 accurate=0.215 irrelevant=0.616 contradictory=0.214  (1939s)
+  [125/150] label=1 accurate=0.244 irrelevant=0.718 contradictory=0.275  (1953s)
+  [126/150] label=1 accurate=0.676 irrelevant=0.820 contradictory=0.651  (1966s)
+  [127/150] label=0 accurate=0.310 irrelevant=0.974 contradictory=0.365  (1978s)
+  [128/150] label=0 accurate=0.713 irrelevant=0.790 contradictory=0.674  (1990s)
+  [129/150] label=0 accurate=0.348 irrelevant=0.830 contradictory=0.306  (2003s)
+  [130/150] label=0 accurate=0.213 irrelevant=0.540 contradictory=0.202  (2015s)
+  [131/150] label=1 accurate=0.655 irrelevant=0.765 contradictory=0.652  (2032s)
+  [132/150] label=1 accurate=0.517 irrelevant=0.810 contradictory=0.512  (2049s)
+  [133/150] label=1 accurate=0.650 irrelevant=0.952 contradictory=0.631  (2061s)
+  [134/150] label=0 accurate=0.450 irrelevant=0.777 contradictory=0.443  (2075s)
+  [135/150] label=0 accurate=0.224 irrelevant=0.919 contradictory=0.241  (2107s)
+  [136/150] label=0 accurate=0.304 irrelevant=0.910 contradictory=0.289  (2124s)
+  [137/150] label=1 accurate=0.759 irrelevant=0.730 contradictory=0.764  (2137s)
+  [138/150] label=1 accurate=0.717 irrelevant=0.776 contradictory=0.716  (2150s)
+  [139/150] label=1 accurate=0.482 irrelevant=0.647 contradictory=0.482  (2159s)
+  [140/150] label=0 accurate=0.645 irrelevant=0.859 contradictory=0.585  (2173s)
+  [141/150] label=1 accurate=0.828 irrelevant=0.921 contradictory=0.815  (2185s)
+  [142/150] label=0 accurate=0.358 irrelevant=0.526 contradictory=0.258  (2200s)
+  [143/150] label=1 accurate=0.474 irrelevant=0.846 contradictory=0.432  (2210s)
+  [144/150] label=0 accurate=0.358 irrelevant=0.609 contradictory=0.347  (2220s)
+  [145/150] label=0 accurate=0.413 irrelevant=0.854 contradictory=0.428  (2234s)
+  [146/150] label=1 accurate=0.842 irrelevant=0.850 contradictory=0.838  (2246s)
+  [147/150] label=1 accurate=0.755 irrelevant=0.886 contradictory=0.743  (2258s)
+  [148/150] label=0 accurate=0.178 irrelevant=0.423 contradictory=0.205  (2271s)
+  [149/150] label=0 accurate=0.430 irrelevant=0.867 contradictory=0.351  (2282s)
+  [150/150] label=1 accurate=0.476 irrelevant=0.870 contradictory=0.438  (2298s)
+{
+  "tag": "llama2_7b_4bit",
+  "model": "NousResearch/Llama-2-7b-chat-hf",
+  "n": 150,
+  "conditions": {
+    "accurate": {
+      "n": 150,
+      "score_mean": 0.5205404164894536,
+      "score_mean_faithful": 0.4353370938540804,
+      "score_mean_halluc": 0.6057437391248267,
+      "E_A_mean": 0.28163210162272057,
+      "E_A_mean_faithful": 0.30383893293639025,
+      "E_A_mean_halluc": 0.2594252703090509,
+      "P_F_mean": 0.09135635666797559,
+      "P_F_mean_faithful": 0.08615199927488963,
+      "P_F_mean_halluc": 0.09656071406106154,
+      "ppl_mean": 1.670543709595998,
+      "ppl_mean_faithful": 1.580511040687561,
+      "ppl_mean_halluc": 1.7605763785044353,
+      "AUC_vs_original_labels": 0.7102222222222222
+    },
+    "irrelevant": {
+      "n": 150,
+      "score_mean": 0.7701565687258752,
+      "score_mean_faithful": 0.7607598286665161,
+      "score_mean_halluc": 0.7795533087852344,
+      "E_A_mean": 0.28784596166263027,
+      "E_A_mean_faithful": 0.29140582273403803,
+      "E_A_mean_halluc": 0.28428610059122245,
+      "P_F_mean": 0.1138012875666221,
+      "P_F_mean_faithful": 0.11312866742412249,
+      "P_F_mean_halluc": 0.11447390770912169,
+      "ppl_mean": 5.301538945833842,
+      "ppl_mean_faithful": 5.778455349604289,
+      "ppl_mean_halluc": 4.824622542063395,
+      "AUC_vs_original_labels": 0.5639111111111111,
+      "score_shift_vs_accurate": 0.2496161522364217,
+      "score_shift_wilcoxon_p": 9.660758685537466e-25,
+      "E_A_shift_vs_accurate": 0.0062138600399096805,
+      "E_A_shift_wilcoxon_p": 0.2551458529060011,
+      "P_F_shift_vs_accurate": 0.022444930898646517,
+      "P_F_shift_wilcoxon_p": 5.024180052982892e-26
+    },
+    "contradictory": {
+      "n": 150,
+      "score_mean": 0.5103649036523428,
+      "score_mean_faithful": 0.4206286116916239,
+      "score_mean_halluc": 0.6001011956130615,
+      "E_A_mean": 0.3096263803044955,
+      "E_A_mean_faithful": 0.33564184710383416,
+      "E_A_mean_halluc": 0.2836109135051568,
+      "P_F_mean": 0.09243437797824543,
+      "P_F_mean_faithful": 0.08707336884737014,
+      "P_F_mean_halluc": 0.0977953871091207,
+      "ppl_mean": 1.8870983147621154,
+      "ppl_mean_faithful": 1.8210874478022256,
+      "ppl_mean_halluc": 1.9531091817220052,
+      "AUC_vs_original_labels": 0.7152,
+      "score_shift_vs_accurate": -0.010175512837110955,
+      "score_shift_wilcoxon_p": 5.684201000424135e-06,
+      "E_A_shift_vs_accurate": 0.027994278681774933,
+      "E_A_shift_wilcoxon_p": 2.1357908956807716e-24,
+      "P_F_shift_vs_accurate": 0.0010780213102698335,
+      "P_F_shift_wilcoxon_p": 8.119670041694046e-06
+    }
+  }
+}
