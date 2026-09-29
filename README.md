@@ -73,8 +73,16 @@ retrieved passage (semantic alignment of hidden states), not whether it
 
 ### Black-box judges
 
-See `data/RESULTS.md`. A local Llama-3.2-3B judge is included; the GPT and
-Gemini rows need an API key (free options below).
+| Judge | AUC | Recall | F1 |
+|---|---|---|---|
+| Llama-3.2-3B-Instruct (local, prompted) | 0.523 | 0.085 | 0.151 |
+
+A prompted 3B judge is near chance. It answers "no hallucination" for
+almost every response, catching only 8.5% of hallucinations. Reading the
+same model's internals (ReDeEP on Llama-3.2-3B, AUC 0.727) does far
+better than asking it. The GPT and Gemini rows need an API key (free
+options below); `scripts/summarize.py` adds them to `data/RESULTS.md`
+automatically.
 
 ## Day-1 results (CPU, TinyLlama-1.1B, 50 examples)
 
