@@ -60,11 +60,27 @@ OPENAI_COMPATIBLE = {
 }
 
 
+def _gh_cli_token():
+    """Fall back to the GitHub CLI login (`gh auth login`) when GITHUB_TOKEN
+    isn't set -- GitHub Models accepts the CLI's OAuth token."""
+    import shutil
+    import subprocess
+    gh = shutil.which("gh") or r"C:\Program Files\GitHub CLI\gh.exe"
+    try:
+        return subprocess.run([gh, "auth", "token"], capture_output=True, text=True,
+                              check=True).stdout.strip() or None
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
 class OpenAIJudge:
     def __init__(self, model, provider="openai"):
         from openai import OpenAI
         base_url, key_env = OPENAI_COMPATIBLE[provider]
-        self.client = OpenAI(base_url=base_url, api_key=os.environ.get(key_env))
+        key = os.environ.get(key_env)
+        if not key and provider == "github":
+            key = _gh_cli_token()
+        self.client = OpenAI(base_url=base_url, api_key=key)
         self.model = model
 
     def __call__(self, prompt, response):

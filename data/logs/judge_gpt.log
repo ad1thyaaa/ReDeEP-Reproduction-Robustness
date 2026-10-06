@@ -1,0 +1,164 @@
+124 examples (70 hallucinated)
+  [1/124] label=1 score=0.85
+  [2/124] label=1 score=0.95
+  [3/124] label=1 score=0.9
+  [4/124] label=0 score=0.85
+  [5/124] label=0 score=0.8
+  [6/124] label=1 score=0.95
+  [7/124] label=1 score=0.85
+  [8/124] label=0 score=0.05
+  [9/124] label=1 score=0.95
+  [10/124] label=0 score=0.1
+  [11/124] label=1 score=0.95
+  [12/124] label=0 score=0.05
+  [13/124] label=1 score=0.95
+  [14/124] label=0 score=0.3
+  [15/124] label=1 score=0.95
+  [16/124] label=1 score=0.85
+  [17/124] label=0 score=0.1
+  [18/124] label=1 score=0.05
+  [19/124] label=0 score=0.05
+  [20/124] label=1 score=0.95
+  [21/124] label=1 score=0.95
+  [22/124] label=1 score=0.2
+  [23/124] label=1 score=0.93
+  [24/124] label=1 score=0.95
+  [25/124] label=0 score=0.05
+  [26/124] label=0 score=0.9
+  [27/124] label=0 score=0.85
+  [28/124] label=0 score=0.05
+  [29/124] label=1 score=0.9
+  [30/124] label=0 score=0.65
+  [31/124] label=0 score=0.8
+  [32/124] label=0 score=0.9
+  [33/124] label=0 score=0.9
+  [34/124] label=1 score=0.95
+  [35/124] label=1 score=0.85
+  [36/124] label=1 score=0.85
+  [37/124] label=0 score=0.05
+  [38/124] label=0 score=0.1
+  [39/124] label=1 score=0.95
+  [40/124] label=1 score=0.9
+  [41/124] label=1 score=0.9
+  [42/124] label=0 score=0.85
+  [43/124] label=1 score=0.9
+  [44/124] label=0 score=0.7
+  [45/124] label=1 score=0.6
+  [46/124] label=1 score=0.85
+  [47/124] label=0 score=0.9
+  [48/124] label=0 score=0.9
+  [49/124] label=1 score=0.95
+  [50/124] label=1 score=0.95
+  [51/124] label=1 score=0.85
+  [52/124] label=0 score=0.7
+  [53/124] label=1 score=0.03
+  [54/124] label=0 score=0.05
+  [55/124] label=0 score=0.05
+  [56/124] label=0 score=0.9
+  [57/124] label=1 score=0.95
+  [58/124] label=0 score=0.85
+  [59/124] label=1 score=0.7
+  [60/124] label=1 score=0.9
+  [61/124] label=0 score=0.95
+  [62/124] label=1 score=0.85
+  [63/124] label=1 score=0.95
+  [64/124] label=1 score=0.85
+  [65/124] label=1 score=0.9
+  [66/124] label=1 score=0.9
+  [67/124] label=1 score=0.95
+  [68/124] label=1 score=0.9
+  [69/124] label=1 score=0.95
+  [70/124] label=0 score=0.1
+  [71/124] label=0 score=0.05
+  [72/124] label=1 score=0.85
+  [73/124] label=1 score=0.95
+  [74/124] label=1 score=0.9
+  [75/124] label=0 score=0.05
+  [76/124] label=0 score=0.95
+  [77/124] label=0 score=0.92
+  [78/124] label=1 score=0.1
+  [79/124] label=0 score=0.85
+  [80/124] label=1 score=0.95
+  [81/124] label=0 score=0.9
+  [82/124] label=1 score=0.9
+  [83/124] label=0 score=0.85
+  [84/124] label=0 score=0.9
+  [85/124] label=1 score=0.95
+  [86/124] label=1 score=0.98
+  [87/124] label=1 score=0.85
+  [88/124] label=1 score=0.95
+  [89/124] label=1 score=0.8
+  [90/124] label=1 score=0.95
+  [91/124] label=0 score=0.9
+  [92/124] label=0 score=0.95
+  [93/124] label=0 score=0.05
+  [94/124] label=1 score=0.95
+  [95/124] label=1 score=0.4
+  [96/124] label=1 score=0.85
+  [97/124] label=1 score=0.9
+  [98/124] label=0 score=0.1
+  [99/124] label=0 score=0.05
+  [100/124] label=1 score=0.95
+  [101/124] label=0 score=0.1
+  [102/124] label=1 score=0.95
+  [103/124] label=1 score=0.95
+  [104/124] label=1 score=0.95
+  [105/124] label=0 score=0.9
+  [106/124] label=1 score=0.9
+  [107/124] label=0 score=0.85
+  [108/124] label=1 score=0.88
+  [109/124] label=1 score=0.85
+  [110/124] label=1 score=0.95
+  [111/124] label=0 score=0.9
+  [112/124] label=0 score=0.9
+  [113/124] label=0 score=0.9
+  [114/124] label=0 score=0.6
+  [115/124] label=0 score=0.05
+  [116/124] label=1 score=0.9
+  [117/124] label=0 score=0.7
+  [118/124] label=0 score=0.85
+  [119/124] label=1 score=0.95
+  [120/124] label=0 score=0.05
+  [121/124] label=0 score=0.05
+  [122/124] label=1 score=0.95
+  [123/124] label=1 score=0.85
+  [124/124] label=1 score=0.95
+
+parsed 124/124 judge replies
+=== all ===
+  AUC: 0.7897
+  PCC: 0.4651
+  Acc: 0.7016
+  Rec: 0.9286
+  F1: 0.7784
+=== same_test_split_as_llama2_7b_4bit ===
+  AUC: 0.7897
+  PCC: 0.4651
+  Acc: 0.7016
+  Rec: 0.9286
+  F1: 0.7784
+415 examples (212 hallucinated)
+  [1/415] label=1 score=0.95
+  [3/415] label=1 score=0.95
+  [4/415] label=0 score=0.95
+  [10/415] label=0 score=0.05
+  [12/415] label=1 score=0.93
+  [14/415] label=1 score=0.95
+  [17/415] label=1 score=0.95
+  [18/415] label=0 score=0.05
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199204, Requested 2335. Please try again in 11m4.848s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199176, Requested 2115. Please try again in 9m17.712s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199148, Requested 2335. Please try again in 10m40.656s. Need more tokens? 
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199102, Requested 2115. Please try again in 8m45.744s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199009, Requested 2335. Please try again in 9m40.608s. Need more tokens? U
+  [19/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199009, Requested 2335. Please try again in 9m40.608s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198870, Requested 1451. Please try again in 2m18.672s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198842, Requested 1787. Please try again in 4m31.728s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198814, Requested 2007. Please try again in 5m54.672s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198767, Requested 1787. Please try again in 3m59.328s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198674, Requested 2007. Please try again in 4m54.192s. Need more tokens? U
+  [20/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198674, Requested 2007. Please try again in 4m54.192s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198535, Requested 1853. Please try again in 2m47.616s. Need more tokens? U
+  [24/415] label=0 score=0.1
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199986, Requested 1914. Please try again in 13m40.8s. Need more tokens? Up
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199958, Requested 1914. Please try again in 13m28.704s. Need more tokens? 

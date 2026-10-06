@@ -18,6 +18,8 @@ Same examples, no training. Score = judge's stated hallucination probability.
 
 | Judge | n | AUC | PCC | Acc | Rec | F1 |
 |---|---|---|---|---|---|---|
+| gemini: gemini-3.5-flash-lite | 415 | 0.810 | 0.629 | 0.812 | 0.887 | 0.828 |
+| groq: openai/gpt-oss-120b | 124 | 0.790 | 0.465 | 0.702 | 0.929 | 0.778 |
 | llama: unsloth/Llama-3.2-3B-Instruct | 415 | 0.523 | 0.100 | 0.513 | 0.085 | 0.151 |
 
 ## Extension: robustness under corrupted retrieval

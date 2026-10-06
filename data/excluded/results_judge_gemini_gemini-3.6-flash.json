@@ -1,0 +1,20 @@
+{
+  "provider": "gemini",
+  "judge_model": "gemini-3.6-flash",
+  "n": 5,
+  "all": {
+    "AUC": 1.0,
+    "PCC": 0.9999999999999998,
+    "Acc": 1.0,
+    "Rec": 1.0,
+    "F1": 1.0
+  },
+  "same_test_split_as_llama2_7b_4bit": {
+    "AUC": 1.0,
+    "PCC": 0.9999999999999998,
+    "Acc": 1.0,
+    "Rec": 1.0,
+    "F1": 1.0
+  },
+  "n_same_test_split": 5
+}
