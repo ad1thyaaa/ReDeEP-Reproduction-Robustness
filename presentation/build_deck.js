@@ -44,7 +44,7 @@ const f3 = v => v.toFixed(3);
 // ---------------------------------------------------------------- deck
 const pres = new pptxgen();
 pres.layout = "LAYOUT_16x9"; // 10 x 5.625 in
-pres.author = "Adithya K";
+pres.author = "Gourilakshmi S, Adithya K";
 pres.title = "ReDeEP: reproduction and robustness study";
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
 const C = pres.SchemeColor;
@@ -77,8 +77,8 @@ const chartText = { catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-l
 // 1 Title ------------------------------------------------------------
 pres.addSection({ title: "Introduction" });
 let s = pres.addSlide({ masterName: "Title dark", sectionTitle: "Introduction" });
-s.addText("Catching RAG hallucinations from inside the model", { placeholder: "title" });
-s.addText("Reproducing ReDeEP (ICLR 2025) on a 6 GB laptop GPU, and finding its blind spot\nAdithya K", { placeholder: "body" });
+s.addText("ReDeEP: Detecting Hallucination in Retrieval-Augmented Generation via Mechanistic Interpretability", { placeholder: "title", fontSize: 28 });
+s.addText("A reproduction and robustness study on a 6 GB laptop GPU\nGourilakshmi S (23BCS21) & Adithya K (23BCS51)", { placeholder: "body" });
 s.addNotes("This project reproduces ReDeEP, a method that detects hallucinations in retrieval-augmented generation by reading a model's internals, and extends it with a robustness test and a comparison against GPT and Gemini judges.");
 
 // 2 Problem ------------------------------------------------------------

@@ -11,11 +11,16 @@
 
 \begin{document}
 
-\title{Catching RAG Hallucinations from Inside the Model: Reproducing and Stress-Testing ReDeEP}
+\title{ReDeEP: Detecting Hallucination in Retrieval-Augmented Generation via Mechanistic Interpretability\\[4pt]
+\large A Reproduction and Robustness Study}
 
-\author{\IEEEauthorblockN{Adithya K}
-\IEEEauthorblockA{Deep Learning Course Project, Semester VII\\
-October 2026}}
+\author{\IEEEauthorblockN{Gourilakshmi S}
+\IEEEauthorblockA{23BCS21\\
+gourilakshmis78@gmail.com}
+\and
+\IEEEauthorblockN{Adithya K}
+\IEEEauthorblockA{23BCS51\\
+aditkrishna95@gmail.com}}
 
 \maketitle
 
@@ -32,7 +37,7 @@ Retrieval-augmented generation grounds a language model's answer in a retrieved 
 
 ReDeEP~\cite{sun2025redeep} explains RAG hallucinations mechanistically. \emph{Copying heads}---attention heads that move context tokens into the residual stream---carry external knowledge, while \emph{knowledge FFNs}---feed-forward layers---inject the model's parametric knowledge. A hallucination occurs when the model under-uses the former and over-relies on the latter. ReDeEP converts both into scores and regresses the hallucination label on them.
 
-This project makes three contributions:
+Our earlier review of the method identified a gap: ReDeEP assumes the retrieved context is accurate and relevant, and is never tested under noisy or wrong retrieval, a common real-world failure. This project reproduces the method and then targets that gap directly. It makes three contributions:
 \begin{enumerate}
 \item A faithful reproduction of ReDeEP's token-level detector on RAGTruth~\cite{niu2024ragtruth} on consumer hardware (RTX~4050, 6\,GB VRAM), including memory optimisations that make 7B models feasible.
 \item A transfer study across four LLaMA-family backbones~\cite{touvron2023llama2} from 1.1B to 7B parameters.
