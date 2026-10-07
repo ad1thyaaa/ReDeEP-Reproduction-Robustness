@@ -4,8 +4,11 @@
 \usepackage{newtxtext,newtxmath}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{multirow}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cite}
 
@@ -25,26 +28,50 @@ aditkrishna95@gmail.com}}
 \maketitle
 
 \begin{abstract}
-We reproduce ReDeEP, a mechanistic-interpretability method for detecting hallucinations in retrieval-augmented generation (RAG), on the RAGTruth benchmark using a single 6\,GB laptop GPU. On the paper's own backbone, Llama-2-7B-chat, our detector reaches an AUC of 0.739 against the published 0.7325. Across four LLaMA-family models from 1.1B to 7B parameters, ReDeEP outperforms perplexity and length-normalised entropy baselines by 0.06 to 0.11 AUC. We then stress-test the method: replacing the retrieved passage with an irrelevant one raises the hallucination score sharply, but corrupting the passage's numbers, so that the response contradicts it, leaves the score unchanged or even lowers it. ReDeEP therefore measures whether a response is \emph{about} its context, not whether it \emph{agrees} with it. Finally, prompted black-box judges from the Gemini and GPT families (AUC 0.827 and 0.790) outperform ReDeEP (0.721) on the same held-out responses, while a small 3B LLaMA judge performs at chance (0.499).
+Retrieval-augmented generation (RAG) is meant to ground a language model in retrieved evidence, yet models still hallucinate even when the evidence is correct. ReDeEP (Sun et al., ICLR 2025) detects such hallucinations by reading a model's internals: it measures how much \emph{copying heads} use the retrieved context and how much \emph{knowledge FFNs} inject parametric memory. We reproduce ReDeEP on the RAGTruth benchmark with a single 6\,GB laptop GPU. On the paper's own backbone, Llama-2-7B-chat, our detector reaches an AUC of 0.739 against the published 0.7325, and the paper's two mechanistic findings replicate: all 1024 heads show lower context usage in hallucinated responses, and later-layer FFNs inject more parametric knowledge. Across four LLaMA-family models from 1.1B to 7B parameters, ReDeEP outperforms perplexity and entropy baselines by 0.06 to 0.11 AUC, although per-task AUCs are markedly lower than the pooled figure. We then stress-test the method under corrupted retrieval. An irrelevant passage raises the hallucination score sharply, but corrupting the passage's numbers, so that the response contradicts it, leaves the score unchanged or lowers it: ReDeEP measures whether a response is \emph{about} its context, not whether it \emph{agrees} with it. Finally, prompted black-box judges from the Gemini and GPT families (AUC 0.827 and 0.790) outperform ReDeEP (0.721) on the same held-out responses, while a small 3B LLaMA judge performs at chance (0.499).
 \end{abstract}
 
 \begin{IEEEkeywords}
-hallucination detection, retrieval-augmented generation, mechanistic interpretability, large language models, robustness
+hallucination detection, retrieval-augmented generation, mechanistic interpretability, large language models, robustness, reproducibility
 \end{IEEEkeywords}
 
+%=====================================================================
 \section{Introduction}
-Retrieval-augmented generation grounds a language model's answer in a retrieved passage, yet models still produce claims that the passage does not support. Such RAG hallucinations are difficult to catch with output-only signals such as perplexity, because a fluent, confident answer can still ignore its context.
+Large language models (LLMs) answer fluently but are prone to \emph{hallucination}: generating content that is not supported by any evidence. Retrieval-augmented generation (RAG) is the standard remedy. A retriever fetches passages relevant to the user's query, and the model is instructed to answer from them. RAG is therefore widely deployed where trust matters, such as legal research, medical question answering and enterprise search.
 
-ReDeEP~\cite{sun2025redeep} explains RAG hallucinations mechanistically. \emph{Copying heads}---attention heads that move context tokens into the residual stream---carry external knowledge, while \emph{knowledge FFNs}---feed-forward layers---inject the model's parametric knowledge. A hallucination occurs when the model under-uses the former and over-relies on the latter. ReDeEP converts both into scores and regresses the hallucination label on them.
+RAG does not remove the problem. Even when the retrieved passage is accurate and contains the answer, models still produce claims that contradict or go beyond it. A model may be given a passage stating that a lunar mission returned 1,935.3\,g of samples and still answer with a different number recalled from its training data. If a model can hallucinate when the correct answer is in front of it, adding retrieval is not a sufficient fix. We also need detectors that tell when a response has drifted away from its context.
 
-Our earlier review of the method identified a gap: ReDeEP assumes the retrieved context is accurate and relevant, and is never tested under noisy or wrong retrieval, a common real-world failure. This project reproduces the method and then targets that gap directly. It makes three contributions:
+ReDeEP~\cite{sun2025redeep} approaches this through \emph{mechanistic interpretability}: rather than judging the output text, it inspects how the model produced it. Its central hypothesis is that two internal components compete. \emph{Copying heads}, attention heads that move information from context tokens into the residual stream, carry the external knowledge. \emph{Knowledge FFNs}, feed-forward layers in the later part of the network, inject the model's stored, parametric knowledge. A RAG hallucination occurs when the model under-uses the first and over-relies on the second. ReDeEP turns both effects into scores and combines them into a hallucination detector.
+
+Our review of the method, prepared for this project, identified four gaps: it is validated only on LLaMA-family models, its head and layer selection is tuned by hand, its mitigation (AARF) gives only modest gains, and it \emph{assumes the retrieved context is accurate}, never testing noisy or wrong retrieval, a common failure in deployed systems. This project reproduces the method and then targets the last gap directly.
+
+\textbf{Contributions.}
 \begin{enumerate}
-\item A faithful reproduction of ReDeEP's token-level detector on RAGTruth~\cite{niu2024ragtruth} on consumer hardware (RTX~4050, 6\,GB VRAM), including memory optimisations that make 7B models feasible.
-\item A transfer study across four LLaMA-family backbones~\cite{touvron2023llama2} from 1.1B to 7B parameters.
-\item An extension that stress-tests ReDeEP under corrupted retrieval, and a comparison against black-box LLM judges from the GPT, Gemini and LLaMA families.
+\item A reproduction of ReDeEP's token-level detector on RAGTruth~\cite{niu2024ragtruth} on consumer hardware (RTX~4050, 6\,GB VRAM). Memory optimisations make 7B models feasible, and the result matches the published AUC.
+\item A replication of the paper's two mechanistic findings, and a transfer study across four LLaMA-family backbones~\cite{touvron2023llama2} from 1.1B to 7B parameters, with ROC, per-task and ablation analyses.
+\item A robustness extension that holds each response fixed and corrupts the retrieved passage, showing that ReDeEP detects off-topic context but not contradicted facts.
+\item A comparison against prompted black-box judges from the GPT, Gemini and LLaMA families on the same held-out responses.
 \end{enumerate}
 
-\section{Method}
+%=====================================================================
+\section{Background and Related Work}
+\subsection{RAG Hallucination versus Knowledge Conflict}
+ReDeEP distinguishes two failure modes. A \emph{knowledge conflict} arises when the retrieved context itself is wrong or contradicts what the model knows. A \emph{RAG hallucination} arises when the context is accurate and relevant, yet the response contradicts it or adds unsupported content. The paper targets only the second. Its datasets are chosen so that the context can be trusted, and the response is the only thing that can be wrong. Our robustness extension (Section~\ref{sec:robust}) deliberately crosses this boundary to see how the method behaves just outside its stated scope.
+
+\subsection{Families of Hallucination Detectors}
+Sun et al.\ group prior detectors into three families by which signal they read and what confounds it:
+\begin{itemize}
+\item \emph{Parametric confounded by external (PCE)} methods read hidden states to estimate what the model knows, for example EigenScore, SEP, SAPLMA and ITI. The external context mixes into these states and confounds the reading.
+\item \emph{External confounded by parametric (ECP)} methods check the response against the context with prompts or retrieval-style checks, for example RAGAS, ChainPoll and RefChecker. The checking model's own knowledge leaks into the judgement.
+\item \emph{Mixed parametric and external (MPE)} methods use uncertainty from sampling or token probabilities, for example perplexity, energy and LN-Entropy~\cite{malinin2021uncertainty}. They blend both knowledge sources without separating them.
+\end{itemize}
+None of these \emph{decouples} context usage from parametric-knowledge usage. ReDeEP's claim is that decoupling them gives a cleaner signal. In our experiments, perplexity and LN-Entropy represent the MPE family, and prompted LLM judges represent the ECP family.
+
+\subsection{Mechanistic Interpretability Tools}
+Transformer language models maintain a \emph{residual stream}: each layer reads it, and its attention and FFN blocks add their outputs back into it. Two tools let ReDeEP read this stream. First, each attention head's \emph{OV circuit} ($W_V W_O$) describes what information the head writes when it attends to a token. A head whose OV circuit maps a token's embedding back towards the same token's unembedding is a \emph{copying head}. Second, the \emph{logit lens}~\cite{logitlens} applies the model's final norm and unembedding $W_U$ to an intermediate residual state, giving the next-token distribution the model ``would predict'' at that depth. Prior work shows that FFN layers act as key-value memories that store factual knowledge~\cite{geva2021ffn}, which motivates measuring what each FFN adds.
+
+%=====================================================================
+\section{The ReDeEP Method}
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[font=\footnotesize, box/.style={draw=black!60, rounded corners=2pt, align=center, minimum height=8mm, inner sep=3pt}, >={Stealth[length=4pt]}]
@@ -59,57 +86,128 @@ Our earlier review of the method identified a gap: ReDeEP assumes the retrieved 
 \label{fig:pipeline}
 \end{figure}
 
-Fig.~\ref{fig:pipeline} summarises the detector. All quantities are computed from a single forward pass over the prompt (instruction and retrieved passage) followed by the response; $R$ denotes the set of response token positions.
+Fig.~\ref{fig:pipeline} summarises the detector. Given a prompt (instruction plus retrieved passage) and a response, ReDeEP runs one forward pass over their concatenation. Let $R$ be the set of response token positions and $C$ the set of context positions.
 
-\subsection{External Context Score}
-For head $h$ in layer $l$ and response token $n$, let $\mathcal{T}_n$ be the 10\% of context tokens the head attends to most. With $x^{L}_i$ the final-layer hidden state of token $i$,
+\subsection{External Context Score (ECS)}
+For head $h$ in layer $l$ and response token $n$, let $\mathcal{T}_n\subset C$ be the 10\% of context tokens that the head attends to most. With $x^{L}_i$ the final-layer hidden state of token $i$,
 \begin{equation}
 E^{l,h} = \frac{1}{|R|}\sum_{n\in R}\cos\!\Big(\tfrac{1}{|\mathcal{T}_n|}\textstyle\sum_{i\in\mathcal{T}_n} x^{L}_{i},\; x^{L}_{n}\Big).
 \end{equation}
-A high ECS means the response is built from what the head read in the context.
+ECS asks whether the content a head read is reflected in what the model wrote, not merely whether it attended to the right place. The paper finds that about 77.5\% of hallucinations occur even though the heads attend to the correct context, so attention location alone is not enough.
 
-\subsection{Parametric Knowledge Score}
-For layer $l$, the residual stream just before ($x^{\mathrm{mid},l}$) and after ($x^{l}$) the FFN block is projected to the vocabulary with the LogitLens~\cite{logitlens}:
+\subsection{Parametric Knowledge Score (PKS)}
+For layer $l$, the residual state just before the FFN block ($x^{\mathrm{mid},l}$) and just after the whole layer ($x^{l}$) are decoded with the logit lens. With $p_n = \sigma(W_U\,\mathrm{norm}(x_n))$ the resulting next-token distribution,
 \begin{equation}
 P^{l} = \frac{1}{|R|}\sum_{n\in R}\mathrm{JSD}\big(p^{\mathrm{mid},l}_n,\; p^{l}_n\big),
 \end{equation}
-where $p_n = \sigma(W_U\,\mathrm{norm}(x_n))$ is the LogitLens next-token distribution of a residual state, $\sigma$ the softmax and JSD the Jensen--Shannon divergence. A large shift indicates that the FFN injected its own knowledge.
+where $\sigma$ is the softmax and JSD the Jensen--Shannon divergence. A large divergence means the FFN changed what the model wanted to say, so it injected its own knowledge.
 
-\subsection{Detector and Baselines}
-Copying heads are ranked by their OV circuit, scored on 500 sampled vocabulary tokens (large trace, few Gershgorin-disc outliers); the top 8 form set $\mathcal{A}$. On each training fold, the 5 layers whose PKS correlates most positively with the label form set $\mathcal{F}$. A logistic regression is fitted on the standardised features $\bar{P}_{\mathcal{F}}$ and $-\bar{E}_{\mathcal{A}}$, with the decision threshold set at the best-F1 point on the training fold. Baselines are the response perplexity and LN-Entropy~\cite{malinin2021uncertainty} (mean per-token predictive entropy) from the same forward pass.
+\subsection{Selecting Copying Heads and Knowledge FFNs}
+Copying heads are found from weights alone. For each head we form the matrix $M = W_E\,W_V^{h}W_O^{h}\,W_U^{\top}$ restricted to a fixed random sample of 500 vocabulary tokens. A copying head has a large-magnitude trace, meaning tokens map strongly onto themselves, and few Gershgorin-disc outliers, meaning a well-conditioned diagonal. Heads are ranked by the sum of both ranks, and the top $|\mathcal{A}|=8$ form the set $\mathcal{A}$. Knowledge FFNs are chosen with labels. On each training fold, the $|\mathcal{F}|=5$ layers whose PKS correlates most positively with the hallucination label form the set $\mathcal{F}$.
 
-\subsection{Black-Box Judges}
-Each judge receives the RAG input and the response and must reply in JSON with the probability (0--100) that the response contains a claim the passage contradicts or does not support, judging against the passage only. The stated probability is used as the score.
+\subsection{Detector}
+ReDeEP models the hallucination score as $H = \alpha\,\bar{P}_{\mathcal{F}} - \beta\,\bar{E}_{\mathcal{A}}$, with $\alpha,\beta>0$, where the bars denote means over the selected layers and heads. We fit this as a logistic regression on the two standardised features $\bar{P}_{\mathcal{F}}$ and $-\bar{E}_{\mathcal{A}}$. Its probability output is the score, and the decision threshold is the best-F1 point on the training fold. Algorithm~\ref{alg:redeep} gives the scoring procedure.
 
-\section{Experimental Setup}
-All models score the same 415 responses: the RAGTruth test split restricted to responses generated by llama-2-7b-chat, the paper's setting, capped at 6{,}000 characters; 212 are hallucinated. Table~\ref{tab:backbones} lists the backbones.
+\begin{algorithm}[t]
+\caption{ReDeEP scoring of one response}
+\label{alg:redeep}
+\small
+\begin{algorithmic}[1]
+\Require prompt $c$, response $r$, heads $\mathcal{A}$, layers $\mathcal{F}$, fitted regression $g$
+\State run one forward pass on $[c; r]$; hooks record per layer the top-$k$ attended context indices and $x^{\mathrm{mid},l}$
+\For{each head $(l,h)\in\mathcal{A}$}
+  \State $E^{l,h}\gets$ mean over $n\in R$ of $\cos(\text{mean}_{i\in\mathcal{T}_n} x^{L}_i,\, x^{L}_n)$
+\EndFor
+\For{each layer $l\in\mathcal{F}$}
+  \State $P^{l}\gets$ mean over $n\in R$ of $\mathrm{JSD}(p^{\mathrm{mid},l}_n, p^{l}_n)$
+\EndFor
+\State \Return $g\big(\mathrm{mean}_{\mathcal{F}}P,\; -\mathrm{mean}_{\mathcal{A}}E\big)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{AARF Mitigation}
+The paper also proposes AARF (``Add Attention, Reduce FFN''). At decoding time it scales copying-head outputs by $\alpha_2>1$ and knowledge-FFN outputs by $\beta_2<1$, steering generation towards the context without fine-tuning. Our code base implements AARF through forward hooks. Its evaluation needs an LLM judge of generated text and was outside the scope and compute budget of this study, which focuses on detection.
+
+%=====================================================================
+\section{Dataset}
+\subsection{RAGTruth}
+RAGTruth~\cite{niu2024ragtruth} is the first large word-level hallucination corpus built specifically for RAG. It contains 17,790 responses to 2,965 source prompts. Each response was generated by one of six LLMs: GPT-3.5-turbo, GPT-4, Llama-2-7B/13B/70B-chat and Mistral-7B-Instruct. Human annotators marked every hallucinated span with its character offsets and type. It covers three task types: question answering over MS MARCO passages, summarisation of news articles, and data-to-text generation from structured Yelp business records.
+
+The corpus has two files. \texttt{source\_info.jsonl} holds each source's identifier, task type and full prompt including the retrieved context. \texttt{response.jsonl} holds each response with its generator model, train/test split, a quality flag for refusals or truncation, and the list of hallucination spans. Following the paper, a response is labelled hallucinated if it contains at least one span. We keep responses flagged as good quality.
+
+\textbf{Evaluation subset.} The paper evaluates each backbone on responses that backbone generated. We use the Llama-2-7B-chat setting: all good-quality \emph{test-split} responses generated by llama-2-7b-chat, capped at 6{,}000 characters of prompt plus response so that every example fits in 1{,}024 tokens. This yields 415 responses, of which 212 (51\%) are hallucinated. Table~\ref{tab:data} breaks them down by task.
 
 \begin{table}[t]
-\caption{Backbones (ungated Hugging Face mirrors with identical weights)}
-\label{tab:backbones}
+\caption{RAGTruth by task: full corpus and our evaluation subset}
+\label{tab:data}
 \centering\footnotesize
-\begin{tabular}{@{}lll@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llrrrr@{}}
 \toprule
-Backbone & Params & Precision \\
+& & \multicolumn{2}{c}{Full corpus} & \multicolumn{2}{c}{Our subset} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Task & Source & Resp. & Halluc. & Resp. & Halluc. \\
 \midrule
-TinyLlama-1.1B-Chat & 1.1B & fp16 \\
-Llama-3.2-1B-Instruct & 1.2B & fp16 \\
-Llama-3.2-3B-Instruct & 3.2B & 4-bit NF4 \\
-Llama-2-7B-chat & 6.7B & 4-bit NF4 \\
+Question answering & MS MARCO & 5,934 & 29\% & 149 & 35\% \\
+Summarization & CNN/DM, news & 5,658 & 30\% & 121 & 35\% \\
+Data-to-text & Yelp & 6,198 & 69\% & 145 & 81\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Experiments ran on a Lenovo LOQ laptop (RTX~4050, 6\,GB VRAM, 16\,GB RAM) with PyTorch~2.11, transformers~5.17 and bitsandbytes~0.50. Sequences are capped at 1{,}024 tokens, truncating the prompt from the left so that the whole response is scored. We report the mean and standard deviation over stratified 5-fold cross-validation; heads and layers are re-selected inside each training fold, so no test labels leak into selection.
+\subsection{Dolly (AC)}
+The paper also evaluates on Dolly (AC), a subset of Databricks' dolly-15k instruction data. It is filtered to tasks with an accurate context passage (closed QA, summarisation and information extraction), regenerated by the backbone, and hand-labelled by annotators. Dolly-15k itself has no hallucination labels, and the annotated Dolly (AC) responses are not distributed with the public data we used. We therefore restrict our study to RAGTruth.
 
-\textbf{Engineering for 6\,GB.} The reference implementation requests every full attention map, which does not fit for 7B models. We replaced it with forward hooks that keep only each layer's top-$k$ context indices, and compute the attended mean as a sparse matrix product. On a RAGTruth example the rewritten ECS matches the original to within $6\times10^{-8}$. Scoring takes about 0.6\,s per example for TinyLlama and 4--7\,s for Llama-2-7B.
+%=====================================================================
+\section{Experimental Setup}
+\subsection{Backbones}
+Table~\ref{tab:backbones} lists the four LLaMA-architecture backbones. All share the pre-norm decoder with RMSNorm, rotary embeddings and SwiGLU FFNs, so the same code applies to each. Llama-3.2 uses grouped-query attention, which our copying-head analysis handles by pairing each query head with its shared key-value head. Weights are loaded from public re-uploads of the official releases, so no gated licence is required.
 
+\begin{table}[t]
+\caption{Backbones}
+\label{tab:backbones}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Backbone & Params & Layers$\times$Heads & Vocab & Precision \\
+\midrule
+TinyLlama-1.1B-Chat & 1.1B & 22$\times$32 & 32k & fp16 \\
+Llama-3.2-1B-Instruct & 1.2B & 16$\times$32 & 128k & fp16 \\
+Llama-3.2-3B-Instruct & 3.2B & 28$\times$24 & 128k & 4-bit NF4 \\
+Llama-2-7B-chat & 6.7B & 32$\times$32 & 32k & 4-bit NF4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Hardware and Software}
+All experiments ran on a Lenovo LOQ laptop with an NVIDIA RTX~4050 Laptop GPU (6\,GB VRAM) and 16\,GB RAM, under Windows~11. We used PyTorch~2.11 with CUDA~12.8, Hugging Face transformers~5.17 and bitsandbytes~0.50. The 3B and 7B models were loaded in 4-bit NF4 with fp16 computation; the smaller models ran in fp16.
+
+\subsection{Engineering for a 6\,GB GPU}
+The reference pipeline asks the model to return every full attention matrix. For Llama-2-7B at 1{,}024 tokens that is 32 layers $\times$ 32 heads $\times$ $1024^2$ values, which does not fit beside the weights. We made three changes:
+\begin{enumerate}
+\item Forward hooks on each attention module keep only the top-$k$ context indices per head and response token, then discard the attention map.
+\item The mean of attended hidden states is computed as a sparse averaging-matrix product instead of gathering a $[H, |R|, k, d]$ tensor.
+\item Perplexity and LN-Entropy reuse the logits of the same forward pass instead of a second pass.
+\end{enumerate}
+On a RAGTruth example, the rewritten ECS matched the original implementation to within $6\times10^{-8}$, so results remain comparable. Copying-head weights are dequantised from 4-bit on the fly. Prompts longer than the budget are truncated from the left, so the whole response is always scored.
+
+\subsection{Evaluation Protocol}
+We report AUC (threshold-free ranking quality), the Pearson correlation (PCC) between score and label, and recall and F1 at the training-fold threshold. Our main protocol is stratified 5-fold cross-validation over the 415 responses, reported as mean $\pm$ standard deviation over folds. Copying heads are fixed from weights, and knowledge FFNs and the regression are re-fitted inside each training fold, so no test label influences selection. For comparisons with the judges we also use a single fixed 70/30 split, whose test part has 124 responses.
+
+\subsection{Baselines}
+\textbf{Perplexity} is the exponentiated mean negative log-likelihood of the response tokens given the prompt. \textbf{LN-Entropy} is the mean per-token entropy of the predictive distribution over the response~\cite{malinin2021uncertainty}. Both come from the same forward pass and backbone as ReDeEP. Higher values are taken to indicate hallucination.
+
+\subsection{Black-Box Judges}
+Each judge receives the RAG input and the response and replies in JSON with the probability (0--100) that the response contains a hallucination (prompt in Appendix~\ref{app:prompt}). We used Gemini 3.5 Flash-Lite through the Google AI Studio free tier. For the GPT family we used OpenAI's open-weights gpt-oss-120b, served free by Groq. We also ran Llama-3.2-3B-Instruct locally in 4-bit. The stated probability is the score.
+
+%=====================================================================
 \section{Results}
 \subsection{Hallucination Detection}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/detection_auc.pdf}
-\caption{Detection AUC per backbone. ReDeEP (orange) beats both baselines on every model; the dashed line marks the paper's Llama-2-7B result.}
+\caption{Detection AUC per backbone (mean $\pm$ std over 5 folds). ReDeEP (orange) beats both baselines on every model; the dashed line marks the paper's Llama-2-7B result.}
 \label{fig:detection}
 \end{figure}
 
@@ -134,13 +232,147 @@ Paper (Llama-2-7B) & 0.7325 & 0.3979 & -- & -- & -- \\
 \end{tabular}
 \end{table}
 
-ReDeEP reproduces on the paper's backbone: Llama-2-7B reaches an AUC of 0.739 ($\pm$0.034) against the published 0.7325, and a PCC of 0.427 against 0.3979 (Table~\ref{tab:detection}, Fig.~\ref{fig:detection}). ReDeEP beats both baselines on every backbone, by 0.06 (Llama-3.2-3B, vs.\ LN-Entropy) to 0.10 (Llama-3.2-1B, vs.\ perplexity) over the better baseline. Detection quality is roughly flat in model size: the 1.1B TinyLlama scores highest, and the 3B and 7B models lie within one standard deviation of each other. The baselines also vary more across folds (std 0.06--0.08) than ReDeEP does (0.03--0.05).
+ReDeEP reproduces on the paper's backbone: Llama-2-7B reaches an AUC of 0.739 ($\pm$0.034) against the published 0.7325, and a PCC of 0.427 against 0.3979 (Table~\ref{tab:detection}, Fig.~\ref{fig:detection}). It beats both baselines on every backbone. The margin over the better baseline ranges from 0.06 (Llama-3.2-3B against LN-Entropy) to 0.10 (Llama-3.2-1B against perplexity). Detection quality is roughly flat in model size: the 1.1B TinyLlama scores highest, and the 3B and 7B models lie within one standard deviation of each other. ReDeEP is also more stable across folds (std 0.03--0.05) than the baselines (0.06--0.08).
 
-\subsection{Black-Box LLM Judges}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/roc.pdf}
+\caption{ROC curves from out-of-fold scores. All four ReDeEP curves lie above the perplexity and LN-Entropy curves of Llama-2-7B across most of the range.}
+\label{fig:roc}
+\end{figure}
+
+Fig.~\ref{fig:roc} shows ROC curves built from out-of-fold predictions. ReDeEP dominates the baselines over most of the false-positive range rather than only at one operating point. Fig.~\ref{fig:hist} shows that its scores separate the two classes but overlap heavily in the middle, which matches an AUC in the mid-0.7s.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/score_hist.pdf}
+\caption{Distribution of out-of-fold ReDeEP scores on Llama-2-7B. Hallucinated responses shift right, with substantial overlap in the middle.}
+\label{fig:hist}
+\end{figure}
+
+\subsection{Replicating the Mechanistic Findings}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/ecs_heatmap.pdf}
+\caption{Mean ECS of truthful minus hallucinated responses for every head of Llama-2-7B. Every cell is positive: context usage is lower in hallucinated responses across all heads.}
+\label{fig:ecsmap}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/pks_by_layer.pdf}
+\caption{Mean PKS of hallucinated minus truthful responses by relative layer depth. The difference is concentrated in the later layers, where knowledge FFNs sit.}
+\label{fig:pkslayer}
+\end{figure}
+
+\begin{table}[t]
+\caption{Replication of the paper's two mechanistic findings}
+\label{tab:mech}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+& & Heads: ECS & \multicolumn{2}{c}{Layers: PKS} \\
+& & truth $>$ & \multicolumn{2}{c}{halluc.\ $>$ truth} \\
+\cmidrule(l){4-5}
+Backbone & $L\times H$ & halluc. & Early & Late \\
+\midrule
+TinyLlama-1.1B & 22$\times$32 & 704/704 & 1/11 & 8/11 \\
+Llama-3.2-1B & 16$\times$32 & 512/512 & 1/8 & 4/8 \\
+Llama-3.2-3B & 28$\times$24 & 672/672 & 2/14 & 13/14 \\
+Llama-2-7B & 32$\times$32 & 1024/1024 & 6/16 & 16/16 \\
+\midrule
+Paper (Llama-2-7B) & 32$\times$32 & 1006/1024 & \multicolumn{2}{c}{higher in later layers} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The paper reports two core observations on Llama-2-7B: copying heads use less context in hallucinated responses (1006 of 1024 heads), and later-layer FFNs inject more parametric knowledge. Both replicate (Table~\ref{tab:mech}). On Llama-2-7B, all 1024 of 1024 heads have higher mean ECS on truthful responses (Fig.~\ref{fig:ecsmap}). PKS is higher on hallucinated responses in 16 of the 16 later layers, but only 6 of the 16 earlier ones (Fig.~\ref{fig:pkslayer}). TinyLlama and Llama-3.2-3B show the same pattern clearly; Llama-3.2-1B shows it more weakly (4 of 8 later layers against 1 of 8 earlier ones).
+
+One caution applies to the ECS result. Because ECS compares final-layer hidden states for every head, the per-head scores of a response are strongly correlated. The near-unanimous head count therefore reflects a shift at the level of the whole response more than 1024 independent effects.
+
+\subsection{Performance by Task}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/per_task.pdf}
+\caption{Out-of-fold ReDeEP AUC within each task type. Dotted line: chance.}
+\label{fig:task}
+\end{figure}
+
+\begin{table}[t]
+\caption{AUC within each task: ReDeEP / best baseline (bold: ReDeEP wins)}
+\label{tab:task}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Backbone & QA & Summary & Data-to-text \\
+\midrule
+TinyLlama-1.1B & \textbf{0.598} / 0.582 & \textbf{0.662} / 0.659 & \textbf{0.639} / 0.458 \\
+Llama-3.2-1B & \textbf{0.655} / 0.563 & 0.525 / 0.668 & \textbf{0.492} / 0.419 \\
+Llama-3.2-3B & \textbf{0.608} / 0.552 & 0.519 / 0.680 & \textbf{0.499} / 0.465 \\
+Llama-2-7B & \textbf{0.623} / 0.539 & 0.561 / 0.652 & 0.396 / 0.505 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Pooled AUC hides large differences between tasks (Table~\ref{tab:task}, Fig.~\ref{fig:task}). Within a single task, ReDeEP's AUC falls to between 0.40 and 0.66. On Llama-2-7B it is 0.623 on QA, 0.561 on summarisation and 0.396 on data-to-text. ReDeEP beats the baselines on QA for every backbone, but the baselines win on summarisation for three of the four models, and on data-to-text ReDeEP is near or below chance for the three Llama models.
+
+Part of the pooled score therefore comes from separating \emph{tasks}, not responses. The hallucination rate differs strongly by task in our subset: 35\% for QA, 35\% for summarisation and 81\% for data-to-text. Internal signals also differ systematically by task. Data-to-text prompts are structured JSON, whose hidden states plausibly look unlike prose, so a detector may partly identify the task and inherit its base rate. The paper reports pooled numbers too, so the comparison with it is fair, but within-task evaluation is the more demanding test for deployment.
+
+\subsection{Ablations}
+\begin{table}[t]
+\caption{Feature ablation: out-of-fold AUC}
+\label{tab:abl}
+\centering\footnotesize
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Backbone & ECS only & PKS only & Both \\
+\midrule
+TinyLlama-1.1B & 0.727 & 0.749 & \textbf{0.770} \\
+Llama-3.2-1B & 0.717 & 0.660 & \textbf{0.739} \\
+Llama-3.2-3B & 0.717 & 0.635 & \textbf{0.728} \\
+Llama-2-7B & 0.711 & 0.708 & \textbf{0.737} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Both signals matter.} Table~\ref{tab:abl} fits the detector on each feature alone. On Llama-2-7B, ECS alone reaches 0.711 and PKS alone 0.708, while combining them gives 0.737. The combination is the best on every backbone, which supports ReDeEP's central claim that context usage and parametric injection are complementary. Which signal is stronger depends on the model: PKS dominates on TinyLlama, and ECS on the Llama-3.2 models.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\columnwidth]{figures/ablation_grid.pdf}
+\caption{Out-of-fold AUC on Llama-2-7B as the number of copying heads and knowledge-FFN layers varies. Bold: the default (8 heads, 5 layers).}
+\label{fig:grid}
+\end{figure}
+
+\textbf{Sensitivity to $|\mathcal{A}|$ and $|\mathcal{F}|$.} One of the gaps we identified was that head and layer selection is tuned by hand. Fig.~\ref{fig:grid} sweeps 1 to 32 copying heads and 1 to 10 FFN layers on Llama-2-7B. AUC stays between 0.736 and 0.751 across the whole grid, against 0.737 for our default. The detector is therefore insensitive to these hyperparameters in our setting, and the hand-tuning concern matters less than expected. This is consistent with the correlated per-head ECS noted above.
+
+\subsection{Computational Cost}
+\begin{table}[t]
+\caption{Compute cost on an RTX 4050 (415 responses)}
+\label{tab:cost}
+\centering\footnotesize
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Backbone & Copying heads (s) & Per response (s) & Total (min) \\
+\midrule
+TinyLlama-1.1B & 3.7 & 0.5 & 3.7 \\
+Llama-3.2-1B & 2.6 & 0.7 & 5.0 \\
+Llama-3.2-3B & 4.8 & 1.4 & 9.6 \\
+Llama-2-7B & 7.5 & 4.5 & 37.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:cost} reports wall-clock costs. Copying heads are computed once per model from weights in a few seconds. Scoring takes a median of about half a second per response for TinyLlama and 4.5\,s for Llama-2-7B in 4-bit. The complete Llama-2-7B run over 415 responses took 38 minutes on a laptop. ReDeEP needs no sampling, no second model and no network access.
+
+%=====================================================================
+\section{Comparison with Black-Box Judges}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/judges_auc.pdf}
-\caption{All detectors on the same 124 held-out responses. The API judges are more accurate; a small local judge is at chance.}
+\caption{All detectors on the same 124 held-out responses. The API judges are more accurate; a small local judge is at chance (dotted line, AUC 0.5).}
 \label{fig:judges}
 \end{figure}
 
@@ -163,11 +395,27 @@ Llama-3.2-3B (local) & Judge & 0.499 & -0.005 & 0.071 & 0.127 \\
 \end{tabular}
 \end{table}
 
-Large prompted judges outperform ReDeEP (Table~\ref{tab:judges}, Fig.~\ref{fig:judges}): Gemini 3.5 Flash-Lite reaches 0.827 and OpenAI's open-weights gpt-oss-120b~0.790, against 0.721 for ReDeEP on the same 124 responses. On all 415 responses the Gemini judge scores 0.810, consistent with the held-out result. Because the judges read the passage and the response as text, they can spot a contradicted fact directly---exactly ReDeEP's blind spot (Section~\ref{sec:robust}). A small prompted judge fails: Llama-3.2-3B answers ``no hallucination'' almost always (AUC 0.499), whereas reading the internals of a model of the same size (ReDeEP on Llama-3.2-3B, AUC 0.727) works far better. ReDeEP's advantage is cost and access: one forward pass of a small open model, with no API, no per-call cost and no data leaving the machine.
+\textbf{Large judges win on accuracy.} Gemini 3.5 Flash-Lite reaches 0.827 AUC and gpt-oss-120b 0.790, against 0.721 for ReDeEP on the same 124 responses (Table~\ref{tab:judges}, Fig.~\ref{fig:judges}). On all 415 responses Gemini scores 0.810, consistent with the held-out result. The judges read the passage and the response as text, so they can directly spot a number or name that does not match, which is exactly the weakness Section~\ref{sec:robust} exposes in ReDeEP. Both judges have very high recall (0.91--0.93): they flag most hallucinations, at the cost of more false alarms.
 
+\textbf{Judge scores are coarse.} Although asked for a probability, Gemini answered exactly 0 or 100 for 99.5\% of responses, which turns its output into a near-binary verdict. gpt-oss-120b used 17 distinct values. A finer-grained score would likely raise both judges' AUC further.
+
+\textbf{Small judges fail.} Llama-3.2-3B answered 0 or 100 for 99.8\% of responses and almost always said ``no hallucination'', catching 7\% of hallucinations (AUC 0.499). Reading the internals of a model of the same size (ReDeEP on Llama-3.2-3B, AUC 0.727) works far better than asking it.
+
+\textbf{Trade-off.} The judges rely on large models served behind an API, with per-call cost, rate limits and data leaving the machine. Our free-tier access was limited to 20 requests per day for the newest Gemini Flash model, which forced the use of Flash-Lite. ReDeEP runs locally on a laptop with a 7B open model. The practical choice depends on whether accuracy or cost and privacy dominate.
+
+%=====================================================================
 \section{Extension: Robustness Under Corrupted Retrieval}
 \label{sec:robust}
-We hold each response fixed and change only the retrieved passage: (i) \emph{accurate}, the real passage; (ii) \emph{irrelevant}, a passage from a different source of the same task type; (iii) \emph{numbers corrupted}, every number in the real passage multiplied by a random factor in $[1.3, 3.0]$, so that numbers the response copied are now contradicted. The detector is refitted on the remaining 265 examples, so all 150 perturbed responses are held out.
+ReDeEP assumes accurate context. We ask what its signals measure when that assumption is broken on purpose. Two outcomes are possible. If ECS and PKS track \emph{faithfulness to the given context}, a response should look hallucinated whenever its context stops supporting it. If they track something weaker, such as topical similarity, some kinds of contradiction will go unnoticed.
+
+\subsection{Design}
+We hold each response fixed and change only the retrieved passage, under three conditions:
+\begin{enumerate}
+\item \emph{Accurate:} the real RAGTruth passage (control).
+\item \emph{Irrelevant:} a passage from a different source of the same task type. Nothing in the response is supported any more.
+\item \emph{Numbers corrupted:} every number in the real passage is multiplied by a random factor in $[1.3, 3.0]$, with a fixed seed per example. Numbers the response copied are now contradicted by the passage, while the topic and wording are unchanged.
+\end{enumerate}
+We draw 150 responses (75 hallucinated), refit the detector on the remaining 265, and score each response under all three passages with TinyLlama-1.1B and Llama-2-7B. A faithful detector should raise its score under both corrupted conditions. We test the per-response score change with a paired Wilcoxon signed-rank test.
 
 \begin{figure}[t]
 \centering
@@ -196,31 +444,109 @@ Llama-2-7B & Numbers corr. & 0.510 & 0.310 & 0.092 & 0.715 \\
 \end{tabular}
 \end{table}
 
-\textbf{Irrelevant passages work as intended.} The score jumps for nearly every response (+0.317 for TinyLlama, +0.250 for Llama-2-7B, both $p<0.001$), so the original labels stop separating the responses (AUC $\approx$0.55; Fig.~\ref{fig:robust}, Table~\ref{tab:robust}). This is correct behaviour, because nothing in the response is supported by the new passage. The mechanism differs by size: in TinyLlama ECS falls (0.326 to 0.244), whereas in Llama-2-7B ECS is flat and the increase comes from PKS (0.091 to 0.114).
+\subsection{Results}
+\textbf{Irrelevant passages work as intended.} The score jumps for nearly every response, by +0.317 for TinyLlama and +0.250 for Llama-2-7B (both $p<0.001$). The original labels then stop separating the responses (AUC $\approx$0.55; Fig.~\ref{fig:robust}, Table~\ref{tab:robust}). This is correct, because nothing in a response is supported by the new passage. The mechanism differs by size. In TinyLlama, ECS falls from 0.326 to 0.244, as copying heads find nothing useful to copy. In Llama-2-7B, ECS is flat and the increase comes from PKS (0.091 to 0.114): the larger model falls back on its own knowledge.
 
-\textbf{Corrupted numbers go unnoticed.} For TinyLlama the score does not move (+0.005, $p=0.40$). For Llama-2-7B it falls slightly (-0.010, $p<0.001$) while ECS rises (0.282 to 0.310): the detector rates a contradicted response as \emph{more} faithful. Restricted to the 122 responses that state a number the corrupted passage now contradicts, the score rose in only 52\% of cases for TinyLlama and 31\% for Llama-2-7B.
+\textbf{Corrupted numbers go unnoticed.} For TinyLlama the score does not move (+0.005, $p=0.40$). For Llama-2-7B it \emph{falls} slightly (-0.010, $p<0.001$) while ECS rises from 0.282 to 0.310, so the detector rates a contradicted response as more faithful. The corruption may not touch every response, so we checked the 122 responses that state a number the corrupted passage now contradicts. Their score rose in only 52\% of cases for TinyLlama, which is chance, and 31\% for Llama-2-7B. Detection AUC against the original labels is also unchanged under this condition, so the detector behaves as if the passage were still accurate.
 
-\textbf{Interpretation.} ECS is a cosine similarity between hidden states: it measures whether the response is built from what the copying heads read, not whether the facts match. A plausible explanation is that a changed number barely moves the hidden state, so ReDeEP cannot see it. The method thus catches topical hallucinations but needs a complementary fact-level check for numeric or entity contradictions.
+\subsection{Interpretation}
+ECS is a cosine similarity between hidden states. It measures whether the response is built from the same \emph{content} the copying heads read, not whether individual facts agree. A changed number in an otherwise identical sentence plausibly moves the hidden state very little, so ReDeEP cannot see it. PKS does not compensate: the FFNs inject no more parametric knowledge when the passage's numbers change.
 
-\section{Limitations}
+ReDeEP is therefore a detector of \emph{topical} hallucination: a response that drifts away from what the context is about. It is not a detector of \emph{factual} inconsistency with the context. In deployment, it should be paired with a fact-level check, such as matching numbers and entities between response and context, or a text-level judge. Notably, the paper's motivating example is itself a wrong number, which is the kind of error our experiment suggests ReDeEP is least sensitive to.
+
+%=====================================================================
+\section{Discussion}
+\textbf{What reproduces.} The headline detection result reproduces closely on a laptop GPU, despite 4-bit weights and a sampled vocabulary for copying-head analysis. So do both mechanistic observations. The method also transfers to smaller and newer LLaMA models with little loss, which is encouraging for low-cost use.
+
+\textbf{What the pooled number hides.} Per-task AUCs are 0.08--0.35 lower than pooled AUCs, and on data-to-text ReDeEP is unreliable for three of the four backbones. Evaluating hallucination detectors within task, or reporting both numbers, would give a more realistic picture of deployment performance.
+
+\textbf{Internals versus judges.} Reading internals is cheap, local and needs no prompt, but on our data it is less accurate than asking a strong model. The two approaches fail differently. ReDeEP misses contradicted facts, while the judges are coarse and over-flag. A combination, for example ReDeEP as a free first-pass filter and a judge on flagged responses, is a natural next step.
+
+%=====================================================================
+\section{Limitations and Threats to Validity}
 \begin{itemize}
-\item \emph{Quantisation:} the 3B and 7B models ran in 4-bit NF4, so their ECS and PKS approximate full precision; the 7B match with the paper suggests the effect is small.
-\item \emph{Sampled copying-head scores:} OV circuits are scored on 500 sampled vocabulary tokens rather than the full vocabulary.
-\item \emph{One generator:} all responses come from llama-2-7b-chat, so the other backbones score text they did not write.
-\item \emph{Sample size:} fold standard deviations are 0.03--0.05 AUC; smaller differences are within noise.
-\item \emph{Robustness scope:} only numbers are corrupted; entity swaps and negations are untested.
-\item \emph{Judge access:} judges ran on free API tiers; the GPT-family judge is the open-weights gpt-oss-120b, evaluated on the 124 held-out responses because of rate limits.
+\item \emph{Quantisation:} the 3B and 7B models ran in 4-bit NF4, so their ECS and PKS approximate full precision. The close match with the paper suggests the effect is small.
+\item \emph{Sampled copying-head scores:} OV circuits are scored on 500 sampled vocabulary tokens rather than the full vocabulary of 32k to 128k tokens.
+\item \emph{One generator:} all responses come from llama-2-7b-chat, so the other three backbones score text they did not write. This differs from the paper's matched setting.
+\item \emph{Token level only:} we reproduce ReDeEP(token). The chunk-level variant, which the paper reports as stronger, is not evaluated.
+\item \emph{Sample size:} 415 responses give fold standard deviations of 0.03--0.05 AUC, and differences below about 0.05 are within noise. Judge comparisons use 124 responses.
+\item \emph{Robustness scope:} only numbers are corrupted. Entity swaps, negations and partially relevant passages are untested.
+\item \emph{Judge access:} judges ran once, at default sampling settings, on free tiers. The GPT-family judge is the open-weights gpt-oss-120b, not a proprietary GPT-4-class model.
 \end{itemize}
 
-\section{Conclusion}
-ReDeEP reproduces on a laptop GPU (AUC 0.739 vs.\ 0.7325) and beats uncertainty baselines on four LLaMA models from 1.1B to 7B parameters. Its signals catch responses that are off-topic for their context but not responses that contradict their context's numbers. Large prompted judges are more accurate but require an API; small prompted judges do not work. ReDeEP is therefore best used as a cheap, private first-line detector for topical hallucinations, paired with a fact-level check. Future work: entity and negation corruptions, a numeric-consistency feature combined with ECS, full-precision runs on larger GPUs with backbone-matched responses, and judge evaluation on all responses with repeated sampling.
+%=====================================================================
+\section{Conclusion and Future Work}
+We reproduced ReDeEP on a 6\,GB laptop GPU. The detector reaches an AUC of 0.739 on Llama-2-7B against 0.7325 in the paper, both of the paper's mechanistic findings replicate, and the method beats uncertainty baselines on four LLaMA models from 1.1B to 7B parameters. Its accuracy is insensitive to the number of selected heads and layers, and both of its signals contribute.
+
+Our extension shows the method's boundary. ReDeEP catches responses that are off-topic for their context but not responses that contradict their context's numbers. Prompted judges from the Gemini and GPT families are more accurate, while small prompted judges do not work at all.
+
+ReDeEP is therefore best used as a cheap, private first-line detector for topical hallucinations, paired with a fact-level check. Future work includes entity and negation corruptions, a numeric-consistency feature combined with ECS, the chunk-level variant, full-precision runs with backbone-matched responses on larger GPUs, an evaluation of AARF mitigation, and judge evaluation on all responses with repeated sampling.
 
 \begin{thebibliography}{9}
 \bibitem{sun2025redeep} Z.~Sun \emph{et al.}, ``ReDeEP: Detecting hallucination in retrieval-augmented generation via mechanistic interpretability,'' in \emph{Proc. Int. Conf. Learning Representations (ICLR)}, 2025.
 \bibitem{niu2024ragtruth} C.~Niu \emph{et al.}, ``RAGTruth: A hallucination corpus for developing trustworthy retrieval-augmented language models,'' in \emph{Proc. Annu. Meeting Assoc. Comput. Linguistics (ACL)}, 2024.
 \bibitem{touvron2023llama2} H.~Touvron \emph{et al.}, ``Llama 2: Open foundation and fine-tuned chat models,'' arXiv:2307.09288, 2023.
 \bibitem{malinin2021uncertainty} A.~Malinin and M.~Gales, ``Uncertainty estimation in autoregressive structured prediction,'' in \emph{Proc. ICLR}, 2021.
+\bibitem{geva2021ffn} M.~Geva, R.~Schuster, J.~Berant and O.~Levy, ``Transformer feed-forward layers are key-value memories,'' in \emph{Proc. Conf. Empirical Methods in Natural Language Processing (EMNLP)}, 2021.
 \bibitem{logitlens} nostalgebraist, ``Interpreting GPT: the logit lens,'' LessWrong, 2020.
 \end{thebibliography}
+
+\appendices
+\section{Hyperparameters}
+\label{app:hyper}
+\begin{table}[h]
+\centering\footnotesize
+\begin{tabular}{@{}ll@{}}
+\toprule
+Setting & Value \\
+\midrule
+Top-$k$ attended context tokens & 10\% of context length \\
+Copying heads $|\mathcal{A}|$ / FFN layers $|\mathcal{F}|$ & 8 / 5 \\
+Vocabulary sample for OV analysis & 500 tokens, seed 0 \\
+Maximum sequence length & 1{,}024 tokens \\
+Maximum prompt + response length & 6{,}000 characters \\
+Cross-validation & stratified 5-fold, seed 0 \\
+Single split & 70/30, seed 0 (124 test responses) \\
+Classifier & logistic regression \\
+Feature scaling & standardised (z-score) \\
+Threshold & best F1 on training fold \\
+Quantisation (3B, 7B) & bitsandbytes NF4, fp16 compute \\
+Robustness corruption factor & uniform in $[1.3, 3.0]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Judge Prompt}
+\label{app:prompt}
+System message given to every judge:
+\begin{footnotesize}
+\begin{verbatim}
+You are an expert fact-checker for retrieval-
+augmented generation. You will be given the input
+that was shown to an AI assistant (a task
+instruction plus retrieved reference content) and
+the assistant's response. Decide whether the
+response contains any hallucination: a claim that
+contradicts the reference content, or information
+that is not supported by the reference content.
+Judge only against the reference content, not
+against your own world knowledge.
+\end{verbatim}
+\end{footnotesize}
+The user message contains the full RAG input and the response, and asks for a JSON reply with two fields: \texttt{hallucination\_probability}, an integer from 0 to 100, and a one-sentence \texttt{reason}.
+
+\section{Reproducibility}
+All code, cached scores and logs are in the project repository. From the \texttt{redeep/} directory:
+\begin{footnotesize}
+\begin{verbatim}
+pip install -r requirements.txt
+bash scripts/run_llama_family.sh   # detection
+bash scripts/run_extensions.sh     # robustness
+bash scripts/run_api_judges.sh     # GPT/Gemini
+python paper/analysis.py           # ablations etc.
+python paper/build_paper.py        # this report
+\end{verbatim}
+\end{footnotesize}
+Every number in this report is generated from the result files by \texttt{build\_paper.py}; none is typed by hand.
 
 \end{document}
