@@ -1,0 +1,144 @@
+Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+  2 aarf_first: aarf_won=False
+  2 baseline_first: aarf_won=True
+  3 aarf_first: aarf_won=False
+  3 baseline_first: aarf_won=False
+  5 aarf_first: aarf_won=True
+  5 baseline_first: aarf_won=False
+  7 aarf_first: aarf_won=True
+  7 baseline_first: aarf_won=True
+  9 aarf_first: aarf_won=False
+  9 baseline_first: aarf_won=True
+  10 aarf_first: aarf_won=True
+  10 baseline_first: aarf_won=True
+  11 aarf_first: aarf_won=False
+  11 baseline_first: aarf_won=True
+  12 aarf_first: aarf_won=True
+  12 baseline_first: aarf_won=True
+  13 aarf_first: aarf_won=True
+  13 baseline_first: aarf_won=False
+  14 aarf_first: aarf_won=True
+  14 baseline_first: aarf_won=True
+  16 aarf_first: aarf_won=False
+  16 baseline_first: aarf_won=False
+  19 aarf_first: aarf_won=True
+  19 baseline_first: aarf_won=True
+  21 aarf_first: aarf_won=False
+  21 baseline_first: aarf_won=False
+  24 aarf_first: aarf_won=True
+  24 baseline_first: aarf_won=False
+  25 aarf_first: aarf_won=True
+  25 baseline_first: aarf_won=True
+  26 aarf_first: aarf_won=True
+  26 baseline_first: aarf_won=True
+  27 aarf_first: aarf_won=True
+  27 baseline_first: aarf_won=False
+  29 aarf_first: aarf_won=False
+  29 baseline_first: aarf_won=False
+  30 aarf_first: aarf_won=False
+  30 baseline_first: aarf_won=False
+  31 aarf_first: aarf_won=False
+  31 baseline_first: aarf_won=False
+  32 aarf_first: aarf_won=False
+  32 baseline_first: aarf_won=True
+  33 aarf_first: aarf_won=False
+  33 baseline_first: aarf_won=True
+  34 aarf_first: aarf_won=True
+  34 baseline_first: aarf_won=True
+  37 aarf_first: aarf_won=True
+  37 baseline_first: aarf_won=False
+  39 aarf_first: aarf_won=True
+  39 baseline_first: aarf_won=None
+  40 aarf_first: aarf_won=True
+  40 baseline_first: aarf_won=False
+  41 aarf_first: aarf_won=True
+  41 baseline_first: aarf_won=False
+  42 aarf_first: aarf_won=True
+  42 baseline_first: aarf_won=False
+  43 aarf_first: aarf_won=False
+  43 baseline_first: aarf_won=False
+  44 aarf_first: aarf_won=True
+  44 baseline_first: aarf_won=False
+  45 aarf_first: aarf_won=True
+  45 baseline_first: aarf_won=False
+  46 aarf_first: aarf_won=True
+  46 baseline_first: aarf_won=True
+  47 aarf_first: aarf_won=False
+  47 baseline_first: aarf_won=True
+  48 aarf_first: aarf_won=None
+  48 baseline_first: aarf_won=True
+  49 aarf_first: aarf_won=False
+  49 baseline_first: aarf_won=False
+  52 aarf_first: aarf_won=False
+  52 baseline_first: aarf_won=False
+  54 aarf_first: aarf_won=False
+  54 baseline_first: aarf_won=True
+  55 aarf_first: aarf_won=True
+  55 baseline_first: aarf_won=False
+  56 aarf_first: aarf_won=True
+  56 baseline_first: aarf_won=True
+  57 aarf_first: aarf_won=True
+  57 baseline_first: aarf_won=False
+  58 aarf_first: aarf_won=True
+  58 baseline_first: aarf_won=True
+  61 aarf_first: aarf_won=False
+  61 baseline_first: aarf_won=False
+  63 aarf_first: aarf_won=True
+  63 baseline_first: aarf_won=False
+  64 aarf_first: aarf_won=False
+  64 baseline_first: aarf_won=False
+  66 aarf_first: aarf_won=None
+  66 baseline_first: aarf_won=False
+  75 aarf_first: aarf_won=True
+  75 baseline_first: aarf_won=True
+  76 aarf_first: aarf_won=False
+  76 baseline_first: aarf_won=True
+  79 aarf_first: aarf_won=None
+  79 baseline_first: aarf_won=True
+  80 aarf_first: aarf_won=False
+  80 baseline_first: aarf_won=True
+  84 aarf_first: aarf_won=True
+  84 baseline_first: aarf_won=True
+  85 aarf_first: aarf_won=False
+  85 baseline_first: aarf_won=False
+  86 aarf_first: aarf_won=True
+  86 baseline_first: aarf_won=True
+  89 aarf_first: aarf_won=True
+  89 baseline_first: aarf_won=True
+  90 aarf_first: aarf_won=True
+  90 baseline_first: aarf_won=True
+  91 aarf_first: aarf_won=None
+  91 baseline_first: aarf_won=None
+  92 aarf_first: aarf_won=True
+  92 baseline_first: aarf_won=True
+  93 aarf_first: aarf_won=False
+  93 baseline_first: aarf_won=False
+  95 aarf_first: aarf_won=None
+  95 baseline_first: aarf_won=False
+  96 aarf_first: aarf_won=None
+  96 baseline_first: aarf_won=None
+  97 aarf_first: aarf_won=True
+  97 baseline_first: aarf_won=True
+  98 aarf_first: aarf_won=True
+  98 baseline_first: aarf_won=True
+  99 aarf_first: aarf_won=False
+  99 baseline_first: aarf_won=False
+  100 aarf_first: aarf_won=False
+  100 baseline_first: aarf_won=False
+{
+ "judge_model": "gemini-3.5-flash-lite",
+ "n_prompts": 99,
+ "n_identical": 36,
+ "n_judged_pairs": 63,
+ "official_order_aarf_first": {
+  "AARF": 33,
+  "Baseline": 24,
+  "unparsed": 6
+ },
+ "both_orders": {
+  "Tie/inconsistent": 29,
+  "Baseline": 15,
+  "AARF": 19
+ },
+ "interventions_mean": 104.98989898989899
+}

@@ -1,0 +1,56 @@
+415 examples (212 hallucinated)
+  [208/415] label=0 score=0.1
+  [211/415] label=1 score=0.88
+  [212/415] label=0 score=0.9
+  [214/415] label=1 score=0.95
+  [215/415] label=1 score=0.9
+  [217/415] label=0 score=0.05
+  [219/415] label=0 score=0.1
+  [222/415] label=0 score=0.05
+  [223/415] label=0 score=0.95
+  [224/415] label=0 score=0.05
+  [226/415] label=0 score=0.05
+  [227/415] label=1 score=0.9
+  [228/415] label=0 score=0.9
+  [229/415] label=1 score=0.85
+  [230/415] label=0 score=0.05
+  [232/415] label=1 score=0.95
+  [233/415] label=0 score=0.7
+  [234/415] label=0 score=0.1
+  [235/415] label=0 score=0.85
+  [237/415] label=1 score=0.9
+  [238/415] label=0 score=0.1
+  [239/415] label=0 score=0.95
+    retry 1/5: APIConnectionError('Connection error.')
+    retry 2/5: APIConnectionError('Connection error.')
+    retry 3/5: APIConnectionError('Connection error.')
+    retry 4/5: APIConnectionError('Connection error.')
+    retry 5/5: APIConnectionError('Connection error.')
+  [241/415] FAILED: APIConnectionError('Connection error.')
+    retry 1/5: APIConnectionError('Connection error.')
+    retry 2/5: APIConnectionError('Connection error.')
+    retry 3/5: APIConnectionError('Connection error.')
+    retry 4/5: APIConnectionError('Connection error.')
+    retry 5/5: APIConnectionError('Connection error.')
+  [242/415] FAILED: APIConnectionError('Connection error.')
+    retry 1/5: APIConnectionError('Connection error.')
+    retry 2/5: APIConnectionError('Connection error.')
+    retry 3/5: APIConnectionError('Connection error.')
+    retry 4/5: APIConnectionError('Connection error.')
+    retry 5/5: APIConnectionError('Connection error.')
+  [243/415] FAILED: APIConnectionError('Connection error.')
+  3 consecutive failures (quota exhausted?) -- stopping; re-run later to resume.
+
+parsed 293/293 judge replies
+=== all ===
+  AUC: 0.8024
+  PCC: 0.5443
+  Acc: 0.7338
+  Rec: 0.9423
+  F1: 0.7903
+=== same_test_split_as_llama2_7b_4bit ===
+  AUC: 0.7897
+  PCC: 0.4651
+  Acc: 0.7016
+  Rec: 0.9286
+  F1: 0.7784

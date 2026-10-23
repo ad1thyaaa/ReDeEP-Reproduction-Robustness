@@ -1,0 +1,215 @@
+415 examples (212 hallucinated)
+  [19/415] label=0 score=0.1
+    retry 1/5: APIConnectionError('Connection error.')
+  [20/415] label=0 score=0.05
+  [25/415] label=1 score=0.88
+  [26/415] label=1 score=0.9
+  [28/415] label=1 score=0.95
+  [29/415] label=0 score=0.05
+  [30/415] label=1 score=0.9
+  [31/415] label=0 score=0.05
+  [32/415] label=1 score=0.7
+  [33/415] label=1 score=0.85
+  [34/415] label=0 score=0.95
+  [35/415] label=1 score=0.85
+  [36/415] label=1 score=0.9
+  [37/415] label=0 score=0.95
+  [39/415] label=0 score=0.85
+  [40/415] label=0 score=0.9
+  [41/415] label=0 score=0.9
+  [42/415] label=0 score=0.05
+  [43/415] label=1 score=0.1
+  [44/415] label=0 score=0.05
+  [45/415] label=0 score=0.1
+  [47/415] label=1 score=0.9
+  [48/415] label=0 score=0.85
+  [49/415] label=0 score=0.05
+  [51/415] label=1 score=0.9
+  [52/415] label=1 score=0.95
+  [54/415] label=0 score=0.05
+  [58/415] label=1 score=0.9
+  [59/415] label=1 score=0.9
+  [62/415] label=1 score=0.95
+  [63/415] label=1 score=0.8
+  [67/415] label=1 score=0.95
+  [68/415] label=0 score=0.05
+  [70/415] label=0 score=0.85
+  [71/415] label=0 score=0.95
+  [72/415] label=1 score=0.08
+  [73/415] label=1 score=0.95
+  [74/415] label=0 score=0.07
+  [78/415] label=1 score=0.85
+  [80/415] label=1 score=0.9
+  [81/415] label=0 score=0.65
+  [83/415] label=1 score=0.85
+  [84/415] label=0 score=0.95
+  [85/415] label=0 score=0.88
+  [86/415] label=1 score=0.85
+  [87/415] label=1 score=0.85
+  [88/415] label=1 score=0.8
+  [89/415] label=0 score=0.05
+  [90/415] label=1 score=0.92
+  [92/415] label=1 score=0.95
+  [93/415] label=0 score=0.95
+  [94/415] label=0 score=0.35
+  [95/415] label=1 score=0.95
+  [96/415] label=1 score=0.85
+  [97/415] label=1 score=0.92
+  [98/415] label=1 score=0.9
+  [99/415] label=1 score=0.9
+  [100/415] label=0 score=0.95
+  [102/415] label=0 score=0.05
+  [104/415] label=1 score=0.9
+  [105/415] label=1 score=0.9
+  [106/415] label=0 score=0.9
+  [109/415] label=1 score=0.9
+  [110/415] label=0 score=0.05
+  [111/415] label=1 score=0.85
+  [112/415] label=0 score=0.8
+  [113/415] label=1 score=0.9
+  [115/415] label=0 score=0.05
+  [116/415] label=1 score=0.9
+  [117/415] label=0 score=0.8
+    retry 1/5: APIConnectionError('Connection error.')
+  [118/415] label=0 score=0.7
+  [119/415] label=1 score=0.95
+  [120/415] label=1 score=0.95
+  [121/415] label=0 score=0.07
+  [122/415] label=0 score=0.1
+  [124/415] label=1 score=0.9
+  [126/415] label=0 score=0.05
+  [127/415] label=0 score=0.05
+  [128/415] label=0 score=0.85
+  [129/415] label=1 score=0.9
+  [130/415] label=0 score=0.9
+  [131/415] label=0 score=0.8
+  [132/415] label=0 score=0.85
+  [134/415] label=0 score=0.12
+  [137/415] label=1 score=0.95
+  [138/415] label=0 score=0.6
+  [139/415] label=0 score=0.05
+  [140/415] label=1 score=0.9
+  [141/415] label=1 score=0.95
+  [144/415] label=1 score=0.9
+  [147/415] label=0 score=0.95
+  [148/415] label=0 score=0.05
+  [149/415] label=1 score=0.95
+  [150/415] label=0 score=0.95
+  [152/415] label=0 score=0.8
+  [153/415] label=1 score=0.95
+  [157/415] label=1 score=0.95
+  [160/415] label=0 score=0.07
+  [161/415] label=1 score=0.9
+  [162/415] label=0 score=0.05
+  [163/415] label=0 score=0.95
+  [164/415] label=0 score=0.05
+  [166/415] label=1 score=0.9
+  [167/415] label=1 score=0.95
+  [168/415] label=0 score=0.05
+  [170/415] label=0 score=0.05
+  [172/415] label=1 score=0.85
+  [173/415] label=0 score=0.85
+  [174/415] label=0 score=0.05
+  [175/415] label=1 score=0.9
+  [176/415] label=1 score=0.9
+  [178/415] label=1 score=0.95
+  [179/415] label=1 score=0.9
+  [181/415] label=0 score=0.05
+  [182/415] label=1 score=0.85
+  [183/415] label=1 score=0.95
+  [184/415] label=1 score=0.2
+  [185/415] label=0 score=0.05
+  [186/415] label=1 score=0.85
+  [188/415] label=1 score=0.95
+  [190/415] label=1 score=0.95
+  [192/415] label=1 score=0.9
+  [193/415] label=1 score=0.85
+  [194/415] label=0 score=0.7
+  [195/415] label=1 score=0.95
+  [196/415] label=1 score=0.95
+  [197/415] label=1 score=0.95
+  [198/415] label=0 score=0.05
+  [201/415] label=0 score=0.1
+  [202/415] label=1 score=0.9
+  [203/415] label=1 score=0.95
+  [204/415] label=1 score=0.7
+  [205/415] label=0 score=0.9
+  [206/415] label=1 score=0.45
+  [207/415] label=1 score=0.85
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199053, Requested 1642. Please try again in 5m0.24s. Need more tokens? Upg
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199026, Requested 1742. Please try again in 5m31.776s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198998, Requested 1742. Please try again in 5m19.68s. Need more tokens? Up
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198952, Requested 1742. Please try again in 4m59.808s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198858, Requested 1659. Please try again in 3m43.344s. Need more tokens? U
+  [208/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198858, Requested 1659. Please try again in 3m43.344s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198718, Requested 1793. Please try again in 3m40.752s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198690, Requested 1793. Please try again in 3m28.656s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198663, Requested 1776. Please try again in 3m9.648s. Need more tokens? Up
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198616, Requested 1876. Please try again in 3m32.543999999s. Need more tok
+  [210/415] label=1 score=0.9
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199977, Requested 2082. Please try again in 14m49.488s. Need more tokens? 
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199948, Requested 2260. Please try again in 15m53.856s. Need more tokens? 
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199921, Requested 2343. Please try again in 16m18.048s. Need more tokens? 
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199875, Requested 2082. Please try again in 14m5.424s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199781, Requested 2343. Please try again in 15m17.568s. Need more tokens? 
+  [211/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199781, Requested 2343. Please try again in 15m17.568s. Need more tokens? 
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199641, Requested 1381. Please try again in 7m21.504s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199614, Requested 1381. Please try again in 7m9.84s. Need more tokens? Upg
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199586, Requested 1343. Please try again in 6m41.328s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199538, Requested 1637. Please try again in 8m27.6s. Need more tokens? Upg
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199445, Requested 1351. Please try again in 5m43.872s. Need more tokens? U
+  [212/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199445, Requested 1351. Please try again in 5m43.872s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199306, Requested 980. Please try again in 2m3.552s. Need more tokens? Upg
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199278, Requested 1019. Please try again in 2m8.304s. Need more tokens? Up
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199251, Requested 1255. Please try again in 3m38.592s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199204, Requested 995. Please try again in 1m25.968s. Need more tokens? Up
+  [213/415] label=0 score=0.05
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199848, Requested 1335. Please try again in 8m31.056s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199820, Requested 1316. Please try again in 8m10.752s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199793, Requested 1376. Please try again in 8m25.008s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199746, Requested 1323. Please try again in 7m41.808s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199626, Requested 1367. Please try again in 7m8.976s. Need more tokens? Up
+  [214/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199626, Requested 1367. Please try again in 7m8.976s. Need more tokens? Up
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199470, Requested 1127. Please try again in 4m17.904s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199458, Requested 1014. Please try again in 3m23.904s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199430, Requested 1137. Please try again in 4m4.944s. Need more tokens? Up
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199382, Requested 1133. Please try again in 3m42.48s. Need more tokens? Up
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199289, Requested 1154. Please try again in 3m11.376s. Need more tokens? U
+  [215/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199289, Requested 1154. Please try again in 3m11.376s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199150, Requested 1155. Please try again in 2m11.76s. Need more tokens? Up
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199122, Requested 1155. Please try again in 1m59.664s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198925, Requested 1185. Please try again in 47.52s. Need more tokens? Upgr
+  [216/415] label=0 score=0.85
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199763, Requested 1225. Please try again in 7m6.816s. Need more tokens? Up
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199735, Requested 1124. Please try again in 6m11.088s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199708, Requested 1259. Please try again in 6m57.744s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199661, Requested 1265. Please try again in 6m40.032s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199568, Requested 1307. Please try again in 6m18s. Need more tokens? Upgra
+  [217/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199568, Requested 1307. Please try again in 6m18s. Need more tokens? Upgra
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199429, Requested 1765. Please try again in 8m35.808s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199401, Requested 1653. Please try again in 7m35.328s. Need more tokens? U
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199373, Requested 1769. Please try again in 8m13.344s. Need more tokens? U
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199327, Requested 1769. Please try again in 7m53.472s. Need more tokens? U
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199234, Requested 1814. Please try again in 7m32.736s. Need more tokens? U
+  [219/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199234, Requested 1814. Please try again in 7m32.736s. Need more tokens? U
+    retry 1/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199095, Requested 1381. Please try again in 3m25.632s. Need more tokens? U
+    retry 2/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199067, Requested 1381. Please try again in 3m13.535999999s. Need more tok
+    retry 3/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199039, Requested 1574. Please try again in 4m24.815999999s. Need more tok
+    retry 4/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198993, Requested 1574. Please try again in 4m4.944s. Need more tokens? Up
+    retry 5/5: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198900, Requested 1574. Please try again in 3m24.768s. Need more tokens? U
+  [222/415] FAILED: RateLimitError("Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m47pp53yefavyagq1t784w7c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198900, Requested 1574. Please try again in 3m24.768s. Need more tokens? U
+  3 consecutive failures (quota exhausted?) -- stopping; re-run later to resume.
+
+parsed 271/271 judge replies
+=== all ===
+  AUC: 0.8011
+  PCC: 0.5358
+  Acc: 0.7343
+  Rec: 0.9396
+  F1: 0.7955
+=== same_test_split_as_llama2_7b_4bit ===
+  AUC: 0.7897
+  PCC: 0.4651
+  Acc: 0.7016
+  Rec: 0.9286
+  F1: 0.7784

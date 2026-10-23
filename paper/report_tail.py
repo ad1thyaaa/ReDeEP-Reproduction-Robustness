@@ -82,6 +82,83 @@ V.update(dict(
     prompt=prompt_wrapped,
 ))
 
+# ---------------------------------------------------------------- official code/data reproduction
+from scipy.stats import binomtest
+opt = lambda f: json.loads((DATA / f).read_text()) if (DATA / f).exists() else None
+ev_off = opt("eval_chunk_official_llama2_7B_response_chunk.json")
+BIG = [("Llama-2-7B", "llama2_7b"), ("Llama-2-13B", "llama2_13b"), ("Llama-3-8B", "llama3_8b")]
+cell = lambda m, s=None: "--" if m is None else (f"{m:.3f}" + (f" ({s:.3f})" if s is not None else ""))
+def tok_auc(tag, ds):
+    if tag == "llama2_7b" and ds == "ragtruth":
+        return R["Llama-2-7B (4-bit)"]["cv"]["AUC"][0]
+    r = opt(f"results_tok_{tag}_{ds}.json")
+    return r["cv"]["AUC"][0] if r else None
+def ch_auc(tag, ds):
+    e = opt(f"eval_chunk_{tag}_{ds}.json")
+    return (e["nested_cv"]["AUC_mean"], e["official_protocol"]["AUC"]) if e else (None, None)
+official_rows = []
+for name, tag in BIG:
+    cr, cd = ch_auc(tag, "ragtruth"), ch_auc(tag, "dolly")
+    official_rows.append(f"{name} & {cell(tok_auc(tag, 'ragtruth'))} & {cell(*cr)} & {cell(tok_auc(tag, 'dolly'))} & {cell(*cd)} \\\\")
+official_rows = "\n".join(official_rows)
+
+e7r, e7d = opt("eval_chunk_llama2_7b_ragtruth.json"), opt("eval_chunk_llama2_7b_dolly.json")
+audit = [("Authors' logs, RAGTruth", ev_off), ("Ours, RAGTruth", e7r), ("Ours, Dolly (AC)", e7d)]
+for name, tag in BIG[1:]:
+    for ds, dn in (("ragtruth", "RAGTruth"), ("dolly", "Dolly (AC)")):
+        e = opt(f"eval_chunk_{tag}_{ds}.json")
+        if e:
+            audit.append((f"Ours {name}, {dn}", e))
+audit_rows = "\n".join(f"{n} & {e['official_protocol']['AUC']:.3f} & {e['tuned_on_test']['AUC']:.3f} & "
+                       f"\\textbf{{{e['nested_cv']['AUC_mean']:.3f}}} \\\\" for n, e in audit)
+td7 = opt("results_tok_llama2_7b_dolly.json")
+
+big_have = [(n, t) for n, t in BIG[1:] if opt(f"results_tok_{t}_ragtruth.json")]
+if big_have:
+    parts = []
+    for n, t in big_have:
+        r = opt(f"results_tok_{t}_ragtruth.json")
+        parts.append(f"{n} reaches a token-level AUC of {r['cv']['AUC'][0]:.3f} on its own {r['n']} RAGTruth responses "
+                     f"(perplexity {r['cv']['PPL_AUC'][0]:.3f}, LN-Entropy {r['cv']['LNEnt_AUC'][0]:.3f})")
+    big_para = ("\\textbf{Larger backbones.} Llama-2-13B-chat and Llama-3-8B-Instruct do not fit a 6\\,GB GPU, so we ran them in "
+                "4-bit on a free Kaggle T4 GPU with the same code, each scoring its own responses. " + "; ".join(parts) + ".")
+    big_contrib = "the paper's two larger backbones (Llama-2-13B, Llama-3-8B), "
+    aarf_lim = ""
+else:
+    big_para = ("\\textbf{Larger backbones.} Llama-2-13B and Llama-3-8B do not fit a 6\\,GB GPU; their rows are left empty here.")
+    big_contrib = ""
+    aarf_lim = ""
+
+# AARF
+ar = opt("aarf_result_llama2_7b.json")
+arows = [json.loads(l) for l in open(DATA / "aarf_llama2_7b.jsonl", encoding="utf-8")]
+gates = np.concatenate([np.array(r["gate_trace"])[:, 2] for r in arows if r.get("gate_trace")])
+jrows = [json.loads(l) for l in open(DATA / "aarf_judge_llama2_7b.jsonl", encoding="utf-8")]
+byid = {}
+for x in jrows:
+    byid.setdefault(x["id"], {})[x["order"]] = x["aarf_won"]
+both_parsed = [v for v in byid.values() if v.get("aarf_first") is not None and v.get("baseline_first") is not None]
+flips = sum(v["aarf_first"] != v["baseline_first"] for v in both_parsed)
+bA = sum(v["aarf_first"] and v["baseline_first"] for v in both_parsed)
+bB = sum((not v["aarf_first"]) and (not v["baseline_first"]) for v in both_parsed)
+first = [v.get("aarf_first") for v in byid.values()]
+V.update(dict(
+    chR7=f3(e7r["nested_cv"]["AUC_mean"]), chR7off=f3(e7r["official_protocol"]["AUC"]),
+    chOff=f3(ev_off["nested_cv"]["AUC_mean"]), chOffoff=f3(ev_off["official_protocol"]["AUC"]),
+    offPcc=f3(ev_off["official_protocol"]["PCC"]),
+    leakR=f3(ev_off["official_protocol"]["AUC"] - ev_off["nested_cv"]["AUC_mean"]),
+    leakD=f3(e7d["official_protocol"]["AUC"] - e7d["nested_cv"]["AUC_mean"]),
+    tokD7=f3(td7["cv"]["AUC"][0]), tokD7sd=f3(td7["cv"]["AUC"][1]),
+    pplD7=f3(td7["cv"]["PPL_AUC"][0]), lnD7=f3(td7["cv"]["LNEnt_AUC"][0]),
+    official_rows=official_rows, audit_rows=audit_rows, bigModelsPara=big_para, bigModelsContrib=big_contrib,
+    aarfN=len(arows), aarfSteps=f"{len(gates):,}", aarfMin=f"{gates.min():.2f}", aarfMed=f"{np.median(gates):.2f}",
+    aarfFrac=f"{100 * (gates > 0.6).mean():.0f}",
+    aarfOffA=sum(x is True for x in first), aarfOffB=sum(x is False for x in first), aarfUnp=sum(x is None for x in first),
+    aarfBothA=bA, aarfBothB=bB, aarfDiff=len(byid), aarfSame=len(arows) - len(byid),
+    aarfFlip=flips, aarfFlipPct=f"{100 * flips / max(len(byid), 1):.0f}",
+    aarfP=f"{binomtest(bA, bA + bB, 0.5).pvalue:.2f}", aarfLimitModels=aarf_lim,
+))
+
 TEX = (HERE / "report_template.tex").read_text(encoding="utf-8")
 for k, v in V.items():
     TEX = TEX.replace(f"<<{k}>>", str(v))
