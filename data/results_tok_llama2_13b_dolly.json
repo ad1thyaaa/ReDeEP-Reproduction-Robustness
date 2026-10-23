@@ -1,0 +1,23 @@
+{
+ "model": "NousResearch/Llama-2-13b-chat-hf",
+ "dataset": "dolly",
+ "response_model": "llama-2-13b-chat",
+ "n": 99,
+ "n_hallucinated": 54,
+ "cv": {
+  "AUC": [
+   0.6456565656565656,
+   0.045111613218536774
+  ],
+  "PPL_AUC": [
+   0.45858585858585854,
+   0.13007967702630502
+  ],
+  "LNEnt_AUC": [
+   0.5551515151515152,
+   0.12668068164696838
+  ]
+ },
+ "load_in_4bit": true,
+ "dtype": "float16"
+}

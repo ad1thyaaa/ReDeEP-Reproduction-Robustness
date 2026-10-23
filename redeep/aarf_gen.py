@@ -101,7 +101,12 @@ class GatedAARF:
             out = self.model(input_ids=nxt, past_key_values=cache, use_cache=True, output_hidden_states=aarf)
             self._capture = False
             if aarf and self._step_score(out, prefix_hidden, prefix_len) > self.tau:
-                cache.crop(before)                      # discard this step's keys/values, recompute with AARF
+                # discard this step's keys/values, recompute with AARF. Newer
+                # transformers only accept a negative crop (tokens to remove).
+                try:
+                    cache.crop(before)
+                except ValueError:
+                    cache.crop(before - cache.get_seq_length())
                 with AARFIntervention(self.model, self.heads, self.layers, self.a2, self.b2):
                     out = self.model(input_ids=nxt, past_key_values=cache, use_cache=True)
                 n_interv += 1

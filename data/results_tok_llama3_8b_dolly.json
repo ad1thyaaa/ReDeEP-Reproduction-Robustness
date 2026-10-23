@@ -1,0 +1,23 @@
+{
+ "model": "NousResearch/Meta-Llama-3-8B-Instruct",
+ "dataset": "dolly",
+ "response_model": "llama-3-8b-instruct",
+ "n": 99,
+ "n_hallucinated": 41,
+ "cv": {
+  "AUC": [
+   0.5375631313131313,
+   0.0702813437104583
+  ],
+  "PPL_AUC": [
+   0.49078282828282827,
+   0.08713982929467529
+  ],
+  "LNEnt_AUC": [
+   0.6407828282828283,
+   0.04661083653115953
+  ]
+ },
+ "load_in_4bit": true,
+ "dtype": "float16"
+}

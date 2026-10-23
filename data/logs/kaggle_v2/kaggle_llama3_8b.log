@@ -1,0 +1,559 @@
+>>> /usr/bin/python3 scripts/run_chunk.py --model NousResearch/Meta-Llama-3-8B-Instruct --load_in_4bit --tag llama3_8b_ragtruth --dataset ragtruth --response_model llama-3-8b-instruct --copy_heads official:test_llama3_8B
+450 responses (243 hallucinated), 0 already scored
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:58<02:55, 58.66s/it]Fetching 4 files:  50%|█████     | 2/4 [02:31<02:38, 79.01s/it]Fetching 4 files: 100%|██████████| 4/4 [02:31<00:00, 37.98s/it]
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   0%|          | 1/291 [00:07<35:10,  7.28s/it]Loading weights:   1%|          | 2/291 [00:14<34:35,  7.18s/it]Loading weights:   1%|▏         | 4/291 [00:15<14:07,  2.95s/it]Loading weights:   2%|▏         | 5/291 [00:16<10:52,  2.28s/it]Loading weights:   2%|▏         | 6/291 [00:16<08:46,  1.85s/it]Loading weights:   3%|▎         | 9/291 [00:17<04:00,  1.17it/s]Loading weights:   3%|▎         | 10/291 [00:17<03:22,  1.39it/s]Loading weights:   4%|▍         | 13/291 [00:18<02:23,  1.94it/s]Loading weights:   5%|▍         | 14/291 [00:19<02:36,  1.77it/s]Loading weights:   5%|▌         | 15/291 [00:19<02:52,  1.60it/s]Loading weights:   6%|▌         | 18/291 [00:20<01:41,  2.68it/s]Loading weights:   7%|▋         | 19/291 [00:20<01:34,  2.88it/s]Loading weights:   8%|▊         | 22/291 [00:21<01:25,  3.14it/s]Loading weights:   8%|▊         | 23/291 [00:22<01:46,  2.53it/s]Loading weights:   8%|▊         | 24/291 [00:22<02:02,  2.18it/s]Loading weights:   9%|▉         | 27/291 [00:23<01:17,  3.42it/s]Loading weights:  10%|▉         | 28/291 [00:23<01:13,  3.55it/s]Loading weights:  11%|█         | 31/291 [00:24<01:14,  3.49it/s]Loading weights:  11%|█         | 32/291 [00:24<01:37,  2.67it/s]Loading weights:  11%|█▏        | 33/291 [00:25<01:55,  2.23it/s]Loading weights:  12%|█▏        | 36/291 [00:26<01:13,  3.49it/s]Loading weights:  13%|█▎        | 37/291 [00:26<01:09,  3.64it/s]Loading weights:  14%|█▎        | 40/291 [00:27<01:07,  3.70it/s]Loading weights:  14%|█▍        | 41/291 [00:27<01:27,  2.86it/s]Loading weights:  14%|█▍        | 42/291 [00:28<01:46,  2.33it/s]Loading weights:  15%|█▌        | 45/291 [00:28<01:06,  3.68it/s]Loading weights:  16%|█▌        | 46/291 [00:28<01:03,  3.85it/s]Loading weights:  17%|█▋        | 49/291 [00:29<01:03,  3.81it/s]Loading weights:  17%|█▋        | 50/291 [00:30<01:24,  2.84it/s]Loading weights:  18%|█▊        | 51/291 [00:31<01:46,  2.26it/s]Loading weights:  19%|█▊        | 54/291 [00:31<01:06,  3.59it/s]Loading weights:  19%|█▉        | 55/291 [00:31<01:02,  3.75it/s]Loading weights:  20%|█▉        | 58/291 [00:32<01:00,  3.82it/s]Loading weights:  20%|██        | 59/291 [00:33<01:18,  2.97it/s]Loading weights:  21%|██        | 60/291 [00:34<01:37,  2.38it/s]Loading weights:  22%|██▏       | 63/291 [00:34<01:01,  3.71it/s]Loading weights:  22%|██▏       | 64/291 [00:34<00:57,  3.93it/s]Loading weights:  23%|██▎       | 67/291 [00:35<00:54,  4.14it/s]Loading weights:  23%|██▎       | 68/291 [00:35<01:12,  3.08it/s]Loading weights:  24%|██▎       | 69/291 [00:36<01:30,  2.45it/s]Loading weights:  25%|██▍       | 72/291 [00:36<00:57,  3.82it/s]Loading weights:  25%|██▌       | 73/291 [00:37<00:55,  3.90it/s]Loading weights:  26%|██▌       | 76/291 [00:37<00:54,  3.93it/s]Loading weights:  26%|██▋       | 77/291 [00:38<01:11,  3.01it/s]Loading weights:  27%|██▋       | 78/291 [00:39<01:28,  2.42it/s]Loading weights:  28%|██▊       | 81/291 [00:39<00:55,  3.81it/s]Loading weights:  28%|██▊       | 82/291 [00:39<00:51,  4.04it/s]Loading weights:  29%|██▉       | 85/291 [00:40<00:51,  3.99it/s]Loading weights:  30%|██▉       | 86/291 [00:41<01:07,  3.05it/s]Loading weights:  30%|██▉       | 87/291 [00:41<01:22,  2.49it/s]Loading weights:  31%|███       | 90/291 [00:42<00:51,  3.90it/s]Loading weights:  31%|███▏      | 91/291 [00:42<00:49,  4.05it/s]Loading weights:  32%|███▏      | 94/291 [00:43<00:51,  3.81it/s]Loading weights:  33%|███▎      | 95/291 [00:43<01:06,  2.94it/s]Loading weights:  33%|███▎      | 96/291 [00:44<01:23,  2.33it/s]Loading weights:  34%|███▍      | 99/291 [00:45<00:53,  3.61it/s]Loading weights:  34%|███▍      | 100/291 [00:45<00:50,  3.76it/s]Loading weights:  35%|███▌      | 103/291 [00:46<00:48,  3.91it/s]Loading weights:  36%|███▌      | 104/291 [00:46<00:55,  3.35it/s]Loading weights:  36%|███▌      | 105/291 [00:46<01:01,  3.00it/s]Loading weights:  37%|███▋      | 108/291 [00:47<00:38,  4.76it/s]Loading weights:  37%|███▋      | 109/291 [00:47<00:37,  4.79it/s]Loading weights:  38%|███▊      | 112/291 [00:48<00:42,  4.18it/s]Loading weights:  39%|███▉      | 113/291 [00:49<00:59,  2.98it/s]Loading weights:  39%|███▉      | 114/291 [00:49<01:13,  2.40it/s]Loading weights:  40%|████      | 117/291 [00:50<00:46,  3.73it/s]Loading weights:  41%|████      | 118/291 [00:50<00:44,  3.90it/s]Loading weights:  42%|████▏     | 121/291 [00:51<00:44,  3.79it/s]Loading weights:  42%|████▏     | 122/291 [00:51<00:59,  2.84it/s]Loading weights:  42%|████▏     | 123/291 [00:52<01:12,  2.33it/s]Loading weights:  43%|████▎     | 126/291 [00:52<00:45,  3.65it/s]Loading weights:  44%|████▎     | 127/291 [00:53<00:43,  3.77it/s]Loading weights:  45%|████▍     | 130/291 [00:53<00:43,  3.73it/s]Loading weights:  45%|████▌     | 131/291 [00:54<00:57,  2.77it/s]Loading weights:  45%|████▌     | 132/291 [00:55<01:11,  2.23it/s]Loading weights:  46%|████▋     | 135/291 [00:55<00:44,  3.54it/s]Loading weights:  47%|████▋     | 136/291 [00:56<00:42,  3.68it/s]Loading weights:  48%|████▊     | 139/291 [00:56<00:42,  3.57it/s]Loading weights:  48%|████▊     | 140/291 [00:57<00:56,  2.70it/s]Loading weights:  48%|████▊     | 141/291 [00:58<01:06,  2.25it/s]Loading weights:  49%|████▉     | 144/291 [00:58<00:41,  3.54it/s]Loading weights:  50%|████▉     | 145/291 [00:58<00:39,  3.70it/s]Loading weights:  51%|█████     | 148/291 [00:59<00:39,  3.62it/s]Loading weights:  51%|█████     | 149/291 [01:00<00:51,  2.76it/s]Loading weights:  52%|█████▏    | 150/291 [01:01<01:02,  2.27it/s]Loading weights:  53%|█████▎    | 153/291 [01:01<00:39,  3.53it/s]Loading weights:  53%|█████▎    | 154/291 [01:01<00:37,  3.69it/s]Loading weights:  54%|█████▍    | 157/291 [01:02<00:36,  3.65it/s]Loading weights:  54%|█████▍    | 158/291 [01:03<00:47,  2.81it/s]Loading weights:  55%|█████▍    | 159/291 [01:04<00:57,  2.28it/s]Loading weights:  56%|█████▌    | 162/291 [01:04<00:36,  3.55it/s]Loading weights:  56%|█████▌    | 163/291 [01:04<00:34,  3.68it/s]Loading weights:  57%|█████▋    | 166/291 [01:05<00:34,  3.67it/s]Loading weights:  57%|█████▋    | 167/291 [01:06<00:44,  2.81it/s]Loading weights:  58%|█████▊    | 168/291 [01:07<00:53,  2.29it/s]Loading weights:  59%|█████▉    | 171/291 [01:07<00:33,  3.57it/s]Loading weights:  59%|█████▉    | 172/291 [01:07<00:32,  3.68it/s]Loading weights:  60%|██████    | 175/291 [01:08<00:32,  3.62it/s]Loading weights:  60%|██████    | 176/291 [01:09<00:41,  2.79it/s]Loading weights:  61%|██████    | 177/291 [01:09<00:49,  2.29it/s]Loading weights:  62%|██████▏   | 180/291 [01:10<00:31,  3.55it/s]Loading weights:  62%|██████▏   | 181/291 [01:10<00:30,  3.66it/s]Loading weights:  63%|██████▎   | 184/291 [01:11<00:29,  3.62it/s]Loading weights:  64%|██████▎   | 185/291 [01:12<00:38,  2.79it/s]Loading weights:  64%|██████▍   | 186/291 [01:12<00:47,  2.21it/s]Loading weights:  65%|██████▍   | 189/291 [01:13<00:29,  3.46it/s]Loading weights:  65%|██████▌   | 190/291 [01:13<00:28,  3.59it/s]Loading weights:  66%|██████▋   | 193/291 [01:14<00:27,  3.51it/s]Loading weights:  67%|██████▋   | 194/291 [01:15<00:36,  2.67it/s]Loading weights:  67%|██████▋   | 195/291 [01:15<00:43,  2.22it/s]Loading weights:  68%|██████▊   | 198/291 [01:16<00:26,  3.48it/s]Loading weights:  68%|██████▊   | 199/291 [01:16<00:25,  3.55it/s]Loading weights:  69%|██████▉   | 202/291 [01:17<00:25,  3.52it/s]Loading weights:  70%|██████▉   | 203/291 [01:17<00:32,  2.72it/s]Loading weights:  70%|███████   | 204/291 [01:18<00:40,  2.15it/s]Loading weights:  71%|███████   | 207/291 [01:19<00:25,  3.32it/s]Loading weights:  71%|███████▏  | 208/291 [01:19<00:24,  3.43it/s]Loading weights:  73%|███████▎  | 211/291 [01:20<00:22,  3.50it/s]Loading weights:  73%|███████▎  | 212/291 [01:21<00:29,  2.64it/s]Loading weights:  73%|███████▎  | 213/291 [01:21<00:36,  2.15it/s]Loading weights:  74%|███████▍  | 216/291 [01:22<00:22,  3.38it/s]Loading weights:  75%|███████▍  | 217/291 [01:22<00:20,  3.56it/s]Loading weights:  76%|███████▌  | 220/291 [01:23<00:19,  3.58it/s]Loading weights:  76%|███████▌  | 221/291 [01:23<00:25,  2.77it/s]Loading weights:  76%|███████▋  | 222/291 [01:24<00:31,  2.22it/s]Loading weights:  77%|███████▋  | 225/291 [01:25<00:18,  3.54it/s]Loading weights:  78%|███████▊  | 226/291 [01:25<00:17,  3.74it/s]Loading weights:  79%|███████▊  | 229/291 [01:26<00:17,  3.52it/s]Loading weights:  79%|███████▉  | 230/291 [01:26<00:22,  2.74it/s]Loading weights:  79%|███████▉  | 231/291 [01:27<00:26,  2.27it/s]Loading weights:  80%|████████  | 234/291 [01:27<00:16,  3.56it/s]Loading weights:  81%|████████  | 235/291 [01:28<00:15,  3.71it/s]Loading weights:  82%|████████▏ | 238/291 [01:28<00:14,  3.67it/s]Loading weights:  82%|████████▏ | 239/291 [01:29<00:18,  2.75it/s]Loading weights:  82%|████████▏ | 240/291 [01:30<00:22,  2.32it/s]Loading weights:  84%|████████▎ | 243/291 [01:30<00:13,  3.61it/s]Loading weights:  84%|████████▍ | 244/291 [01:31<00:12,  3.76it/s]Loading weights:  85%|████████▍ | 247/291 [01:31<00:12,  3.59it/s]Loading weights:  85%|████████▌ | 248/291 [01:32<00:15,  2.78it/s]Loading weights:  86%|████████▌ | 249/291 [01:33<00:18,  2.29it/s]Loading weights:  87%|████████▋ | 252/291 [01:33<00:10,  3.57it/s]Loading weights:  87%|████████▋ | 253/291 [01:33<00:10,  3.72it/s]Loading weights:  88%|████████▊ | 256/291 [01:34<00:09,  3.68it/s]Loading weights:  88%|████████▊ | 257/291 [01:35<00:12,  2.82it/s]Loading weights:  89%|████████▊ | 258/291 [01:36<00:14,  2.32it/s]Loading weights:  90%|████████▉ | 261/291 [01:36<00:08,  3.61it/s]Loading weights:  90%|█████████ | 262/291 [01:36<00:07,  3.72it/s]Loading weights:  91%|█████████ | 265/291 [01:37<00:07,  3.71it/s]Loading weights:  91%|█████████▏| 266/291 [01:38<00:08,  2.82it/s]Loading weights:  92%|█████████▏| 267/291 [01:39<00:10,  2.30it/s]Loading weights:  93%|█████████▎| 270/291 [01:39<00:05,  3.60it/s]Loading weights:  93%|█████████▎| 271/291 [01:39<00:05,  3.74it/s]Loading weights:  94%|█████████▍| 274/291 [01:40<00:04,  3.60it/s]Loading weights:  95%|█████████▍| 275/291 [01:41<00:05,  2.83it/s]Loading weights:  95%|█████████▍| 276/291 [01:41<00:06,  2.31it/s]Loading weights:  96%|█████████▌| 279/291 [01:42<00:03,  3.63it/s]Loading weights:  96%|█████████▌| 280/291 [01:42<00:02,  3.79it/s]Loading weights:  97%|█████████▋| 283/291 [01:43<00:02,  3.77it/s]Loading weights:  98%|█████████▊| 284/291 [01:43<00:02,  2.85it/s]Loading weights:  98%|█████████▊| 285/291 [01:44<00:02,  2.27it/s]Loading weights:  99%|█████████▉| 288/291 [01:45<00:00,  3.59it/s]Loading weights:  99%|█████████▉| 289/291 [01:45<00:00,  3.74it/s]Loading weights: 100%|██████████| 291/291 [01:45<00:00,  2.76it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 149/199 [00:00<00:00, 1476.50it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1535.12it/s]
+  [1/450] label=1 chunks=5 tokens=1048 5.6s (eta 42 min)
+  [2/450] label=1 chunks=4 tokens=875 2.8s (eta 31 min)
+  [3/450] label=0 chunks=2 tokens=545 1.6s (eta 25 min)
+  [4/450] label=0 chunks=4 tokens=736 2.4s (eta 23 min)
+  [5/450] label=1 chunks=5 tokens=786 3.0s (eta 23 min)
+  [6/450] label=0 chunks=2 tokens=613 1.6s (eta 21 min)
+  [7/450] label=1 chunks=3 tokens=812 2.3s (eta 20 min)
+  [8/450] label=0 chunks=1 tokens=258 0.9s (eta 19 min)
+  [9/450] label=0 chunks=5 tokens=613 2.8s (eta 19 min)
+  [10/450] label=0 chunks=4 tokens=592 2.2s (eta 18 min)
+  [11/450] label=0 chunks=3 tokens=562 1.9s (eta 18 min)
+  [12/450] label=1 chunks=5 tokens=961 3.4s (eta 19 min)
+  [13/450] label=0 chunks=4 tokens=676 2.4s (eta 18 min)
+  [14/450] label=0 chunks=9 tokens=1613 6.1s (eta 20 min)
+  [15/450] label=0 chunks=5 tokens=962 3.4s (eta 20 min)
+  [16/450] label=1 chunks=3 tokens=788 2.3s (eta 20 min)
+  [17/450] label=0 chunks=6 tokens=685 3.2s (eta 20 min)
+  [18/450] label=0 chunks=4 tokens=633 2.4s (eta 20 min)
+  [19/450] label=1 chunks=3 tokens=332 1.6s (eta 20 min)
+  [20/450] label=0 chunks=4 tokens=685 2.5s (eta 19 min)
+  [21/450] label=0 chunks=2 tokens=306 1.2s (eta 19 min)
+  [22/450] label=1 chunks=5 tokens=1074 3.5s (eta 19 min)
+  [23/450] label=1 chunks=5 tokens=929 3.3s (eta 19 min)
+  [24/450] label=0 chunks=2 tokens=435 1.4s (eta 19 min)
+  [25/450] label=0 chunks=1 tokens=378 0.9s (eta 18 min)
+  [26/450] label=1 chunks=6 tokens=1706 4.8s (eta 19 min)
+  [27/450] label=1 chunks=6 tokens=1371 4.5s (eta 19 min)
+  [28/450] label=1 chunks=3 tokens=347 1.8s (eta 19 min)
+  [29/450] label=0 chunks=2 tokens=510 1.5s (eta 19 min)
+  [30/450] label=1 chunks=5 tokens=553 2.8s (eta 19 min)
+  [31/450] label=0 chunks=3 tokens=491 1.9s (eta 18 min)
+  [32/450] label=0 chunks=3 tokens=506 1.8s (eta 18 min)
+  [33/450] label=1 chunks=6 tokens=857 3.7s (eta 18 min)
+  [34/450] label=0 chunks=6 tokens=1447 4.5s (eta 19 min)
+  [35/450] label=1 chunks=5 tokens=696 3.0s (eta 19 min)
+  [36/450] label=0 chunks=7 tokens=1709 5.5s (eta 19 min)
+  [37/450] label=1 chunks=4 tokens=1328 3.5s (eta 19 min)
+  [38/450] label=1 chunks=5 tokens=663 2.9s (eta 19 min)
+  [39/450] label=1 chunks=4 tokens=1089 3.2s (eta 19 min)
+  [40/450] label=0 chunks=3 tokens=379 1.7s (eta 19 min)
+  [41/450] label=0 chunks=4 tokens=426 2.1s (eta 19 min)
+  [42/450] label=0 chunks=4 tokens=711 2.5s (eta 19 min)
+  [43/450] label=1 chunks=4 tokens=780 2.6s (eta 19 min)
+  [44/450] label=0 chunks=2 tokens=567 1.4s (eta 18 min)
+  [45/450] label=0 chunks=2 tokens=367 1.2s (eta 18 min)
+  [46/450] label=1 chunks=4 tokens=1059 3.1s (eta 18 min)
+  [47/450] label=1 chunks=5 tokens=977 3.4s (eta 18 min)
+  [48/450] label=1 chunks=2 tokens=360 1.3s (eta 18 min)
+  [49/450] label=0 chunks=4 tokens=697 2.5s (eta 18 min)
+  [50/450] label=0 chunks=3 tokens=601 2.1s (eta 18 min)
+  [51/450] label=1 chunks=4 tokens=1502 3.4s (eta 18 min)
+  [52/450] label=1 chunks=6 tokens=934 3.6s (eta 18 min)
+  [53/450] label=1 chunks=3 tokens=795 2.3s (eta 18 min)
+  [54/450] label=0 chunks=3 tokens=411 1.7s (eta 18 min)
+  [55/450] label=1 chunks=7 tokens=1651 5.3s (eta 18 min)
+  [56/450] label=1 chunks=4 tokens=1227 3.3s (eta 18 min)
+  [57/450] label=1 chunks=4 tokens=660 2.5s (eta 18 min)
+  [58/450] label=1 chunks=2 tokens=484 1.5s (eta 18 min)
+  [59/450] label=1 chunks=4 tokens=1038 3.0s (eta 18 min)
+  [60/450] label=0 chunks=2 tokens=526 1.4s (eta 18 min)
+  [61/450] label=1 chunks=5 tokens=430 2.6s (eta 17 min)
+  [62/450] label=1 chunks=4 tokens=863 3.0s (eta 17 min)
+  [63/450] label=1 chunks=4 tokens=807 2.7s (eta 17 min)
+  [64/450] label=0 chunks=2 tokens=451 1.4s (eta 17 min)
+  [65/450] label=1 chunks=4 tokens=880 2.9s (eta 17 min)
+  [66/450] label=1 chunks=1 tokens=377 0.9s (eta 17 min)
+  [67/450] label=0 chunks=5 tokens=972 3.3s (eta 17 min)
+  [68/450] label=0 chunks=1 tokens=288 0.8s (eta 17 min)
+  [69/450] label=0 chunks=2 tokens=399 1.4s (eta 17 min)
+  [70/450] label=0 chunks=4 tokens=547 2.2s (eta 17 min)
+  [71/450] label=1 chunks=7 tokens=1073 4.2s (eta 17 min)
+  [72/450] label=0 chunks=4 tokens=416 2.0s (eta 17 min)
+  [73/450] label=1 chunks=4 tokens=533 2.2s (eta 16 min)
+  [74/450] label=1 chunks=5 tokens=981 3.4s (eta 17 min)
+  [75/450] label=0 chunks=6 tokens=1223 4.1s (eta 17 min)
+  [76/450] label=0 chunks=4 tokens=791 2.7s (eta 17 min)
+  [77/450] label=1 chunks=6 tokens=1712 4.7s (eta 17 min)
+  [78/450] label=0 chunks=3 tokens=366 1.6s (eta 17 min)
+  [79/450] label=0 chunks=3 tokens=658 2.1s (eta 16 min)
+  [80/450] label=0 chunks=3 tokens=562 1.8s (eta 16 min)
+  [81/450] label=1 chunks=4 tokens=1177 3.2s (eta 16 min)
+  [82/450] label=1 chunks=5 tokens=472 2.6s (eta 16 min)
+  [83/450] label=1 chunks=4 tokens=861 2.8s (eta 16 min)
+  [84/450] label=0 chunks=1 tokens=429 1.0s (eta 16 min)
+  [85/450] label=0 chunks=3 tokens=571 1.9s (eta 16 min)
+  [86/450] label=0 chunks=4 tokens=443 2.1s (eta 16 min)
+  [87/450] label=1 chunks=5 tokens=613 3.0s (eta 16 min)
+  [88/450] label=1 chunks=2 tokens=397 1.4s (eta 16 min)
+  [89/450] label=0 chunks=4 tokens=748 2.5s (eta 16 min)
+  [90/450] label=0 chunks=5 tokens=917 3.3s (eta 16 min)
+  [91/450] label=1 chunks=6 tokens=1309 4.3s (eta 16 min)
+  [92/450] label=1 chunks=3 tokens=808 2.3s (eta 16 min)
+  [93/450] label=1 chunks=6 tokens=2048 5.0s (eta 16 min)
+  [94/450] label=1 chunks=6 tokens=1044 3.8s (eta 16 min)
+  [95/450] label=1 chunks=5 tokens=831 3.2s (eta 16 min)
+  [96/450] label=0 chunks=5 tokens=967 3.3s (eta 16 min)
+  [97/450] label=1 chunks=6 tokens=1534 4.3s (eta 16 min)
+  [98/450] label=1 chunks=4 tokens=887 2.9s (eta 16 min)
+  [99/450] label=0 chunks=6 tokens=615 3.2s (eta 16 min)
+  [100/450] label=0 chunks=4 tokens=707 2.5s (eta 16 min)
+  [101/450] label=1 chunks=5 tokens=689 2.9s (eta 16 min)
+  [102/450] label=0 chunks=2 tokens=578 1.6s (eta 16 min)
+  [103/450] label=1 chunks=5 tokens=943 3.3s (eta 16 min)
+  [104/450] label=0 chunks=4 tokens=587 2.3s (eta 16 min)
+  [105/450] label=1 chunks=6 tokens=1472 4.3s (eta 16 min)
+  [106/450] label=1 chunks=4 tokens=718 2.5s (eta 16 min)
+  [107/450] label=1 chunks=5 tokens=768 3.0s (eta 16 min)
+  [108/450] label=0 chunks=6 tokens=1169 3.9s (eta 16 min)
+  [109/450] label=0 chunks=1 tokens=338 0.9s (eta 15 min)
+  [110/450] label=1 chunks=3 tokens=518 1.8s (eta 15 min)
+  [111/450] label=0 chunks=3 tokens=801 2.4s (eta 15 min)
+  [112/450] label=0 chunks=4 tokens=628 2.3s (eta 15 min)
+  [113/450] label=1 chunks=1 tokens=384 0.9s (eta 15 min)
+  [114/450] label=1 chunks=5 tokens=979 3.4s (eta 15 min)
+  [115/450] label=0 chunks=3 tokens=666 2.2s (eta 15 min)
+  [116/450] label=1 chunks=2 tokens=532 1.5s (eta 15 min)
+  [117/450] label=1 chunks=3 tokens=779 2.3s (eta 15 min)
+  [118/450] label=0 chunks=1 tokens=307 0.9s (eta 15 min)
+  [119/450] label=1 chunks=4 tokens=828 2.8s (eta 15 min)
+  [120/450] label=0 chunks=3 tokens=607 2.0s (eta 15 min)
+  [121/450] label=0 chunks=1 tokens=533 1.1s (eta 14 min)
+  [122/450] label=0 chunks=6 tokens=925 3.7s (eta 14 min)
+  [123/450] label=0 chunks=5 tokens=489 2.6s (eta 14 min)
+  [124/450] label=1 chunks=5 tokens=672 2.8s (eta 14 min)
+  [125/450] label=0 chunks=4 tokens=531 2.4s (eta 14 min)
+  [126/450] label=1 chunks=5 tokens=516 2.7s (eta 14 min)
+  [127/450] label=1 chunks=9 tokens=1067 5.1s (eta 14 min)
+  [128/450] label=0 chunks=5 tokens=869 3.0s (eta 14 min)
+  [129/450] label=1 chunks=5 tokens=536 2.8s (eta 14 min)
+  [130/450] label=1 chunks=3 tokens=558 1.9s (eta 14 min)
+  [131/450] label=1 chunks=4 tokens=774 2.6s (eta 14 min)
+  [132/450] label=1 chunks=5 tokens=735 3.1s (eta 14 min)
+  [133/450] label=1 chunks=5 tokens=1094 3.6s (eta 14 min)
+  [134/450] label=0 chunks=3 tokens=501 1.8s (eta 14 min)
+  [135/450] label=0 chunks=4 tokens=693 2.5s (eta 14 min)
+  [136/450] label=1 chunks=3 tokens=492 1.7s (eta 14 min)
+  [137/450] label=1 chunks=3 tokens=666 2.2s (eta 14 min)
+  [138/450] label=1 chunks=1 tokens=464 0.9s (eta 14 min)
+  [139/450] label=1 chunks=3 tokens=710 2.2s (eta 14 min)
+  [140/450] label=1 chunks=3 tokens=1328 3.0s (eta 14 min)
+  [141/450] label=0 chunks=3 tokens=650 2.1s (eta 14 min)
+  [142/450] label=1 chunks=5 tokens=984 3.4s (eta 14 min)
+  [143/450] label=0 chunks=3 tokens=551 1.9s (eta 13 min)
+  [144/450] label=1 chunks=4 tokens=769 2.8s (eta 13 min)
+  [145/450] label=1 chunks=5 tokens=955 3.3s (eta 13 min)
+  [146/450] label=0 chunks=6 tokens=1512 4.2s (eta 13 min)
+  [147/450] label=0 chunks=1 tokens=317 0.9s (eta 13 min)
+  [148/450] label=1 chunks=6 tokens=1118 3.9s (eta 13 min)
+  [149/450] label=1 chunks=5 tokens=1123 3.5s (eta 13 min)
+  [150/450] label=1 chunks=5 tokens=1036 3.5s (eta 13 min)
+  [151/450] label=1 chunks=4 tokens=411 2.2s (eta 13 min)
+  [152/450] label=1 chunks=5 tokens=984 3.3s (eta 13 min)
+  [153/450] label=1 chunks=6 tokens=901 3.8s (eta 13 min)
+  [154/450] label=0 chunks=4 tokens=490 2.2s (eta 13 min)
+  [155/450] label=1 chunks=6 tokens=2048 5.0s (eta 13 min)
+  [156/450] label=0 chunks=1 tokens=264 0.9s (eta 13 min)
+  [157/450] label=1 chunks=3 tokens=454 1.8s (eta 13 min)
+  [158/450] label=1 chunks=5 tokens=924 3.2s (eta 13 min)
+  [159/450] label=1 chunks=4 tokens=1163 3.3s (eta 13 min)
+  [160/450] label=0 chunks=2 tokens=553 1.4s (eta 13 min)
+  [161/450] label=0 chunks=1 tokens=472 1.0s (eta 13 min)
+  [162/450] label=0 chunks=3 tokens=564 1.9s (eta 13 min)
+  [163/450] label=0 chunks=4 tokens=710 2.4s (eta 13 min)
+  [164/450] label=1 chunks=3 tokens=454 1.7s (eta 13 min)
+  [165/450] label=0 chunks=4 tokens=482 2.1s (eta 13 min)
+  [166/450] label=1 chunks=5 tokens=942 3.2s (eta 12 min)
+  [167/450] label=0 chunks=2 tokens=453 1.4s (eta 12 min)
+  [168/450] label=1 chunks=4 tokens=386 2.1s (eta 12 min)
+  [169/450] label=0 chunks=6 tokens=1363 4.3s (eta 12 min)
+  [170/450] label=0 chunks=4 tokens=674 2.5s (eta 12 min)
+  [171/450] label=1 chunks=6 tokens=869 3.7s (eta 12 min)
+  [172/450] label=0 chunks=4 tokens=638 2.3s (eta 12 min)
+  [173/450] label=0 chunks=2 tokens=493 1.5s (eta 12 min)
+  [174/450] label=1 chunks=4 tokens=694 2.5s (eta 12 min)
+  [175/450] label=1 chunks=3 tokens=497 1.8s (eta 12 min)
+  [176/450] label=1 chunks=4 tokens=435 2.2s (eta 12 min)
+  [177/450] label=0 chunks=3 tokens=486 1.8s (eta 12 min)
+  [178/450] label=1 chunks=3 tokens=431 1.8s (eta 12 min)
+  [179/450] label=0 chunks=6 tokens=1566 4.5s (eta 12 min)
+  [180/450] label=1 chunks=6 tokens=810 3.6s (eta 12 min)
+  [181/450] label=0 chunks=5 tokens=787 2.9s (eta 12 min)
+  [182/450] label=0 chunks=4 tokens=731 2.5s (eta 12 min)
+  [183/450] label=1 chunks=4 tokens=654 2.5s (eta 12 min)
+  [184/450] label=1 chunks=5 tokens=1083 3.6s (eta 12 min)
+  [185/450] label=0 chunks=5 tokens=824 3.2s (eta 12 min)
+  [186/450] label=0 chunks=5 tokens=868 3.2s (eta 12 min)
+  [187/450] label=0 chunks=6 tokens=1208 3.9s (eta 12 min)
+  [188/450] label=0 chunks=8 tokens=2009 6.1s (eta 12 min)
+  [189/450] label=0 chunks=5 tokens=1111 3.6s (eta 12 min)
+  [190/450] label=0 chunks=6 tokens=1607 4.7s (eta 12 min)
+  [191/450] label=0 chunks=4 tokens=830 2.8s (eta 12 min)
+  [192/450] label=1 chunks=5 tokens=713 3.0s (eta 12 min)
+  [193/450] label=1 chunks=3 tokens=846 2.4s (eta 12 min)
+  [194/450] label=0 chunks=5 tokens=801 3.2s (eta 11 min)
+  [195/450] label=0 chunks=2 tokens=415 1.4s (eta 11 min)
+  [196/450] label=0 chunks=4 tokens=770 2.6s (eta 11 min)
+  [197/450] label=1 chunks=2 tokens=379 1.2s (eta 11 min)
+  [198/450] label=0 chunks=4 tokens=711 2.5s (eta 11 min)
+  [199/450] label=1 chunks=3 tokens=643 2.2s (eta 11 min)
+  [200/450] label=0 chunks=3 tokens=605 2.0s (eta 11 min)
+  [201/450] label=0 chunks=6 tokens=1220 4.0s (eta 11 min)
+  [202/450] label=0 chunks=3 tokens=560 1.9s (eta 11 min)
+  [203/450] label=1 chunks=4 tokens=541 2.4s (eta 11 min)
+  [204/450] label=1 chunks=5 tokens=920 3.2s (eta 11 min)
+  [205/450] label=1 chunks=4 tokens=717 2.4s (eta 11 min)
+  [206/450] label=1 chunks=4 tokens=956 2.9s (eta 11 min)
+  [207/450] label=1 chunks=1 tokens=376 0.9s (eta 11 min)
+  [208/450] label=1 chunks=5 tokens=867 3.2s (eta 11 min)
+  [209/450] label=0 chunks=5 tokens=838 3.2s (eta 11 min)
+  [210/450] label=1 chunks=1 tokens=523 1.1s (eta 11 min)
+  [211/450] label=0 chunks=2 tokens=321 1.2s (eta 11 min)
+  [212/450] label=1 chunks=4 tokens=410 2.3s (eta 11 min)
+  [213/450] label=1 chunks=7 tokens=1077 4.3s (eta 11 min)
+  [214/450] label=0 chunks=3 tokens=559 1.9s (eta 10 min)
+  [215/450] label=0 chunks=3 tokens=595 2.0s (eta 10 min)
+  [216/450] label=1 chunks=6 tokens=1276 4.1s (eta 10 min)
+  [217/450] label=1 chunks=6 tokens=968 3.7s (eta 10 min)
+  [218/450] label=1 chunks=2 tokens=520 1.5s (eta 10 min)
+  [219/450] label=0 chunks=2 tokens=352 1.3s (eta 10 min)
+  [220/450] label=1 chunks=4 tokens=1040 3.0s (eta 10 min)
+  [221/450] label=1 chunks=7 tokens=1088 4.3s (eta 10 min)
+  [222/450] label=0 chunks=5 tokens=1289 3.9s (eta 10 min)
+  [223/450] label=0 chunks=5 tokens=534 2.8s (eta 10 min)
+  [224/450] label=0 chunks=3 tokens=521 1.9s (eta 10 min)
+  [225/450] label=0 chunks=6 tokens=1116 3.9s (eta 10 min)
+  [226/450] label=0 chunks=2 tokens=341 1.3s (eta 10 min)
+  [227/450] label=1 chunks=5 tokens=1155 3.6s (eta 10 min)
+  [228/450] label=1 chunks=5 tokens=908 3.3s (eta 10 min)
+  [229/450] label=0 chunks=6 tokens=1092 3.7s (eta 10 min)
+  [230/450] label=1 chunks=5 tokens=783 3.2s (eta 10 min)
+  [231/450] label=1 chunks=2 tokens=310 1.2s (eta 10 min)
+  [232/450] label=0 chunks=4 tokens=624 2.3s (eta 10 min)
+  [233/450] label=0 chunks=1 tokens=437 1.0s (eta 10 min)
+  [234/450] label=0 chunks=4 tokens=678 2.4s (eta 10 min)
+  [235/450] label=0 chunks=4 tokens=649 2.4s (eta 10 min)
+  [236/450] label=0 chunks=7 tokens=467 3.3s (eta 10 min)
+  [237/450] label=0 chunks=3 tokens=633 2.0s (eta 9 min)
+  [238/450] label=0 chunks=4 tokens=491 2.3s (eta 9 min)
+  [239/450] label=1 chunks=6 tokens=840 3.5s (eta 9 min)
+  [240/450] label=1 chunks=3 tokens=474 1.7s (eta 9 min)
+  [241/450] label=1 chunks=3 tokens=501 1.8s (eta 9 min)
+  [242/450] label=1 chunks=3 tokens=535 1.9s (eta 9 min)
+  [243/450] label=0 chunks=2 tokens=405 1.3s (eta 9 min)
+  [244/450] label=1 chunks=5 tokens=955 3.4s (eta 9 min)
+  [245/450] label=1 chunks=5 tokens=781 3.2s (eta 9 min)
+  [246/450] label=0 chunks=3 tokens=573 2.0s (eta 9 min)
+  [247/450] label=0 chunks=5 tokens=1353 4.0s (eta 9 min)
+  [248/450] label=0 chunks=3 tokens=510 1.8s (eta 9 min)
+  [249/450] label=1 chunks=5 tokens=994 3.3s (eta 9 min)
+  [250/450] label=1 chunks=6 tokens=810 3.4s (eta 9 min)
+  [251/450] label=1 chunks=3 tokens=399 1.8s (eta 9 min)
+  [252/450] label=0 chunks=4 tokens=694 2.4s (eta 9 min)
+  [253/450] label=0 chunks=2 tokens=309 1.2s (eta 9 min)
+  [254/450] label=0 chunks=2 tokens=424 1.4s (eta 9 min)
+  [255/450] label=0 chunks=1 tokens=423 1.0s (eta 9 min)
+  [256/450] label=1 chunks=4 tokens=1273 3.4s (eta 9 min)
+  [257/450] label=0 chunks=8 tokens=1805 6.0s (eta 9 min)
+  [258/450] label=0 chunks=4 tokens=1352 3.5s (eta 8 min)
+  [259/450] label=0 chunks=2 tokens=571 1.6s (eta 8 min)
+  [260/450] label=1 chunks=8 tokens=1191 4.8s (eta 8 min)
+  [261/450] label=0 chunks=4 tokens=498 2.3s (eta 8 min)
+  [262/450] label=1 chunks=5 tokens=846 2.9s (eta 8 min)
+  [263/450] label=1 chunks=5 tokens=929 3.3s (eta 8 min)
+  [264/450] label=1 chunks=6 tokens=991 3.8s (eta 8 min)
+  [265/450] label=0 chunks=3 tokens=586 2.0s (eta 8 min)
+  [266/450] label=1 chunks=5 tokens=530 2.7s (eta 8 min)
+  [267/450] label=0 chunks=3 tokens=581 2.0s (eta 8 min)
+  [268/450] label=1 chunks=4 tokens=462 2.3s (eta 8 min)
+  [269/450] label=1 chunks=5 tokens=418 2.6s (eta 8 min)
+  [270/450] label=0 chunks=6 tokens=604 3.1s (eta 8 min)
+  [271/450] label=1 chunks=8 tokens=1505 5.4s (eta 8 min)
+  [272/450] label=1 chunks=4 tokens=839 2.8s (eta 8 min)
+  [273/450] label=0 chunks=4 tokens=1096 3.1s (eta 8 min)
+  [274/450] label=1 chunks=4 tokens=699 2.5s (eta 8 min)
+  [275/450] label=1 chunks=5 tokens=1186 3.6s (eta 8 min)
+  [276/450] label=1 chunks=2 tokens=365 1.4s (eta 8 min)
+  [277/450] label=1 chunks=6 tokens=906 3.6s (eta 8 min)
+  [278/450] label=0 chunks=5 tokens=977 3.3s (eta 8 min)
+  [279/450] label=1 chunks=6 tokens=728 3.3s (eta 8 min)
+  [280/450] label=1 chunks=5 tokens=1027 3.5s (eta 8 min)
+  [281/450] label=0 chunks=6 tokens=1382 4.2s (eta 8 min)
+  [282/450] label=0 chunks=4 tokens=750 2.5s (eta 8 min)
+  [283/450] label=1 chunks=5 tokens=985 3.3s (eta 7 min)
+  [284/450] label=1 chunks=5 tokens=1560 4.1s (eta 7 min)
+  [285/450] label=1 chunks=2 tokens=564 1.5s (eta 7 min)
+  [286/450] label=1 chunks=6 tokens=835 3.6s (eta 7 min)
+  [287/450] label=1 chunks=5 tokens=446 2.7s (eta 7 min)
+  [288/450] label=0 chunks=6 tokens=1767 5.0s (eta 7 min)
+  [289/450] label=1 chunks=6 tokens=932 3.7s (eta 7 min)
+  [290/450] label=0 chunks=5 tokens=1406 3.9s (eta 7 min)
+  [291/450] label=0 chunks=3 tokens=447 1.8s (eta 7 min)
+  [292/450] label=1 chunks=3 tokens=358 1.7s (eta 7 min)
+  [293/450] label=0 chunks=1 tokens=292 0.8s (eta 7 min)
+  [294/450] label=0 chunks=3 tokens=517 1.8s (eta 7 min)
+  [295/450] label=0 chunks=1 tokens=317 0.9s (eta 7 min)
+  [296/450] label=1 chunks=5 tokens=785 3.2s (eta 7 min)
+  [297/450] label=1 chunks=3 tokens=604 1.9s (eta 7 min)
+  [298/450] label=1 chunks=5 tokens=845 3.1s (eta 7 min)
+  [299/450] label=1 chunks=6 tokens=754 3.5s (eta 7 min)
+  [300/450] label=0 chunks=3 tokens=537 1.9s (eta 7 min)
+  [301/450] label=1 chunks=5 tokens=1050 3.4s (eta 7 min)
+  [302/450] label=1 chunks=4 tokens=893 2.9s (eta 7 min)
+  [303/450] label=1 chunks=4 tokens=560 2.3s (eta 7 min)
+  [304/450] label=0 chunks=4 tokens=850 2.7s (eta 7 min)
+  [305/450] label=1 chunks=6 tokens=795 3.6s (eta 7 min)
+  [306/450] label=0 chunks=5 tokens=773 2.9s (eta 6 min)
+  [307/450] label=1 chunks=3 tokens=536 1.9s (eta 6 min)
+  [308/450] label=1 chunks=4 tokens=903 2.8s (eta 6 min)
+  [309/450] label=0 chunks=3 tokens=356 1.7s (eta 6 min)
+  [310/450] label=0 chunks=5 tokens=920 3.3s (eta 6 min)
+  [311/450] label=0 chunks=3 tokens=367 1.7s (eta 6 min)
+  [312/450] label=0 chunks=5 tokens=974 3.4s (eta 6 min)
+  [313/450] label=0 chunks=3 tokens=598 2.0s (eta 6 min)
+  [314/450] label=1 chunks=1 tokens=480 1.0s (eta 6 min)
+  [315/450] label=0 chunks=5 tokens=1411 4.1s (eta 6 min)
+  [316/450] label=1 chunks=5 tokens=985 3.4s (eta 6 min)
+  [317/450] label=1 chunks=3 tokens=606 1.9s (eta 6 min)
+  [318/450] label=1 chunks=4 tokens=882 2.9s (eta 6 min)
+  [319/450] label=1 chunks=6 tokens=2048 5.0s (eta 6 min)
+  [320/450] label=0 chunks=4 tokens=598 2.2s (eta 6 min)
+  [321/450] label=1 chunks=4 tokens=1292 3.5s (eta 6 min)
+  [322/450] label=0 chunks=1 tokens=278 0.9s (eta 6 min)
+  [323/450] label=1 chunks=5 tokens=730 3.1s (eta 6 min)
+  [324/450] label=1 chunks=4 tokens=1234 3.2s (eta 6 min)
+  [325/450] label=0 chunks=1 tokens=524 1.1s (eta 6 min)
+  [326/450] label=1 chunks=3 tokens=405 1.8s (eta 6 min)
+  [327/450] label=0 chunks=5 tokens=1197 3.7s (eta 6 min)
+  [328/450] label=0 chunks=5 tokens=1007 3.3s (eta 5 min)
+  [329/450] label=1 chunks=5 tokens=1155 3.7s (eta 5 min)
+  [330/450] label=1 chunks=2 tokens=482 1.4s (eta 5 min)
+  [331/450] label=0 chunks=7 tokens=1474 4.6s (eta 5 min)
+  [332/450] label=1 chunks=2 tokens=559 1.4s (eta 5 min)
+  [333/450] label=1 chunks=5 tokens=938 3.2s (eta 5 min)
+  [334/450] label=1 chunks=4 tokens=857 2.7s (eta 5 min)
+  [335/450] label=0 chunks=5 tokens=423 2.6s (eta 5 min)
+  [336/450] label=1 chunks=2 tokens=382 1.3s (eta 5 min)
+  [337/450] label=1 chunks=6 tokens=1217 4.1s (eta 5 min)
+  [338/450] label=0 chunks=4 tokens=809 2.8s (eta 5 min)
+  [339/450] label=1 chunks=2 tokens=628 1.6s (eta 5 min)
+  [340/450] label=0 chunks=3 tokens=552 1.9s (eta 5 min)
+  [341/450] label=1 chunks=5 tokens=753 3.1s (eta 5 min)
+  [342/450] label=0 chunks=1 tokens=424 1.1s (eta 5 min)
+  [343/450] label=0 chunks=1 tokens=630 1.2s (eta 5 min)
+  [344/450] label=0 chunks=1 tokens=383 0.9s (eta 5 min)
+  [345/450] label=0 chunks=2 tokens=375 1.3s (eta 5 min)
+  [346/450] label=0 chunks=1 tokens=478 1.0s (eta 5 min)
+  [347/450] label=1 chunks=5 tokens=1339 3.9s (eta 5 min)
+  [348/450] label=0 chunks=2 tokens=570 1.6s (eta 5 min)
+  [349/450] label=0 chunks=1 tokens=340 0.8s (eta 4 min)
+  [350/450] label=1 chunks=6 tokens=698 3.3s (eta 4 min)
+  [351/450] label=1 chunks=5 tokens=956 3.3s (eta 4 min)
+  [352/450] label=1 chunks=5 tokens=881 3.2s (eta 4 min)
+  [353/450] label=0 chunks=3 tokens=654 2.0s (eta 4 min)
+  [354/450] label=0 chunks=2 tokens=486 1.4s (eta 4 min)
+  [355/450] label=1 chunks=4 tokens=1157 3.1s (eta 4 min)
+  [356/450] label=1 chunks=5 tokens=948 3.3s (eta 4 min)
+  [357/450] label=0 chunks=6 tokens=1428 4.3s (eta 4 min)
+  [358/450] label=0 chunks=5 tokens=979 3.3s (eta 4 min)
+  [359/450] label=0 chunks=1 tokens=325 0.9s (eta 4 min)
+  [360/450] label=0 chunks=4 tokens=823 2.7s (eta 4 min)
+  [361/450] label=0 chunks=3 tokens=577 2.0s (eta 4 min)
+  [362/450] label=0 chunks=4 tokens=871 2.8s (eta 4 min)
+  [363/450] label=0 chunks=2 tokens=535 1.5s (eta 4 min)
+  [364/450] label=1 chunks=4 tokens=497 2.4s (eta 4 min)
+  [365/450] label=1 chunks=5 tokens=909 3.3s (eta 4 min)
+  [366/450] label=1 chunks=5 tokens=587 2.8s (eta 4 min)
+  [367/450] label=1 chunks=5 tokens=1407 4.0s (eta 4 min)
+  [368/450] label=0 chunks=4 tokens=723 2.6s (eta 4 min)
+  [369/450] label=1 chunks=4 tokens=680 2.5s (eta 4 min)
+  [370/450] label=0 chunks=7 tokens=553 3.4s (eta 4 min)
+  [371/450] label=1 chunks=1 tokens=404 0.9s (eta 4 min)
+  [372/450] label=0 chunks=3 tokens=521 1.9s (eta 3 min)
+  [373/450] label=0 chunks=5 tokens=1326 3.8s (eta 3 min)
+  [374/450] label=1 chunks=4 tokens=1415 3.7s (eta 3 min)
+  [375/450] label=1 chunks=5 tokens=971 3.4s (eta 3 min)
+  [376/450] label=1 chunks=3 tokens=540 1.9s (eta 3 min)
+  [377/450] label=1 chunks=1 tokens=371 0.9s (eta 3 min)
+  [378/450] label=0 chunks=4 tokens=548 2.3s (eta 3 min)
+  [379/450] label=1 chunks=6 tokens=1140 4.0s (eta 3 min)
+  [380/450] label=1 chunks=1 tokens=276 0.7s (eta 3 min)
+  [381/450] label=1 chunks=7 tokens=1281 4.6s (eta 3 min)
+  [382/450] label=1 chunks=6 tokens=935 3.7s (eta 3 min)
+  [383/450] label=1 chunks=6 tokens=568 3.2s (eta 3 min)
+  [384/450] label=1 chunks=3 tokens=805 2.4s (eta 3 min)
+  [385/450] label=0 chunks=1 tokens=551 1.1s (eta 3 min)
+  [386/450] label=0 chunks=5 tokens=1416 3.9s (eta 3 min)
+  [387/450] label=0 chunks=5 tokens=1000 3.2s (eta 3 min)
+  [388/450] label=1 chunks=6 tokens=744 3.4s (eta 3 min)
+  [389/450] label=1 chunks=5 tokens=991 3.4s (eta 3 min)
+  [390/450] label=1 chunks=6 tokens=747 3.5s (eta 3 min)
+  [391/450] label=1 chunks=7 tokens=855 4.1s (eta 3 min)
+  [392/450] label=0 chunks=4 tokens=743 2.6s (eta 3 min)
+  [393/450] label=0 chunks=4 tokens=1035 3.3s (eta 3 min)
+  [394/450] label=1 chunks=3 tokens=667 2.1s (eta 2 min)
+  [395/450] label=1 chunks=3 tokens=405 1.7s (eta 2 min)
+  [396/450] label=1 chunks=6 tokens=989 3.8s (eta 2 min)
+  [397/450] label=0 chunks=2 tokens=452 1.3s (eta 2 min)
+  [398/450] label=0 chunks=3 tokens=406 1.8s (eta 2 min)
+  [399/450] label=1 chunks=4 tokens=851 2.8s (eta 2 min)
+  [400/450] label=1 chunks=3 tokens=515 1.9s (eta 2 min)
+  [401/450] label=1 chunks=3 tokens=358 1.6s (eta 2 min)
+  [402/450] label=0 chunks=3 tokens=622 1.9s (eta 2 min)
+  [403/450] label=1 chunks=5 tokens=1096 3.5s (eta 2 min)
+  [404/450] label=1 chunks=7 tokens=915 4.2s (eta 2 min)
+  [405/450] label=0 chunks=5 tokens=819 3.2s (eta 2 min)
+  [406/450] label=0 chunks=2 tokens=504 1.4s (eta 2 min)
+  [407/450] label=1 chunks=3 tokens=373 1.7s (eta 2 min)
+  [408/450] label=1 chunks=4 tokens=847 2.9s (eta 2 min)
+  [409/450] label=0 chunks=3 tokens=503 1.8s (eta 2 min)
+  [410/450] label=0 chunks=3 tokens=423 1.7s (eta 2 min)
+  [411/450] label=0 chunks=3 tokens=610 1.9s (eta 2 min)
+  [412/450] label=1 chunks=4 tokens=821 2.7s (eta 2 min)
+  [413/450] label=0 chunks=2 tokens=428 1.3s (eta 2 min)
+  [414/450] label=1 chunks=2 tokens=477 1.5s (eta 2 min)
+  [415/450] label=0 chunks=6 tokens=1104 3.7s (eta 2 min)
+  [416/450] label=1 chunks=7 tokens=512 3.4s (eta 2 min)
+  [417/450] label=1 chunks=5 tokens=899 3.2s (eta 1 min)
+  [418/450] label=0 chunks=3 tokens=523 1.9s (eta 1 min)
+  [419/450] label=1 chunks=6 tokens=1031 4.0s (eta 1 min)
+  [420/450] label=0 chunks=3 tokens=570 1.9s (eta 1 min)
+  [421/450] label=1 chunks=7 tokens=1243 4.6s (eta 1 min)
+  [422/450] label=1 chunks=5 tokens=879 3.3s (eta 1 min)
+  [423/450] label=1 chunks=6 tokens=1234 4.2s (eta 1 min)
+  [424/450] label=1 chunks=5 tokens=866 3.1s (eta 1 min)
+  [425/450] label=0 chunks=5 tokens=564 2.7s (eta 1 min)
+  [426/450] label=0 chunks=3 tokens=769 2.3s (eta 1 min)
+  [427/450] label=1 chunks=4 tokens=844 2.8s (eta 1 min)
+  [428/450] label=1 chunks=8 tokens=1784 5.6s (eta 1 min)
+  [429/450] label=1 chunks=4 tokens=580 2.2s (eta 1 min)
+  [430/450] label=1 chunks=5 tokens=1221 3.7s (eta 1 min)
+  [431/450] label=1 chunks=7 tokens=1306 4.5s (eta 1 min)
+  [432/450] label=0 chunks=4 tokens=421 2.2s (eta 1 min)
+  [433/450] label=1 chunks=4 tokens=683 2.4s (eta 1 min)
+  [434/450] label=0 chunks=4 tokens=744 2.5s (eta 1 min)
+  [435/450] label=1 chunks=2 tokens=377 1.3s (eta 1 min)
+  [436/450] label=1 chunks=7 tokens=545 3.5s (eta 1 min)
+  [437/450] label=0 chunks=4 tokens=395 2.0s (eta 1 min)
+  [438/450] label=0 chunks=4 tokens=744 2.5s (eta 1 min)
+  [439/450] label=1 chunks=4 tokens=1569 4.0s (eta 0 min)
+  [440/450] label=1 chunks=4 tokens=699 2.5s (eta 0 min)
+  [441/450] label=0 chunks=7 tokens=1976 5.4s (eta 0 min)
+  [442/450] label=1 chunks=5 tokens=833 3.2s (eta 0 min)
+  [443/450] label=1 chunks=4 tokens=1309 3.6s (eta 0 min)
+  [444/450] label=1 chunks=6 tokens=1188 4.0s (eta 0 min)
+  [445/450] label=0 chunks=4 tokens=788 2.7s (eta 0 min)
+  [446/450] label=1 chunks=2 tokens=482 1.4s (eta 0 min)
+  [447/450] label=1 chunks=3 tokens=364 1.6s (eta 0 min)
+  [448/450] label=0 chunks=5 tokens=533 2.8s (eta 0 min)
+  [449/450] label=1 chunks=6 tokens=1045 3.9s (eta 0 min)
+  [450/450] label=1 chunks=5 tokens=1109 3.7s (eta 0 min)
+>>> /usr/bin/python3 scripts/run_aarf.py --model NousResearch/Meta-Llama-3-8B-Instruct --load_in_4bit --hp official:test_llama3_8B --tag llama3_8b
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   0%|          | 1/291 [00:04<20:23,  4.22s/it]Loading weights:   1%|          | 2/291 [00:08<21:46,  4.52s/it]Loading weights:   1%|▏         | 4/291 [00:09<08:43,  1.83s/it]Loading weights:   2%|▏         | 5/291 [00:09<06:43,  1.41s/it]Loading weights:   2%|▏         | 6/291 [00:10<05:14,  1.10s/it]Loading weights:   3%|▎         | 9/291 [00:10<02:21,  1.99it/s]Loading weights:   3%|▎         | 10/291 [00:10<01:57,  2.39it/s]Loading weights:   4%|▍         | 13/291 [00:11<01:25,  3.27it/s]Loading weights:   5%|▍         | 14/291 [00:11<01:36,  2.88it/s]Loading weights:   5%|▌         | 15/291 [00:12<01:45,  2.61it/s]Loading weights:   6%|▌         | 18/291 [00:12<01:02,  4.34it/s]Loading weights:   7%|▋         | 19/291 [00:12<00:56,  4.79it/s]Loading weights:   8%|▊         | 22/291 [00:12<00:49,  5.39it/s]Loading weights:   8%|▊         | 23/291 [00:13<01:06,  4.03it/s]Loading weights:   8%|▊         | 24/291 [00:13<01:18,  3.38it/s]Loading weights:   9%|▉         | 27/291 [00:14<00:47,  5.50it/s]Loading weights:  10%|▉         | 28/291 [00:14<00:45,  5.77it/s]Loading weights:  11%|█         | 31/291 [00:14<00:42,  6.05it/s]Loading weights:  11%|█         | 32/291 [00:15<00:53,  4.88it/s]Loading weights:  11%|█▏        | 33/291 [00:15<01:09,  3.73it/s]Loading weights:  12%|█▏        | 36/291 [00:15<00:41,  6.08it/s]Loading weights:  13%|█▎        | 38/291 [00:15<00:35,  7.13it/s]Loading weights:  14%|█▎        | 40/291 [00:16<00:44,  5.59it/s]Loading weights:  14%|█▍        | 41/291 [00:16<00:56,  4.41it/s]Loading weights:  14%|█▍        | 42/291 [00:17<01:06,  3.75it/s]Loading weights:  15%|█▌        | 45/291 [00:17<00:40,  6.11it/s]Loading weights:  16%|█▌        | 47/291 [00:17<00:33,  7.22it/s]Loading weights:  17%|█▋        | 49/291 [00:18<00:41,  5.84it/s]Loading weights:  17%|█▋        | 50/291 [00:18<00:53,  4.47it/s]Loading weights:  18%|█▊        | 51/291 [00:19<01:05,  3.66it/s]Loading weights:  19%|█▊        | 54/291 [00:19<00:39,  5.98it/s]Loading weights:  19%|█▉        | 56/291 [00:19<00:32,  7.22it/s]Loading weights:  20%|█▉        | 58/291 [00:19<00:40,  5.79it/s]Loading weights:  20%|██        | 59/291 [00:20<00:52,  4.43it/s]Loading weights:  21%|██        | 60/291 [00:20<01:01,  3.76it/s]Loading weights:  22%|██▏       | 63/291 [00:20<00:37,  6.03it/s]Loading weights:  22%|██▏       | 64/291 [00:20<00:36,  6.24it/s]Loading weights:  23%|██▎       | 67/291 [00:21<00:36,  6.13it/s]Loading weights:  23%|██▎       | 68/291 [00:21<00:48,  4.60it/s]Loading weights:  24%|██▎       | 69/291 [00:22<00:58,  3.78it/s]Loading weights:  25%|██▍       | 72/291 [00:22<00:35,  6.23it/s]Loading weights:  25%|██▌       | 74/291 [00:22<00:29,  7.23it/s]Loading weights:  26%|██▌       | 76/291 [00:23<00:34,  6.25it/s]Loading weights:  26%|██▋       | 77/291 [00:23<00:46,  4.56it/s]Loading weights:  27%|██▋       | 78/291 [00:24<00:54,  3.88it/s]Loading weights:  28%|██▊       | 81/291 [00:24<00:34,  6.05it/s]Loading weights:  28%|██▊       | 82/291 [00:24<00:34,  6.15it/s]Loading weights:  29%|██▉       | 85/291 [00:24<00:35,  5.88it/s]Loading weights:  30%|██▉       | 86/291 [00:25<00:45,  4.55it/s]Loading weights:  30%|██▉       | 87/291 [00:25<00:55,  3.68it/s]Loading weights:  31%|███       | 90/291 [00:25<00:33,  5.94it/s]Loading weights:  31%|███▏      | 91/291 [00:26<00:31,  6.31it/s]Loading weights:  32%|███▏      | 94/291 [00:26<00:32,  6.13it/s]Loading weights:  33%|███▎      | 95/291 [00:27<00:44,  4.37it/s]Loading weights:  33%|███▎      | 96/291 [00:27<00:55,  3.49it/s]Loading weights:  34%|███▍      | 99/291 [00:27<00:34,  5.55it/s]Loading weights:  34%|███▍      | 100/291 [00:27<00:32,  5.94it/s]Loading weights:  35%|███▌      | 103/291 [00:28<00:32,  5.79it/s]Loading weights:  36%|███▌      | 104/291 [00:28<00:40,  4.63it/s]Loading weights:  36%|███▌      | 105/291 [00:29<00:46,  4.01it/s]Loading weights:  37%|███▋      | 108/291 [00:29<00:29,  6.20it/s]Loading weights:  37%|███▋      | 109/291 [00:29<00:27,  6.54it/s]Loading weights:  38%|███▊      | 112/291 [00:29<00:26,  6.70it/s]Loading weights:  39%|███▉      | 113/291 [00:30<00:36,  4.85it/s]Loading weights:  39%|███▉      | 114/291 [00:30<00:44,  3.97it/s]Loading weights:  40%|████      | 117/291 [00:31<00:27,  6.29it/s]Loading weights:  41%|████      | 118/291 [00:31<00:26,  6.51it/s]Loading weights:  42%|████▏     | 121/291 [00:31<00:26,  6.52it/s]Loading weights:  42%|████▏     | 122/291 [00:32<00:33,  4.98it/s]Loading weights:  42%|████▏     | 123/291 [00:32<00:37,  4.44it/s]Loading weights:  43%|████▎     | 126/291 [00:32<00:23,  7.12it/s]Loading weights:  44%|████▍     | 128/291 [00:32<00:20,  8.14it/s]Loading weights:  45%|████▍     | 130/291 [00:33<00:25,  6.24it/s]Loading weights:  45%|████▌     | 131/291 [00:33<00:35,  4.49it/s]Loading weights:  45%|████▌     | 132/291 [00:34<00:42,  3.72it/s]Loading weights:  46%|████▋     | 135/291 [00:34<00:25,  6.03it/s]Loading weights:  47%|████▋     | 137/291 [00:34<00:21,  7.32it/s]Loading weights:  48%|████▊     | 139/291 [00:34<00:25,  6.05it/s]Loading weights:  48%|████▊     | 140/291 [00:35<00:32,  4.58it/s]Loading weights:  48%|████▊     | 141/291 [00:35<00:40,  3.66it/s]Loading weights:  49%|████▉     | 144/291 [00:35<00:24,  6.00it/s]Loading weights:  50%|█████     | 146/291 [00:36<00:20,  7.02it/s]Loading weights:  51%|█████     | 148/291 [00:36<00:25,  5.64it/s]Loading weights:  51%|█████     | 149/291 [00:37<00:34,  4.17it/s]Loading weights:  52%|█████▏    | 150/291 [00:37<00:38,  3.68it/s]Loading weights:  53%|█████▎    | 153/291 [00:37<00:23,  5.83it/s]Loading weights:  53%|█████▎    | 154/291 [00:37<00:21,  6.24it/s]Loading weights:  54%|█████▍    | 157/291 [00:38<00:22,  5.90it/s]Loading weights:  54%|█████▍    | 158/291 [00:38<00:28,  4.59it/s]Loading weights:  55%|█████▍    | 159/291 [00:39<00:34,  3.78it/s]Loading weights:  56%|█████▌    | 162/291 [00:39<00:21,  6.10it/s]Loading weights:  56%|█████▋    | 164/291 [00:39<00:17,  7.22it/s]Loading weights:  57%|█████▋    | 166/291 [00:40<00:21,  5.79it/s]Loading weights:  57%|█████▋    | 167/291 [00:40<00:27,  4.55it/s]Loading weights:  58%|█████▊    | 168/291 [00:40<00:32,  3.80it/s]Loading weights:  59%|█████▉    | 171/291 [00:41<00:19,  6.13it/s]Loading weights:  59%|█████▉    | 173/291 [00:41<00:15,  7.46it/s]Loading weights:  60%|██████    | 175/291 [00:41<00:18,  6.40it/s]Loading weights:  60%|██████    | 176/291 [00:42<00:23,  4.87it/s]Loading weights:  61%|██████    | 177/291 [00:42<00:28,  3.98it/s]Loading weights:  62%|██████▏   | 180/291 [00:42<00:17,  6.36it/s]Loading weights:  63%|██████▎   | 182/291 [00:42<00:14,  7.55it/s]Loading weights:  63%|██████▎   | 184/291 [00:43<00:16,  6.48it/s]Loading weights:  64%|██████▎   | 185/291 [00:43<00:20,  5.09it/s]Loading weights:  64%|██████▍   | 186/291 [00:44<00:25,  4.12it/s]Loading weights:  65%|██████▍   | 189/291 [00:44<00:15,  6.56it/s]Loading weights:  66%|██████▌   | 191/291 [00:44<00:13,  7.68it/s]Loading weights:  66%|██████▋   | 193/291 [00:44<00:15,  6.45it/s]Loading weights:  67%|██████▋   | 194/291 [00:45<00:19,  4.97it/s]Loading weights:  67%|██████▋   | 195/291 [00:45<00:23,  4.10it/s]Loading weights:  68%|██████▊   | 198/291 [00:45<00:14,  6.50it/s]Loading weights:  68%|██████▊   | 199/291 [00:45<00:13,  6.84it/s]Loading weights:  69%|██████▉   | 202/291 [00:46<00:12,  6.92it/s]Loading weights:  70%|██████▉   | 203/291 [00:46<00:16,  5.42it/s]Loading weights:  70%|███████   | 204/291 [00:47<00:20,  4.15it/s]Loading weights:  71%|███████   | 207/291 [00:47<00:12,  6.51it/s]Loading weights:  71%|███████▏  | 208/291 [00:47<00:12,  6.80it/s]Loading weights:  73%|███████▎  | 211/291 [00:47<00:12,  6.53it/s]Loading weights:  73%|███████▎  | 212/291 [00:48<00:16,  4.92it/s]Loading weights:  73%|███████▎  | 213/291 [00:48<00:19,  3.98it/s]Loading weights:  74%|███████▍  | 216/291 [00:48<00:11,  6.49it/s]Loading weights:  75%|███████▍  | 218/291 [00:49<00:09,  7.88it/s]Loading weights:  76%|███████▌  | 220/291 [00:49<00:10,  6.63it/s]Loading weights:  76%|███████▋  | 222/291 [00:50<00:16,  4.27it/s]Loading weights:  77%|███████▋  | 225/291 [00:50<00:10,  6.14it/s]Loading weights:  78%|███████▊  | 227/291 [00:50<00:08,  7.12it/s]Loading weights:  79%|███████▊  | 229/291 [00:51<00:10,  5.86it/s]Loading weights:  79%|███████▉  | 230/291 [00:51<00:12,  4.81it/s]Loading weights:  79%|███████▉  | 231/291 [00:51<00:14,  4.01it/s]Loading weights:  80%|████████  | 234/291 [00:52<00:09,  6.28it/s]Loading weights:  81%|████████  | 236/291 [00:52<00:07,  7.35it/s]Loading weights:  82%|████████▏ | 238/291 [00:52<00:08,  6.41it/s]Loading weights:  82%|████████▏ | 239/291 [00:53<00:10,  4.95it/s]Loading weights:  82%|████████▏ | 240/291 [00:53<00:12,  4.03it/s]Loading weights:  84%|████████▎ | 243/291 [00:53<00:07,  6.40it/s]Loading weights:  84%|████████▍ | 244/291 [00:53<00:06,  6.74it/s]Loading weights:  85%|████████▍ | 247/291 [00:54<00:06,  6.57it/s]Loading weights:  85%|████████▌ | 248/291 [00:54<00:08,  4.96it/s]Loading weights:  86%|████████▌ | 249/291 [00:55<00:10,  4.02it/s]Loading weights:  87%|████████▋ | 252/291 [00:55<00:06,  6.34it/s]Loading weights:  87%|████████▋ | 253/291 [00:55<00:05,  6.65it/s]Loading weights:  88%|████████▊ | 256/291 [00:55<00:05,  6.45it/s]Loading weights:  88%|████████▊ | 257/291 [00:56<00:06,  4.93it/s]Loading weights:  89%|████████▊ | 258/291 [00:56<00:08,  4.07it/s]Loading weights:  90%|████████▉ | 261/291 [00:56<00:04,  6.39it/s]Loading weights:  90%|█████████ | 262/291 [00:57<00:04,  6.66it/s]Loading weights:  91%|█████████ | 265/291 [00:57<00:03,  6.72it/s]Loading weights:  91%|█████████▏| 266/291 [00:57<00:04,  5.13it/s]Loading weights:  92%|█████████▏| 267/291 [00:58<00:05,  4.28it/s]Loading weights:  93%|█████████▎| 270/291 [00:58<00:03,  6.71it/s]Loading weights:  93%|█████████▎| 271/291 [00:58<00:02,  6.92it/s]Loading weights:  94%|█████████▍| 274/291 [00:58<00:02,  6.81it/s]Loading weights:  95%|█████████▍| 275/291 [00:59<00:03,  5.29it/s]Loading weights:  95%|█████████▍| 276/291 [00:59<00:03,  4.32it/s]Loading weights:  96%|█████████▌| 279/291 [00:59<00:01,  6.69it/s]Loading weights:  96%|█████████▌| 280/291 [01:00<00:01,  6.98it/s]Loading weights:  97%|█████████▋| 283/291 [01:00<00:01,  6.93it/s]Loading weights:  98%|█████████▊| 284/291 [01:00<00:01,  5.33it/s]Loading weights:  98%|█████████▊| 285/291 [01:01<00:01,  4.23it/s]Loading weights:  99%|█████████▉| 288/291 [01:01<00:00,  6.65it/s]Loading weights: 100%|█████████▉| 290/291 [01:01<00:00,  7.86it/s]Loading weights: 100%|██████████| 291/291 [01:01<00:00,  4.72it/s]
+99 Dolly(AC) prompts, 0 done; hp={'select_heads': [[15, 20]], 'select_layers': [22], 'head_max_min': [0.7333984375, 0.0160064697265625], 'layers_max_min': [17.523765563964844, 0.0], 'final_max_min': [0.08770651117589892, 0.009603841536614645], 'weight': 0.0}
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  [1/99] 38 vs 38 tokens, 3 AARF steps, identical=True (6s)
+  [2/99] 68 vs 68 tokens, 4 AARF steps, identical=True (10s)
+  [3/99] 55 vs 54 tokens, 7 AARF steps, identical=False (9s)
+  [4/99] 27 vs 27 tokens, 2 AARF steps, identical=True (7s)
+  [5/99] 35 vs 35 tokens, 3 AARF steps, identical=True (6s)
+  [6/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [7/99] 180 vs 180 tokens, 8 AARF steps, identical=True (30s)
+  [8/99] 47 vs 47 tokens, 2 AARF steps, identical=True (7s)
+  [9/99] 60 vs 60 tokens, 4 AARF steps, identical=True (9s)
+  [10/99] 41 vs 41 tokens, 8 AARF steps, identical=True (7s)
+  [11/99] 56 vs 56 tokens, 10 AARF steps, identical=True (9s)
+  [12/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [13/99] 32 vs 32 tokens, 1 AARF steps, identical=True (5s)
+  [14/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [15/99] 31 vs 31 tokens, 4 AARF steps, identical=True (5s)
+  [16/99] 33 vs 33 tokens, 4 AARF steps, identical=True (5s)
+  [17/99] 26 vs 26 tokens, 1 AARF steps, identical=True (4s)
+  [18/99] 106 vs 106 tokens, 18 AARF steps, identical=True (19s)
+  [19/99] 61 vs 61 tokens, 2 AARF steps, identical=True (9s)
+  [20/99] 56 vs 56 tokens, 4 AARF steps, identical=True (8s)
+  [21/99] 50 vs 50 tokens, 5 AARF steps, identical=True (12s)
+  [22/99] 12 vs 12 tokens, 2 AARF steps, identical=True (2s)
+  [23/99] 15 vs 15 tokens, 2 AARF steps, identical=True (3s)
+  [24/99] 6 vs 6 tokens, 1 AARF steps, identical=True (1s)
+  [25/99] 63 vs 63 tokens, 3 AARF steps, identical=True (9s)
+  [26/99] 60 vs 60 tokens, 6 AARF steps, identical=True (9s)
+  [27/99] 43 vs 43 tokens, 4 AARF steps, identical=True (7s)
+  [28/99] 83 vs 83 tokens, 8 AARF steps, identical=True (12s)
+  [29/99] 37 vs 37 tokens, 2 AARF steps, identical=True (6s)
+  [30/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [31/99] 28 vs 28 tokens, 2 AARF steps, identical=True (4s)
+  [32/99] 11 vs 11 tokens, 1 AARF steps, identical=True (3s)
+  [33/99] 21 vs 21 tokens, 0 AARF steps, identical=True (4s)
+  [34/99] 51 vs 51 tokens, 5 AARF steps, identical=True (8s)
+  [35/99] 112 vs 112 tokens, 15 AARF steps, identical=True (22s)
+  [36/99] 42 vs 42 tokens, 3 AARF steps, identical=True (7s)
+  [37/99] 32 vs 32 tokens, 3 AARF steps, identical=True (5s)
+  [38/99] 8 vs 8 tokens, 0 AARF steps, identical=True (2s)
+  [39/99] 44 vs 44 tokens, 2 AARF steps, identical=True (6s)
+  [40/99] 59 vs 59 tokens, 8 AARF steps, identical=True (9s)
+  [41/99] 115 vs 115 tokens, 6 AARF steps, identical=True (17s)
+  [42/99] 84 vs 73 tokens, 8 AARF steps, identical=False (11s)
+  [43/99] 17 vs 17 tokens, 2 AARF steps, identical=True (3s)
+  [44/99] 18 vs 18 tokens, 1 AARF steps, identical=True (3s)
+  [45/99] 56 vs 56 tokens, 5 AARF steps, identical=True (9s)
+  [46/99] 14 vs 14 tokens, 1 AARF steps, identical=True (2s)
+  [47/99] 116 vs 116 tokens, 5 AARF steps, identical=True (20s)
+  [48/99] 117 vs 117 tokens, 3 AARF steps, identical=True (16s)
+  [49/99] 155 vs 155 tokens, 21 AARF steps, identical=True (23s)
+  [50/99] 32 vs 32 tokens, 0 AARF steps, identical=True (5s)
+  [51/99] 27 vs 27 tokens, 1 AARF steps, identical=True (5s)
+  [52/99] 95 vs 95 tokens, 6 AARF steps, identical=True (13s)
+  [53/99] 10 vs 10 tokens, 0 AARF steps, identical=True (2s)
+  [54/99] 12 vs 12 tokens, 2 AARF steps, identical=True (3s)
+  [55/99] 52 vs 52 tokens, 3 AARF steps, identical=True (8s)
+  [56/99] 18 vs 18 tokens, 0 AARF steps, identical=True (3s)
+  [57/99] 17 vs 17 tokens, 0 AARF steps, identical=True (3s)
+  [58/99] 35 vs 35 tokens, 2 AARF steps, identical=True (5s)
+  [59/99] 21 vs 21 tokens, 3 AARF steps, identical=True (3s)
+  [60/99] 51 vs 51 tokens, 3 AARF steps, identical=True (8s)
+  [61/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [62/99] 22 vs 22 tokens, 0 AARF steps, identical=True (4s)
+  [63/99] 29 vs 29 tokens, 1 AARF steps, identical=True (4s)
+  [64/99] 87 vs 87 tokens, 5 AARF steps, identical=True (12s)
+  [65/99] 22 vs 22 tokens, 1 AARF steps, identical=True (4s)
+  [66/99] 12 vs 12 tokens, 4 AARF steps, identical=True (3s)
+  [67/99] 17 vs 17 tokens, 0 AARF steps, identical=True (3s)
+  [68/99] 17 vs 17 tokens, 0 AARF steps, identical=True (3s)
+  [69/99] 10 vs 10 tokens, 0 AARF steps, identical=True (2s)
+  [70/99] 18 vs 18 tokens, 0 AARF steps, identical=True (3s)
+  [71/99] 107 vs 107 tokens, 12 AARF steps, identical=True (16s)
+  [72/99] 36 vs 36 tokens, 2 AARF steps, identical=True (6s)
+  [73/99] 22 vs 22 tokens, 0 AARF steps, identical=True (3s)
+  [74/99] 20 vs 20 tokens, 2 AARF steps, identical=True (3s)
+  [75/99] 40 vs 40 tokens, 1 AARF steps, identical=True (6s)
+  [76/99] 15 vs 15 tokens, 2 AARF steps, identical=True (2s)
+  [77/99] 20 vs 20 tokens, 1 AARF steps, identical=True (3s)
+  [78/99] 16 vs 16 tokens, 1 AARF steps, identical=True (3s)
+  [79/99] 12 vs 12 tokens, 0 AARF steps, identical=True (2s)
+  [80/99] 8 vs 8 tokens, 1 AARF steps, identical=True (2s)
+  [81/99] 36 vs 36 tokens, 6 AARF steps, identical=True (6s)
+  [82/99] 10 vs 10 tokens, 0 AARF steps, identical=True (2s)
+  [83/99] 71 vs 71 tokens, 13 AARF steps, identical=True (11s)
+  [84/99] 20 vs 20 tokens, 1 AARF steps, identical=True (3s)
+  [85/99] 37 vs 37 tokens, 2 AARF steps, identical=True (6s)
+  [86/99] 23 vs 23 tokens, 4 AARF steps, identical=True (4s)
+  [87/99] 41 vs 41 tokens, 4 AARF steps, identical=True (6s)
+  [88/99] 30 vs 30 tokens, 1 AARF steps, identical=True (5s)
+  [89/99] 11 vs 11 tokens, 1 AARF steps, identical=True (2s)
+  [90/99] 17 vs 17 tokens, 0 AARF steps, identical=True (3s)
+  [91/99] 36 vs 36 tokens, 0 AARF steps, identical=True (6s)
+  [92/99] 32 vs 32 tokens, 1 AARF steps, identical=True (5s)
+  [93/99] 11 vs 11 tokens, 0 AARF steps, identical=True (2s)
+  [94/99] 46 vs 46 tokens, 8 AARF steps, identical=True (7s)
+  [95/99] 73 vs 73 tokens, 2 AARF steps, identical=True (10s)
+  [96/99] 114 vs 114 tokens, 2 AARF steps, identical=True (16s)
+  [97/99] 28 vs 28 tokens, 0 AARF steps, identical=True (4s)
+  [98/99] 34 vs 34 tokens, 2 AARF steps, identical=True (5s)
+  [99/99] 36 vs 36 tokens, 4 AARF steps, identical=True (6s)

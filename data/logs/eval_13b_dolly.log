@@ -1,0 +1,27 @@
+{
+ "official_protocol": {
+  "ijk": [
+   11,
+   3,
+   0.2
+  ],
+  "AUC": 0.768312757201646,
+  "PCC": 0.3461941620896828
+ },
+ "tuned_on_test": {
+  "ijk": [
+   6,
+   12,
+   1.0
+  ],
+  "AUC": 0.8320987654320988
+ },
+ "n_responses": 99,
+ "n_hallucinated": 54,
+ "n_chunks": 99,
+ "response_level_ranking": true,
+ "nested_cv_AUC": [
+  0.6828282828282829,
+  0.08295137441473861
+ ]
+}

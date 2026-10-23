@@ -118,10 +118,21 @@ if big_have:
     parts = []
     for n, t in big_have:
         r = opt(f"results_tok_{t}_ragtruth.json")
-        parts.append(f"{n} reaches a token-level AUC of {r['cv']['AUC'][0]:.3f} on its own {r['n']} RAGTruth responses "
-                     f"(perplexity {r['cv']['PPL_AUC'][0]:.3f}, LN-Entropy {r['cv']['LNEnt_AUC'][0]:.3f})")
+        cr = ch_auc(t, "ragtruth")[0]
+        d = opt(f"results_tok_{t}_dolly.json")
+        s = (f"{n} reaches a token-level AUC of {r['cv']['AUC'][0]:.3f} on its own {r['n']} RAGTruth responses "
+             f"(perplexity {r['cv']['PPL_AUC'][0]:.3f}, LN-Entropy {r['cv']['LNEnt_AUC'][0]:.3f})")
+        if cr is not None:
+            s += f", {cr:.3f} at chunk level"
+        if d:
+            s += (f", and {d['cv']['AUC'][0]:.3f} on Dolly (AC) (LN-Entropy {d['cv']['LNEnt_AUC'][0]:.3f})")
+        parts.append(s)
     big_para = ("\\textbf{Larger backbones.} Llama-2-13B-chat and Llama-3-8B-Instruct do not fit a 6\\,GB GPU, so we ran them in "
-                "4-bit on a free Kaggle T4 GPU with the same code, each scoring its own responses. " + "; ".join(parts) + ".")
+                "4-bit on a free Kaggle T4 GPU with the same code, each scoring its own responses. " + "; ".join(parts) + ". "
+                "Llama-2-13B is the strongest detector we tested. On Llama-3-8B, ReDeEP's margin over LN-Entropy is small on "
+                "RAGTruth and reversed on Dolly (AC), consistent with the paper's observation that heads and layers must be "
+                "re-tuned per model; Llama-3-8B's released labels are response-level only, so its chunk-level score is "
+                "evaluated per response.")
     big_contrib = "the paper's two larger backbones (Llama-2-13B, Llama-3-8B), "
     aarf_lim = ""
 else:
@@ -142,6 +153,50 @@ flips = sum(v["aarf_first"] != v["baseline_first"] for v in both_parsed)
 bA = sum(v["aarf_first"] and v["baseline_first"] for v in both_parsed)
 bB = sum((not v["aarf_first"]) and (not v["baseline_first"]) for v in both_parsed)
 first = [v.get("aarf_first") for v in byid.values()]
+
+
+def aarf_stats(tag):
+    gf, jf = DATA / f"aarf_{tag}.jsonl", DATA / f"aarf_judge_{tag}.jsonl"
+    if not gf.exists():
+        return None
+    rows = [json.loads(l) for l in open(gf, encoding="utf-8")]
+    g = np.concatenate([np.array(r["gate_trace"])[:, 2] for r in rows if r.get("gate_trace")])
+    by = {}
+    if jf.exists():
+        for x in (json.loads(l) for l in open(jf, encoding="utf-8")):
+            by.setdefault(x["id"], {})[x["order"]] = x["aarf_won"]
+    bp = [v for v in by.values() if v.get("aarf_first") is not None and v.get("baseline_first") is not None]
+    return {"n": len(rows), "changed": sum(r["baseline"] != r["aarf"] for r in rows), "fire": 100 * (g > 0.6).mean(),
+            "offA": sum(v.get("aarf_first") is True for v in by.values()),
+            "offB": sum(v.get("aarf_first") is False for v in by.values()),
+            "bothA": sum(v["aarf_first"] and v["baseline_first"] for v in bp),
+            "bothB": sum((not v["aarf_first"]) and (not v["baseline_first"]) for v in bp), "judged": bool(by)}
+
+
+aarf_rows, other = [], []
+for name, tag in BIG:
+    s = aarf_stats(tag)
+    if s is None:
+        continue
+    j = (f"{s['offA']} / {s['offB']} & {s['bothA']} / {s['bothB']}" if s["judged"] else "-- & --")
+    aarf_rows.append(f"{name} & {s['changed']}/{s['n']} & {s['fire']:.0f}\\% & {j} \\\\")
+    if tag != "llama2_7b":
+        other.append((name, s))
+aarf_rows = "\n".join(aarf_rows)
+if other:
+    bits = []
+    for name, s in other:
+        b = (f"{name}: the gate fired on {s['fire']:.0f}\\% of steps and changed {s['changed']} of {s['n']} answers")
+        if s["judged"] and s["changed"]:
+            b += f"; with both orders required to agree, AARF won {s['bothA']} and the baseline {s['bothB']}"
+        bits.append(b)
+    aarf_other_para = ("\\textbf{Other backbones.} With each model's released hyperparameters, run on a Kaggle T4 GPU: "
+                       + "; ".join(bits) + ". The gate is thus either always on or almost never on, depending on the "
+                       "model's stored ranges, and in neither case does AARF measurably improve truthfulness.")
+    aarf_lim = ""
+else:
+    aarf_other_para = ""
+V.update(dict(aarf_rows=aarf_rows, aarfOtherPara=aarf_other_para))
 V.update(dict(
     chR7=f3(e7r["nested_cv"]["AUC_mean"]), chR7off=f3(e7r["official_protocol"]["AUC"]),
     chOff=f3(ev_off["nested_cv"]["AUC_mean"]), chOffoff=f3(ev_off["official_protocol"]["AUC"]),
@@ -155,7 +210,7 @@ V.update(dict(
     aarfFrac=f"{100 * (gates > 0.6).mean():.0f}",
     aarfOffA=sum(x is True for x in first), aarfOffB=sum(x is False for x in first), aarfUnp=sum(x is None for x in first),
     aarfBothA=bA, aarfBothB=bB, aarfDiff=len(byid), aarfSame=len(arows) - len(byid),
-    aarfFlip=flips, aarfFlipPct=f"{100 * flips / max(len(byid), 1):.0f}",
+    aarfFlip=flips, aarfParsed=len(both_parsed), aarfFlipPct=f"{100 * flips / max(len(both_parsed), 1):.0f}",
     aarfP=f"{binomtest(bA, bA + bB, 0.5).pvalue:.2f}", aarfLimitModels=aarf_lim,
 ))
 

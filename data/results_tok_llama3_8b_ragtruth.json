@@ -1,0 +1,23 @@
+{
+ "model": "NousResearch/Meta-Llama-3-8B-Instruct",
+ "dataset": "ragtruth",
+ "response_model": "llama-3-8b-instruct",
+ "n": 450,
+ "n_hallucinated": 243,
+ "cv": {
+  "AUC": [
+   0.7295952934019136,
+   0.07534575956121162
+  ],
+  "PPL_AUC": [
+   0.6610008434268015,
+   0.02540425671809316
+  ],
+  "LNEnt_AUC": [
+   0.7116472401968917,
+   0.050679903161510206
+  ]
+ },
+ "load_in_4bit": true,
+ "dtype": "float16"
+}

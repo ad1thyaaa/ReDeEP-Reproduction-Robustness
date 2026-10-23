@@ -1,0 +1,17 @@
+{
+ "judge_model": "gemini-3.5-flash-lite",
+ "n_prompts": 98,
+ "n_identical": 44,
+ "n_judged_pairs": 54,
+ "official_order_aarf_first": {
+  "AARF": 30,
+  "Baseline": 20,
+  "unparsed": 4
+ },
+ "both_orders": {
+  "AARF": 14,
+  "Tie/inconsistent": 28,
+  "Baseline": 12
+ },
+ "interventions_mean": 83.15306122448979
+}

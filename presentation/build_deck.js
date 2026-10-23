@@ -256,13 +256,105 @@ T(s, [
 ], { x: 7.1, y: 1.5, w: 2.25, h: 3.3, fontSize: 13 });
 s.addNotes("GPT-family judge: OpenAI's open-weights gpt-oss-120b via Groq's free tier. Gemini: 3.5 Flash-Lite via the free tier. All judges and ReDeEP are scored on the same held-out split.");
 
-// 11 Limitations --------------------------------------------------------
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Comparison" });
+// ---- official code & data: load results ------------------------------
+const ev = f => tryRead(`eval_chunk_${f}.json`);
+const tok = f => tryRead(`results_tok_${f}.json`);
+const BIGM = [["Llama-2-7B", "llama2_7b"], ["Llama-2-13B", "llama2_13b"], ["Llama-3-8B", "llama3_8b"]];
+const nc = e => (e ? e.nested_cv.AUC_mean.toFixed(3) : "–");
+const tk = (t, ds) => (t === "llama2_7b" && ds === "ragtruth" ? l2.cv.AUC[0].toFixed(3) : (tok(`${t}_${ds}`) ? tok(`${t}_${ds}`).cv.AUC[0].toFixed(3) : "–"));
+function aarfStats(tag) {
+  const g = path.join(DATA, `aarf_${tag}.jsonl`), j = path.join(DATA, `aarf_judge_${tag}.jsonl`);
+  if (!fs.existsSync(g)) return null;
+  const rows = fs.readFileSync(g, "utf8").trim().split("\n").map(JSON.parse);
+  let steps = 0, fire = 0;
+  rows.forEach(r => (r.gate_trace || []).forEach(t => { steps++; if (t[2] > 0.6) fire++; }));
+  const by = {};
+  if (fs.existsSync(j)) fs.readFileSync(j, "utf8").trim().split("\n").filter(Boolean).map(JSON.parse)
+    .forEach(x => { (by[x.id] = by[x.id] || {})[x.order] = x.aarf_won; });
+  const vs = Object.values(by), both = vs.filter(v => v.aarf_first != null && v.baseline_first != null);
+  return { n: rows.length, changed: rows.filter(r => r.baseline !== r.aarf).length, fire: steps ? 100 * fire / steps : 0,
+           offA: vs.filter(v => v.aarf_first === true).length, offB: vs.filter(v => v.aarf_first === false).length,
+           bothA: both.filter(v => v.aarf_first && v.baseline_first).length,
+           bothB: both.filter(v => !v.aarf_first && !v.baseline_first).length };
+}
+
+// 11 Official code: results table ---------------------------------------
+pres.addSection({ title: "Official code" });
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Official code" });
+s.addText("With the authors' code and data, chunk level matches and 13B is strongest", { placeholder: "title" });
+const hdr = o => Object.assign({ bold: true, color: "FFFFFF", fill: { color: HEX.dk2 }, align: "center", fontSize: 13 }, o || {});
+const cellO = (t, o) => ({ text: t, options: Object.assign({ align: "center", fontSize: 13 }, o || {}) });
+const trows = [[{ text: "Backbone", options: hdr({ align: "left" }) }, { text: "RAGTruth token", options: hdr() },
+  { text: "RAGTruth chunk", options: hdr() }, { text: "Dolly token", options: hdr() }, { text: "Dolly chunk", options: hdr() }]];
+BIGM.forEach(([n, t]) => trows.push([cellO(n, { align: "left", bold: true }), cellO(tk(t, "ragtruth")), cellO(nc(ev(`${t}_ragtruth`))),
+  cellO(tk(t, "dolly")), cellO(nc(ev(`${t}_dolly`)))]));
+s.addTable(trows, { x: 0.5, y: 1.3, w: 6.2, colW: [1.6, 1.15, 1.15, 1.15, 1.15], fontFace: "Calibri", border: { type: "solid", pt: 0.5, color: "D0D7D6" },
+  fill: { color: "FFFFFF" }, rowH: 0.45 });
+T(s, "AUC, leakage-free 5-fold CV. 13B and 8B ran in 4-bit on a free Kaggle T4 GPU, each on its own responses.", { x: 0.5, y: 3.35, w: 6.2, h: 0.6, fontSize: 12, color: C.accent3 });
+const offLog = ev("official_llama2_7B_response_chunk");
+card(s, 7.0, 1.3, 2.5, 3.6);
+T(s, [
+  { text: "Chunk level reproduced", options: { bold: true, breakLine: true } },
+  { text: `Ours ${nc(ev("llama2_7b_ragtruth"))} vs. authors' own scores ${nc(offLog)}`, options: { breakLine: true } },
+  { text: " ", options: { breakLine: true } },
+  { text: "Mixed on Llama-3-8B", options: { bold: true, breakLine: true } },
+  { text: "Small margin on RAGTruth; LN-Entropy wins on Dolly (AC)." },
+], { x: 7.2, y: 1.5, w: 2.15, h: 3.3, fontSize: 13 });
+s.addNotes("Chunk-level ECS uses BGE embeddings of the most-attended prompt chunk, as in the official code; our features agree with the authors' logged values head by head in 148/160 spot checks.");
+
+// 12 Official code: leakage audit ---------------------------------------
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Official code" });
+s.addText("The official evaluation picks features on the test set, inflating small-data results", { placeholder: "title" });
+const aud = [["Authors' logs, RAGTruth 7B", offLog], ["Ours, RAGTruth 7B", ev("llama2_7b_ragtruth")], ["Ours, Dolly 7B", ev("llama2_7b_dolly")],
+             ["Ours, Dolly 13B", ev("llama2_13b_dolly")], ["Ours, Dolly 8B", ev("llama3_8b_dolly")]].filter(a => a[1]);
+s.addChart(pres.charts.BAR, [
+  { name: "Official protocol (selected on test)", labels: aud.map(a => a[0]), values: aud.map(a => +a[1].official_protocol.AUC.toFixed(3)) },
+  { name: "Leakage-free nested CV", labels: aud.map(a => a[0]), values: aud.map(a => +a[1].nested_cv.AUC_mean.toFixed(3)) },
+], Object.assign({
+  x: 0.5, y: 1.15, w: 6.2, h: 3.9, barDir: "col", barGapWidthPct: 60, chartColors: [HEX.accent3, HEX.accent1],
+  valAxisMinVal: 0.6, valAxisMaxVal: 0.85, valAxisMajorUnit: 0.05, valAxisLabelFormatCode: "0.00",
+  valGridLine: { color: "E3E3E3", size: 0.5 }, catGridLine: { style: "none" },
+  showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "0.000", showLegend: true, legendPos: "t",
+}, chartText));
+const dl = aud.filter(a => a[0].startsWith("Ours, Dolly")).map(a => a[1].official_protocol.AUC - a[1].nested_cv.AUC_mean);
+const dleak = dl.length ? dl.reduce((x, y) => x + y, 0) / dl.length : 0;
+card(s, 7.0, 1.3, 2.5, 3.6);
+T(s, [
+  { text: `+${(offLog.official_protocol.AUC - offLog.nested_cv.AUC_mean).toFixed(3)} on RAGTruth`, options: { bold: true, fontSize: 18, color: C.accent2, breakLine: true } },
+  { text: "small: the paper's claims hold", options: { breakLine: true } },
+  { text: " ", options: { breakLine: true } },
+  { text: `+${dleak.toFixed(2)} on Dolly (AC)`, options: { bold: true, fontSize: 18, color: C.accent4, breakLine: true } },
+  { text: "same on all 3 models; 99 responses, so picking the best of 32 heads on test data fits noise" },
+], { x: 7.2, y: 1.5, w: 2.15, h: 3.3, fontSize: 13 });
+s.addNotes(`We first reproduced the authors' exact stored result (AUC ${offLog.official_protocol.AUC.toFixed(4)}) from their own logs, then moved feature and hyperparameter selection into training folds.`);
+
+// 13 AARF ---------------------------------------------------------------
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Official code" });
+s.addText("AARF: the gate is always on or almost never on, and its win is mostly position bias", { placeholder: "title" });
+const arows = [[{ text: "Backbone", options: hdr({ align: "left" }) }, { text: "Answers changed", options: hdr() }, { text: "Gate fires", options: hdr() },
+  { text: "Judge, official order", options: hdr() }, { text: "Judge, both orders", options: hdr() }]];
+BIGM.forEach(([n, t]) => { const a = aarfStats(t); if (a) arows.push([cellO(n, { align: "left", bold: true }), cellO(`${a.changed}/${a.n}`),
+  cellO(`${a.fire.toFixed(0)}%`), cellO(`${a.offA} : ${a.offB}`), cellO(`${a.bothA} : ${a.bothB}`)]); });
+s.addTable(arows, { x: 0.5, y: 1.3, w: 6.2, colW: [1.5, 1.15, 1.0, 1.3, 1.25], fontFace: "Calibri", border: { type: "solid", pt: 0.5, color: "D0D7D6" },
+  fill: { color: "FFFFFF" }, rowH: 0.5 });
+T(s, "Judge columns: AARF wins : baseline wins (Gemini 3.5 Flash-Lite). Both orders = verdict must survive swapping the two answers.", { x: 0.5, y: 3.5, w: 6.2, h: 0.7, fontSize: 12, color: C.accent3 });
+card(s, 7.0, 1.3, 2.5, 3.6);
+T(s, [
+  { text: "Gate miscalibrated", options: { bold: true, breakLine: true } },
+  { text: "Released ranges make the 0.6 threshold always or never crossed.", options: { breakLine: true } },
+  { text: " ", options: { breakLine: true } },
+  { text: "Position bias", options: { bold: true, breakLine: true } },
+  { text: "Swapping the two answers flipped the judge's verdict in 39% (7B) and 47% (13B) of pairs." },
+], { x: 7.2, y: 1.5, w: 2.15, h: 3.3, fontSize: 13 });
+s.addNotes("AARF: amplify copying heads x1.2 and damp knowledge FFNs x0.8 when the token hallucination score exceeds 0.6. Authors judged with GPT-4o in a fixed order (AARF first).");
+
+// 14 Limitations --------------------------------------------------------
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Official code" });
 s.addText("Limitations to keep in mind", { placeholder: "title" });
-[["4-bit weights", "3B and 7B ran quantised to fit 6 GB; 7B still matched the paper."],
- ["One generator", "All responses come from llama-2-7b-chat, so other backbones score text they did not write."],
+[["4-bit weights", "3B, 7B, 8B and 13B ran quantised (laptop or free Kaggle GPU); 7B still matched the paper."],
+ ["Small Dolly (AC)", "99 responses per model: fold-to-fold spread near 0.08-0.10 AUC."],
  ["Numbers only", "The contradiction test corrupts numbers; entity swaps and negations are untested."],
- ["Free-tier judges", "GPT judge is open-weights gpt-oss-120b; Gemini is Flash-Lite. Scores are coarse."]]
+ ["Free-tier judges", "GPT judge is open-weights gpt-oss-120b; Gemini is Flash-Lite instead of GPT-4o."]]
   .forEach(([h, b], i) => {
     const x = 0.5 + (i % 2) * 4.6, y = 1.3 + Math.floor(i / 2) * 1.8;
     card(s, x, y, 4.4, 1.6);
@@ -271,11 +363,13 @@ s.addText("Limitations to keep in mind", { placeholder: "title" });
   });
 s.addNotes("Also: copying heads scored on 500 sampled vocabulary tokens; 415 responses give fold std of 0.03-0.05 AUC.");
 
-// 12 Conclusion ---------------------------------------------------------
-s = pres.addSlide({ masterName: "Title dark", sectionTitle: "Comparison" });
-s.addText("ReDeEP works, and now we know where it stops working", { placeholder: "title" });
-s.addText(`Reproduced on a laptop: AUC ${f3(l2.cv.AUC[0])} vs. 0.7325 in the paper\nBeats perplexity and entropy on all four LLaMA models\nBlind to contradicted numbers: pair it with a fact-level check
-Large API judges are more accurate; ReDeEP is free, local and private`, { placeholder: "body" });
+// 15 Conclusion ---------------------------------------------------------
+s = pres.addSlide({ masterName: "Title dark", sectionTitle: "Official code" });
+s.addText("ReDeEP works, and now we know where it stops working", { placeholder: "title", fontSize: 32 });
+s.addText(`Reproduced: AUC ${f3(l2.cv.AUC[0])} vs. 0.7325; chunk level matches the authors exactly
+Strongest on Llama-2-13B; mixed on Llama-3-8B
+Official evaluation leaks test labels: small on RAGTruth, large on Dolly (AC)
+Blind to contradicted numbers; AARF's gain does not survive a fair judge`, { placeholder: "body", fontSize: 16 });
 s.addNotes("Future work: entity and negation corruptions; combine ECS with a numeric consistency check; run at full precision on a larger GPU; score responses generated by each backbone.");
 
 (async () => {

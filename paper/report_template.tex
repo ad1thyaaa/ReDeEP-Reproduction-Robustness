@@ -28,7 +28,7 @@ aditkrishna95@gmail.com}}
 \maketitle
 
 \begin{abstract}
-Retrieval-augmented generation (RAG) is meant to ground a language model in retrieved evidence, yet models still hallucinate even when the evidence is correct. ReDeEP (Sun et al., ICLR 2025) detects such hallucinations by reading a model's internals: it measures how much \emph{copying heads} use the retrieved context and how much \emph{knowledge FFNs} inject parametric memory. We reproduce ReDeEP on the RAGTruth benchmark with a single 6\,GB laptop GPU. On the paper's own backbone, Llama-2-7B-chat, our detector reaches an AUC of <<auc7>> against the published 0.7325, and the paper's two mechanistic findings replicate: all <<ht7>> heads show lower context usage in hallucinated responses, and later-layer FFNs inject more parametric knowledge. Across four LLaMA-family models from 1.1B to 7B parameters, ReDeEP outperforms perplexity and entropy baselines by 0.06 to 0.11 AUC, although per-task AUCs are markedly lower than the pooled figure. We then stress-test the method under corrupted retrieval. An irrelevant passage raises the hallucination score sharply, but corrupting the passage's numbers, so that the response contradicts it, leaves the score unchanged or lowers it: ReDeEP measures whether a response is \emph{about} its context, not whether it \emph{agrees} with it. Finally, prompted black-box judges from the Gemini and GPT families (AUC <<aucG>> and <<aucO>>) outperform ReDeEP (<<aucR>>) on the same held-out responses, while a small 3B LLaMA judge performs at chance (<<aucL>>). Using the authors' released code and data, we also reproduce chunk-level ReDeEP (leakage-free AUC <<chR7>>, identical to the authors' own logged scores), evaluate on Dolly (AC), and audit the official evaluation: selecting heads and layers on the test set inflates AUC by <<leakR>> on RAGTruth and <<leakD>> on Dolly (AC). The AARF mitigation's gate fires on every decoding step with the released hyperparameters, and its apparent win over the baseline largely disappears once the judge's position bias is controlled.
+Retrieval-augmented generation (RAG) is meant to ground a language model in retrieved evidence, yet models still hallucinate even when the evidence is correct. ReDeEP (Sun et al., ICLR 2025) detects such hallucinations by reading a model's internals: it measures how much \emph{copying heads} use the retrieved context and how much \emph{knowledge FFNs} inject parametric memory. We reproduce ReDeEP on the RAGTruth benchmark with a single 6\,GB laptop GPU. On the paper's own backbone, Llama-2-7B-chat, our detector reaches an AUC of <<auc7>> against the published 0.7325, and the paper's two mechanistic findings replicate: all <<ht7>> heads show lower context usage in hallucinated responses, and later-layer FFNs inject more parametric knowledge. Across six LLaMA-family models from 1.1B to 13B parameters, ReDeEP outperforms perplexity and entropy baselines on RAGTruth by 0.02 to 0.13 AUC, with Llama-2-13B the strongest detector (0.801), although per-task AUCs are markedly lower than the pooled figure. We then stress-test the method under corrupted retrieval. An irrelevant passage raises the hallucination score sharply, but corrupting the passage's numbers, so that the response contradicts it, leaves the score unchanged or lowers it: ReDeEP measures whether a response is \emph{about} its context, not whether it \emph{agrees} with it. Finally, prompted black-box judges from the Gemini and GPT families (AUC <<aucG>> and <<aucO>>) outperform ReDeEP (<<aucR>>) on the same held-out responses, while a small 3B LLaMA judge performs at chance (<<aucL>>). Using the authors' released code and data, we also reproduce chunk-level ReDeEP (leakage-free AUC <<chR7>>, identical to the authors' own logged scores), evaluate on Dolly (AC), and audit the official evaluation: selecting heads and layers on the test set inflates AUC by <<leakR>> on RAGTruth and <<leakD>> on Dolly (AC). With the released hyperparameters, the AARF mitigation's gate fires on every decoding step for the Llama-2 models and on only 8\% for Llama-3-8B, and its apparent win over the baseline largely disappears once the judge's position bias is controlled.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -389,7 +389,7 @@ Table~\ref{tab:official} collects the results. Token-level RAGTruth numbers use 
 The released regression scripts rank the 32 copying heads and the FFN layers by their AUC \emph{on the evaluation set itself}, keep the best ones, and combine them with weights tuned per model and dataset; the resulting AUC is reported on the same responses. Test labels therefore influence both feature selection and hyperparameters. To measure the effect, we re-evaluated the authors' own logged chunk scores and our own runs in three ways (Table~\ref{tab:audit}).
 
 \begin{table}[t]
-\caption{Effect of selecting features on the test set (chunk level, Llama-2-7B)}
+\caption{Effect of selecting features on the test set (chunk level)}
 \label{tab:audit}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -403,7 +403,7 @@ Scores & Official & All tuned & Nested CV \\
 \end{tabular}
 \end{table}
 
-We first confirmed our re-implementation of the official regression: on the authors' logged scores it returns exactly their stored result (AUC <<chOffoff>>, PCC <<offPcc>>). Tuning the hyperparameters on the test set as well (the ``all tuned'' column, an upper bound of the leak) raises the AUC further, while moving feature selection and hyperparameter choice into the training folds (nested CV) lowers it. On RAGTruth (450 responses) the inflation is small, <<leakR>> AUC, so the paper's main conclusions stand. On Dolly (AC) (99 responses) it reaches <<leakD>>: with few responses, choosing the best of 32 heads and 32 layers on the test set fits noise. Reported results on small benchmarks should therefore use held-out selection.
+We first confirmed our re-implementation of the official regression: on the authors' logged scores it returns exactly their stored result (AUC <<chOffoff>>, PCC <<offPcc>>). Tuning the hyperparameters on the test set as well (the ``all tuned'' column, an upper bound of the leak) raises the AUC further, while moving feature selection and hyperparameter choice into the training folds (nested CV) lowers it. On RAGTruth (450 responses) the inflation is small, <<leakR>> AUC, so the paper's main conclusions stand. On Dolly (AC) (99 responses) it reaches <<leakD>> for Llama-2-7B, and a similar inflation of about 0.08 appears for Llama-2-13B and Llama-3-8B: with few responses, choosing the best of 32 heads and 32 layers on the test set fits noise. Reported results on small benchmarks should therefore use held-out selection.
 
 %=====================================================================
 \section{Comparison with Black-Box Judges}
@@ -488,24 +488,27 @@ ReDeEP is therefore a detector of \emph{topical} hallucination: a response that 
 Following the released scripts, we generated greedy answers to the <<aarfN>> Dolly (AC) test prompts with Llama-2-7B, once normally and once with gated AARF, using the authors' Llama-2-7B Dolly hyperparameters (4 heads, 3 layers, weight 0.2, $\alpha_2=1.2$, $\beta_2=0.8$, threshold 0.6). The authors judged each differing pair with GPT-4o, always showing the AARF answer first and asking which is more truthful. We use the same prompt with Gemini 3.5 Flash-Lite (free tier). We judge every pair in \emph{both} orders, because LLM judges are known to favour one position.
 
 \subsection{The Gate Always Fires}
-We logged the gate score at every decoding step. Across all <<aarfSteps>> steps, the normalised score never fell below <<aarfMin>> (median <<aarfMed>>), so the 0.6 threshold was exceeded on <<aarfFrac>>\% of steps. The reason is a scale mismatch in the released configuration. The step score normalises a \emph{mean} over layers and heads with min-max ranges recorded for \emph{sums} at the response level, and the final range is very narrow ($[-0.100, -0.029]$). Typical values (PKS $\approx$2.5 against a range of 0--216; ECS $\approx$0.2) give a combined score near $-0.007$, far above the cut-off. In our faithful port, AARF therefore behaves as an always-on intervention rather than a targeted one.
+We logged the gate score at every decoding step. For Llama-2-7B, across all <<aarfSteps>> steps, the normalised score never fell below <<aarfMin>> (median <<aarfMed>>), so the 0.6 threshold was exceeded on <<aarfFrac>>\% of steps. The reason is a scale mismatch in the released configuration. The step score normalises a \emph{mean} over layers and heads with min-max ranges recorded for \emph{sums} at the response level, and the final range is very narrow ($[-0.100, -0.029]$). Typical values (PKS $\approx$2.5 against a range of 0--216; ECS $\approx$0.2) give a combined score near $-0.007$, far above the cut-off. In our faithful port, AARF therefore behaves as an always-on intervention rather than a targeted one.
 
 \subsection{Results}
 \begin{table}[t]
-\caption{AARF vs.\ baseline answers on Dolly (AC), Llama-2-7B}
+\caption{AARF vs.\ baseline on Dolly (AC): answers changed, gate firing rate, and judge wins (AARF / baseline)}
 \label{tab:aarf}
 \centering\footnotesize
-\begin{tabular}{@{}lcc@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-& AARF wins & Baseline wins \\
+& Changed & Gate & Official & Both orders \\
+Backbone & answers & fires & order & agree \\
 \midrule
-Official order (AARF first) & <<aarfOffA>> & <<aarfOffB>> \\
-Both orders agree & <<aarfBothA>> & <<aarfBothB>> \\
+<<aarf_rows>>
 \bottomrule
 \end{tabular}
 \end{table}
 
-AARF changed the answer for <<aarfDiff>> of <<aarfN>> prompts; the other <<aarfSame>> were identical. Judged in the official order, AARF wins <<aarfOffA>> pairs and the baseline <<aarfOffB>> (<<aarfUnp>> verdicts unparsable), comparable to the modest gains the paper reports (Table~\ref{tab:aarf}). However, the judge reversed its verdict when the two answers were swapped in <<aarfFlip>> of <<aarfDiff>> pairs (<<aarfFlipPct>>\%). Counting only pairs where both orders agree, AARF wins <<aarfBothA>> and the baseline <<aarfBothB>>, a difference well within chance (two-sided sign test $p=<<aarfP>>$). Much of AARF's apparent advantage in the official evaluation is therefore attributable to position bias. Its effect on truthfulness, in our setting, is not distinguishable from zero.
+AARF changed the answer for <<aarfDiff>> of <<aarfN>> prompts; the other <<aarfSame>> were identical. Judged in the official order, AARF wins <<aarfOffA>> pairs and the baseline <<aarfOffB>> (<<aarfUnp>> verdicts unparsable), comparable to the modest gains the paper reports (Table~\ref{tab:aarf}). However, the judge reversed its verdict when the two answers were swapped in <<aarfFlip>> of the <<aarfParsed>> pairs where both verdicts were readable (<<aarfFlipPct>>\%). Counting only pairs where both orders agree, AARF wins <<aarfBothA>> and the baseline <<aarfBothB>>, a difference well within chance (two-sided sign test $p=<<aarfP>>$). Much of AARF's apparent advantage in the official evaluation is therefore attributable to position bias. Its effect on truthfulness, in our setting, is not distinguishable from zero.
+
+<<aarfOtherPara>>
 
 %=====================================================================
 \section{Discussion}
@@ -518,10 +521,10 @@ AARF changed the answer for <<aarfDiff>> of <<aarfN>> prompts; the other <<aarfS
 %=====================================================================
 \section{Limitations and Threats to Validity}
 \begin{itemize}
-\item \emph{Quantisation:} the 3B and 7B models ran in 4-bit NF4, so their ECS and PKS approximate full precision. The close match with the paper suggests the effect is small.
+\item \emph{Quantisation:} the 3B, 7B, 8B and 13B models ran in 4-bit NF4 (on the laptop or a free Kaggle T4), so their ECS and PKS approximate full precision. The close match with the paper and with the authors' logged scores suggests the effect is small.
 \item \emph{Sampled copying-head scores:} OV circuits are scored on 500 sampled vocabulary tokens rather than the full vocabulary of 32k to 128k tokens.
 \item \emph{One generator:} all responses come from llama-2-7b-chat, so the other three backbones score text they did not write. This differs from the paper's matched setting.
-\item \emph{AARF judge:} AARF answers were judged by Gemini 3.5 Flash-Lite instead of GPT-4o, on one backbone<<aarfLimitModels>>.
+\item \emph{AARF judge:} AARF answers were judged by Gemini 3.5 Flash-Lite instead of GPT-4o, on Dolly (AC) only, as in the paper<<aarfLimitModels>>.
 \item \emph{Dolly (AC) size:} 99 responses per backbone give fold standard deviations near 0.08--0.10 AUC.
 \item \emph{Sample size:} 415 responses give fold standard deviations of 0.03--0.05 AUC, and differences below about 0.05 are within noise. Judge comparisons use 124 responses.
 \item \emph{Robustness scope:} only numbers are corrupted. Entity swaps, negations and partially relevant passages are untested.
@@ -530,9 +533,9 @@ AARF changed the answer for <<aarfDiff>> of <<aarfN>> prompts; the other <<aarfS
 
 %=====================================================================
 \section{Conclusion and Future Work}
-We reproduced ReDeEP on a 6\,GB laptop GPU. The detector reaches an AUC of <<auc7>> on Llama-2-7B against 0.7325 in the paper, both of the paper's mechanistic findings replicate, and the method beats uncertainty baselines on four LLaMA models from 1.1B to 7B parameters. Its accuracy is insensitive to the number of selected heads and layers, and both of its signals contribute.
+We reproduced ReDeEP on a 6\,GB laptop GPU. The detector reaches an AUC of <<auc7>> on Llama-2-7B against 0.7325 in the paper, both of the paper's mechanistic findings replicate, and on RAGTruth the method beats uncertainty baselines on all six LLaMA-family models we tested, from 1.1B to 13B parameters, with Llama-2-13B the strongest (AUC 0.801). Its accuracy is insensitive to the number of selected heads and layers, and both of its signals contribute.
 
-With the authors' released code and data, chunk-level ReDeEP reproduces exactly (leakage-free AUC <<chR7>>, identical to their own logged scores), and the method also works on Dolly (AC). The official evaluation selects features on the test set; this inflates results slightly on RAGTruth (<<leakR>>) and substantially on the small Dolly (AC) set (<<leakD>>). The AARF mitigation's gate fires on every step with the released settings, and its benefit vanishes once the judge's position bias is controlled.
+With the authors' released code and data, chunk-level ReDeEP reproduces exactly (leakage-free AUC <<chR7>>, identical to their own logged scores), and the method also works on Dolly (AC). The official evaluation selects features on the test set; this inflates results slightly on RAGTruth (<<leakR>>) and substantially, by about 0.08 on all three backbones, on the small Dolly (AC) set. With the released settings, the AARF mitigation's gate is either always on (Llama-2) or almost never on (Llama-3-8B), and its benefit vanishes once the judge's position bias is controlled.
 
 Our extension shows the method's boundary. ReDeEP catches responses that are off-topic for their context but not responses that contradict their context's numbers. Prompted judges from the Gemini and GPT families are more accurate, while small prompted judges do not work at all.
 

@@ -62,8 +62,14 @@ def main():
                 continue
             t0 = time.time()
             ids = tok(chat_prefix(tok, s["prompt"][:8000]), return_tensors="pt").input_ids.cuda()
-            base, _ = gen.generate(ids, args.max_new_tokens, aarf=False, eos_ids=eos)
-            arf, n_int = gen.generate(ids, args.max_new_tokens, aarf=True, eos_ids=eos)
+            try:
+                base, _ = gen.generate(ids, args.max_new_tokens, aarf=False, eos_ids=eos)
+                arf, n_int = gen.generate(ids, args.max_new_tokens, aarf=True, eos_ids=eos)
+            except torch.cuda.OutOfMemoryError:
+                gen._capture = False
+                torch.cuda.empty_cache()
+                print(f"  [{i+1}/{len(src)}] OOM ({ids.shape[1]} prompt tokens) -- skipped", flush=True)
+                continue
             tr = gen.trace
             row = {"id": s["source_id"], "prompt": s["prompt"],
                    "baseline": tok.decode(base, skip_special_tokens=True).strip(),

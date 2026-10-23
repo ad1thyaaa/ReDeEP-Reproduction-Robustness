@@ -149,10 +149,15 @@ class ChunkScorer:
         mech._mid_hidden.clear()
         del out, hs
 
-        # chunk labels: overlap with any annotated hallucination span (characters)
+        # chunk labels: overlap with any annotated hallucination span (characters).
+        # Some files (Dolly(AC), Llama-3 RAGTruth) carry only a response-level
+        # ['Yes'] label with no spans: chunk labels are then unknown (-1) and
+        # evaluation must be done at response level.
+        spans = [s for s in label_spans if isinstance(s, dict)]
         lab = []
         for i, _ in keep_r:
             a, b = response_spans[i]
-            lab.append(int(any(s["start"] < b and s["end"] > a for s in label_spans)))
+            lab.append(-1 if (label_spans and not spans) else
+                       int(any(s["start"] < b and s["end"] > a for s in spans)))
         return {"E": E.numpy(), "P": P.numpy(), "chunk_labels": lab,
                 "n_tokens": len(ids), "truncated": cut > 0}

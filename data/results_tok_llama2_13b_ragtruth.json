@@ -1,0 +1,23 @@
+{
+ "model": "NousResearch/Llama-2-13b-chat-hf",
+ "dataset": "ragtruth",
+ "response_model": "llama-2-13b-chat",
+ "n": 450,
+ "n_hallucinated": 207,
+ "cv": {
+  "AUC": [
+   0.8013335822133731,
+   0.05498304963253021
+  ],
+  "PPL_AUC": [
+   0.5525555140755489,
+   0.0390955177595897
+  ],
+  "LNEnt_AUC": [
+   0.6671450694098777,
+   0.027712507351958095
+  ]
+ },
+ "load_in_4bit": true,
+ "dtype": "float16"
+}

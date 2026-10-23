@@ -30,15 +30,25 @@ JOBS = {
 }
 
 
+# Which steps to run per model tag (v1 ran all; v2 re-runs only the ones that failed:
+# AARF for both models after a transformers cache-API change, and Llama-3 chunk-level
+# RAGTruth whose labels are response-level only).
+# v3: only resume Llama-2-13B AARF (34/99 done in v2; partial file shipped in the bundle).
+ONLY = {"llama2_13b": ["aarf"], "llama3_8b": []}
+
+
 def chain(gpu, model, tag, resp, heads):
     py = sys.executable
-    steps = [
-        f"{py} scripts/run_token_official.py --model {model} --load_in_4bit --tag tok_{tag}_ragtruth --dataset ragtruth --response_model {resp}",
-        f"{py} scripts/run_chunk.py --model {model} --load_in_4bit --tag {tag}_ragtruth --dataset ragtruth --response_model {resp} --copy_heads official:{heads}",
-        f"{py} scripts/run_token_official.py --model {model} --load_in_4bit --tag tok_{tag}_dolly --dataset dolly --response_model {resp}",
-        f"{py} scripts/run_chunk.py --model {model} --load_in_4bit --tag {tag}_dolly --dataset dolly --response_model {resp} --copy_heads official:{heads}",
-        f"{py} scripts/run_aarf.py --model {model} --load_in_4bit --hp official:{heads} --tag {tag}",
-    ]
+    all_steps = {
+        "tok_ragtruth": f"{py} scripts/run_token_official.py --model {model} --load_in_4bit --tag tok_{tag}_ragtruth --dataset ragtruth --response_model {resp}",
+        "chunk_ragtruth": f"{py} scripts/run_chunk.py --model {model} --load_in_4bit --tag {tag}_ragtruth --dataset ragtruth --response_model {resp} --copy_heads official:{heads}",
+        "tok_dolly": f"{py} scripts/run_token_official.py --model {model} --load_in_4bit --tag tok_{tag}_dolly --dataset dolly --response_model {resp}",
+        "chunk_dolly": f"{py} scripts/run_chunk.py --model {model} --load_in_4bit --tag {tag}_dolly --dataset dolly --response_model {resp} --copy_heads official:{heads}",
+        "aarf": f"{py} scripts/run_aarf.py --model {model} --load_in_4bit --hp official:{heads} --tag {tag}",
+    }
+    steps = [all_steps[k] for k in (ONLY[tag] if tag in ONLY else all_steps)]
+    if not steps:
+        return None
     cmd = " ; ".join(f"echo '>>> {s}' ; {s}" for s in steps)
     log = open(f"{R}/data/logs/kaggle_{tag}.log", "w")
     env = dict(os.environ, CUDA_VISIBLE_DEVICES=gpu, PYTHONUNBUFFERED="1", HF_HUB_ENABLE_HF_TRANSFER="0")
@@ -49,12 +59,14 @@ import torch
 n_gpu = torch.cuda.device_count()
 print("GPUs:", n_gpu, [torch.cuda.get_device_name(i) for i in range(n_gpu)])
 if n_gpu >= 2:                      # one model per GPU, in parallel
-    procs = [chain(g, *j) for g, j in JOBS.items()]
+    procs = [p for p in (chain(g, *j) for g, j in JOBS.items()) if p is not None]
     for p in procs:
         p.wait()
 else:                               # single GPU: one model after the other
     for j in JOBS.values():
-        chain("0", *j).wait()
+        p = chain("0", *j)
+        if p is not None:
+            p.wait()
 
 out = "/kaggle/working/out"
 os.makedirs(out, exist_ok=True)
