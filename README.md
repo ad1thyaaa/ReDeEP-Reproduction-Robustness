@@ -1,4 +1,32 @@
-# ReDeEP reproduction + extension
+# ReDeEP: Reproduction and Robustness Study
+
+IOE-414 Deep Learning minor project, IIIT Kottayam — Gourilakshmi S and Adithya K.
+
+Reproduction of *ReDeEP: Detecting Hallucination in Retrieval-Augmented Generation via
+Mechanistic Interpretability* (Sun et al., ICLR 2025;
+[arXiv:2410.11414](https://doi.org/10.48550/arXiv.2410.11414);
+[official code](https://github.com/Jeryi-Sun/ReDEeP-ICLR)) on consumer GPUs, plus extensions.
+
+| Result | |
+|---|---|
+| Token-level ReDeEP, Llama-2-7B (paper's setting) | AUC 0.739 vs. 0.7325 in the paper |
+| Chunk-level ReDeEP, Llama-2-7B, leakage-free | 0.731 — identical to the authors' own logged scores |
+| Six LLaMA-family models (1.1B–13B) on RAGTruth | ReDeEP beats perplexity and LN-Entropy on all six; best Llama-2-13B (0.801) |
+| Audit of the official evaluation | selecting heads/layers on the test set inflates AUC by 0.016 (RAGTruth) and ~0.08 (Dolly (AC)) |
+| Robustness extension | flags irrelevant passages, misses passages whose numbers contradict the answer |
+| AARF mitigation | gate always on (Llama-2) / almost never on (Llama-3-8B); win vanishes under a position-bias-controlled judge |
+| Black-box judges (124 responses) | Gemini 0.827, GPT (gpt-oss-120b) 0.790, ReDeEP 0.721, Llama-3.2-3B judge 0.499 |
+
+The full report is built by `paper/build_paper.py` (IEEE format) and `report_docx/build_docx.py`
+(course template); slides by `presentation/build_deck.js`. All numbers are generated from `data/`.
+Data not included: [RAGTruth](https://github.com/ParticleMedia/RAGTruth) and the
+[official ReDeEP dataset](https://github.com/Jeryi-Sun/ReDEeP-ICLR) — place them next to this folder
+as `RAGTruth/` and `ReDeEP_official_dataset/`. Llama-2-13B and Llama-3-8B were run on a free Kaggle
+T4 GPU with `kaggle/kernel.py`.
+
+---
+
+## Original notes
 
 Reproduces the core method of "ReDeEP: Detecting Hallucination in
 Retrieval-Augmented Generation via Mechanistic Interpretability"
