@@ -597,7 +597,7 @@ done(c)
 # ============================================================ Implementation & links
 c = section_cursor("Implementation and Dataset Links [GitHub]")
 c.p("Project implementation (code, results, report and slide sources):")
-c.bullets([("Project GitHub repository:", "to be added (the project is currently version-controlled locally; it will be published at a GitHub link before submission)."),
+c.bullets([("Project GitHub repository:", "https://github.com/ad1thyaaa/ReDeEP-Reproduction-Robustness"),
            ("Base paper's official code:", "https://github.com/Jeryi-Sun/ReDEeP-ICLR"),
            ("RAGTruth dataset:", "https://github.com/ParticleMedia/RAGTruth"),
            ("Official ReDeEP dataset (Dolly (AC), Llama-3-8B responses, chunk spans):", "https://drive.google.com/file/d/1s-pmaBQutC6eQGtk2F3uKaMSkn_iGQwR"),
