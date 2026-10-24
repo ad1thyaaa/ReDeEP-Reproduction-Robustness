@@ -118,6 +118,50 @@ arrow(2.6, 2.35, 3.15, 1.9); arrow(2.6, 2.75, 3.15, 3.45); arrow(6.05, 1.9, 6.6,
 T(s, "ECS: cosine similarity between a response token and the passage tokens a head attends to most.  PKS: Jensen-Shannon divergence of LogitLens predictions before vs. after each FFN.", { x: 0.5, y: 4.35, w: 9, h: 0.7, fontSize: 12, color: C.accent3 });
 s.addNotes("Top 8 copying heads are chosen from the OV circuit; top 5 knowledge FFN layers by correlation with the label on the training fold. Baselines: perplexity and length-normalised entropy from the same forward pass.");
 
+// 3b What the scores look like ------------------------------------------
+const SS = read("score_summary_llama2_7b.json");
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Method" });
+s.addText("What ECS, PKS and the final score look like on real answers", { placeholder: "title" });
+const sh = o => Object.assign({ bold: true, color: "FFFFFF", fill: { color: HEX.dk2 }, align: "center", fontSize: 13 }, o || {});
+const sc = (t, o) => ({ text: t, options: Object.assign({ align: "center", fontSize: 13 }, o || {}) });
+s.addTable([
+  [{ text: "Llama-2-7B, 415 answers", options: sh({ align: "left" }) }, { text: "Truthful (avg)", options: sh() }, { text: "Hallucinated (avg)", options: sh() }, { text: "AUC alone", options: sh() }],
+  [sc("ECS  (uses passage, higher = good)", { align: "left", bold: true }), sc(SS.ecs_t.toFixed(3)), sc(SS.ecs_h.toFixed(3), { color: C.accent4, bold: true }), sc(SS.ecs_auc.toFixed(3))],
+  [sc("PKS  (memory injected, higher = bad)", { align: "left", bold: true }), sc(SS.pks_t.toFixed(3)), sc(SS.pks_h.toFixed(3), { color: C.accent4, bold: true }), sc(SS.pks_auc.toFixed(3))],
+  [sc("ReDeEP score  (0 = truthful, 1 = halluc.)", { align: "left", bold: true }), sc(SS.score_t.toFixed(2)), sc(SS.score_h.toFixed(2), { color: C.accent4, bold: true }), sc(SS.comb_auc.toFixed(3), { bold: true })],
+], { x: 0.5, y: 1.25, w: 9.0, colW: [3.9, 1.6, 1.8, 1.7], fontFace: "Calibri", border: { type: "solid", pt: 0.5, color: "D0D7D6" }, fill: { color: "FFFFFF" }, rowH: 0.42 });
+const ex = (x, fill, head, q, vals, note) => {
+  card(s, x, 3.15, 4.4, 1.85, fill);
+  T(s, head, { x: x + 0.15, y: 3.25, w: 4.1, h: 0.3, bold: true, fontSize: 13, color: C.text2 });
+  T(s, q, { x: x + 0.15, y: 3.57, w: 4.1, h: 0.55, fontSize: 11.5, italic: true });
+  T(s, vals, { x: x + 0.15, y: 4.12, w: 4.1, h: 0.3, fontSize: 13, bold: true, color: C.accent2 });
+  T(s, note, { x: x + 0.15, y: 4.45, w: 4.1, h: 0.5, fontSize: 11 });
+};
+ex(0.5, C.background2, "Truthful answer (QA)", "“Meaning of the name Teresa”: lists the meanings given in the passages.",
+   "ECS 0.371   PKS 0.059   → score 0.17", "High passage use, little memory injection: low score.");
+ex(5.1, C.background2, "Hallucinated answer (QA)", "“Average temperature in Tallahassee”: invents a calculation “79°F – 56°F = 23°F” not in the passage.",
+   "ECS 0.297   PKS 0.101   → score 0.65", "Less passage use, more memory injection: high score.");
+s.addNotes("Averages and examples use heads/layers fitted on all 415 answers, for illustration; the AUC column for the final score is out-of-fold (5-fold CV). ECS is a cosine similarity (range about 0.1-0.5 here); PKS is a Jensen-Shannon divergence averaged over the 5 knowledge FFN layers.");
+
+// 3c How AUC works --------------------------------------------------------
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Method" });
+s.addText("How we measure a detector: AUC (area under the ROC curve)", { placeholder: "title" });
+s.addImage({ path: path.join(__dirname, "..", "report_docx", "figures", "roc.png"), x: 0.5, y: 1.2, w: 4.1, h: 3.33 });
+T(s, "ROC curves, Llama-2-7B and smaller models: ReDeEP (colour) above perplexity / entropy (grey).", { x: 0.5, y: 4.6, w: 4.1, h: 0.45, fontSize: 10.5, color: C.accent3 });
+card(s, 4.9, 1.25, 4.6, 3.75);
+T(s, [
+  { text: "AUC = chance a random hallucinated answer gets a higher score than a random truthful one", options: { bold: true, breakLine: true } },
+  { text: " ", options: { breakLine: true, fontSize: 6 } },
+  { text: "1.0 = perfect    0.5 = coin flip", options: { breakLine: true } },
+  { text: `Ours (Llama-2-7B): ${f3(l2.cv.AUC[0])} → right about ${Math.round(100 * l2.cv.AUC[0])}% of the time`, options: { breakLine: true } },
+  { text: " ", options: { breakLine: true, fontSize: 6 } },
+  { text: "Toy example", options: { bold: true, breakLine: true } },
+  { text: "Hallucinated scores 0.9, 0.6, 0.3; truthful 0.7, 0.4, 0.2. Of the 9 (H, T) pairs the hallucinated one is higher in 7 → AUC = 7/9 = 0.78.", options: { breakLine: true } },
+  { text: " ", options: { breakLine: true, fontSize: 6 } },
+  { text: "Why AUC: needs no cut-off threshold, so it compares detectors fairly; it is the paper's main metric.", options: {} },
+], { x: 5.1, y: 1.4, w: 4.25, h: 3.5, fontSize: 13 });
+s.addNotes("The ROC curve plots the share of hallucinations caught against the share of truthful answers wrongly flagged as the threshold slides from 1 to 0; AUC is the area under it. We report mean AUC over 5-fold cross-validation.");
+
 // 4 Setup ----------------------------------------------------------------
 s = pres.addSlide({ masterName: "Content", sectionTitle: "Method" });
 s.addText("Four LLaMA models, one 6 GB laptop GPU, the paper's test set", { placeholder: "title" });
@@ -200,7 +244,7 @@ s.addChart(pres.charts.BAR, [
   { name: "Irrelevant passage", labels: ["TinyLlama-1.1B", "Llama-2-7B"], values: [robT.irrelevant.score_shift_vs_accurate, rob7.irrelevant.score_shift_vs_accurate].map(v => +v.toFixed(3)) },
   { name: "Numbers corrupted", labels: ["TinyLlama-1.1B", "Llama-2-7B"], values: [robT.contradictory.score_shift_vs_accurate, rob7.contradictory.score_shift_vs_accurate].map(v => +v.toFixed(3)) },
 ], Object.assign({
-  x: 0.5, y: 1.15, w: 5.6, h: 3.9, barDir: "bar", barGapWidthPct: 50,
+  x: 0.5, y: 1.15, w: 5.0, h: 3.9, barDir: "bar", barGapWidthPct: 50,
   chartColors: [HEX.accent3, HEX.accent1],
   valAxisMinVal: -0.05, valAxisMaxVal: 0.35, catAxisOrientation: "maxMin", catAxisLabelPos: "low", valAxisMajorUnit: 0.05, valAxisLabelFormatCode: "+0.00;-0.00;0",
   valGridLine: { color: "E3E3E3", size: 0.5 }, catGridLine: { style: "none" },
@@ -208,14 +252,22 @@ s.addChart(pres.charts.BAR, [
   showLegend: true, legendPos: "t",
   valAxisTitle: "Change in hallucination score vs. accurate passage", showValAxisTitle: true, valAxisTitleFontSize: 11, valAxisTitleColor: "4A4A4A", valAxisTitleFontFace: "+mn-lt",
 }, chartText));
-card(s, 6.4, 1.3, 3.1, 3.6);
+card(s, 5.7, 1.3, 3.8, 3.6);
+T(s, "Llama-2-7B, average signals", { x: 5.85, y: 1.42, w: 3.5, h: 0.3, bold: true, fontSize: 13, color: C.text2 });
+const rh = o => Object.assign({ bold: true, color: "FFFFFF", fill: { color: HEX.dk2 }, align: "center", fontSize: 11 }, o || {});
+const rc = (t, o) => ({ text: t, options: Object.assign({ align: "center", fontSize: 11 }, o || {}) });
+s.addTable([
+  [{ text: "Passage", options: rh({ align: "left" }) }, { text: "ECS", options: rh() }, { text: "PKS", options: rh() }, { text: "Score", options: rh() }],
+  [rc("Accurate", { align: "left" }), rc(f3(rob7.accurate.E_A_mean)), rc(f3(rob7.accurate.P_F_mean)), rc(rob7.accurate.score_mean.toFixed(2))],
+  [rc("Irrelevant", { align: "left" }), rc(f3(rob7.irrelevant.E_A_mean)), rc(f3(rob7.irrelevant.P_F_mean), { bold: true, color: C.accent4 }), rc(rob7.irrelevant.score_mean.toFixed(2), { bold: true, color: C.accent4 })],
+  [rc("Numbers changed", { align: "left" }), rc(f3(rob7.contradictory.E_A_mean), { bold: true, color: C.accent2 }), rc(f3(rob7.contradictory.P_F_mean)), rc(rob7.contradictory.score_mean.toFixed(2))],
+], { x: 5.85, y: 1.8, w: 3.5, colW: [1.55, 0.65, 0.65, 0.65], fontFace: "Calibri", border: { type: "solid", pt: 0.5, color: "C9D1D0" }, fill: { color: "FFFFFF" }, rowH: 0.3 });
 T(s, [
   { text: "Irrelevant: ", options: { bold: true } },
-  { text: "score jumps (p < 0.001). Correct.", options: { breakLine: true } },
-  { text: " ", options: { breakLine: true } },
-  { text: "Numbers corrupted: ", options: { bold: true } },
-  { text: `no rise. On the ${num7.n} answers that state a contradicted number, the score rose in only ${Math.round(100 * numT.frac_score_increased)}% (TinyLlama) and ${Math.round(100 * num7.frac_score_increased)}% (Llama-2-7B) of cases.` },
-], { x: 6.6, y: 1.5, w: 2.75, h: 3.3, fontSize: 13 });
+  { text: "PKS rises (memory takes over), so the score jumps. Correct.", options: { breakLine: true } },
+  { text: "Numbers changed: ", options: { bold: true } },
+  { text: `ECS even rises and the score stays flat: it rose in only ${Math.round(100 * num7.frac_score_increased)}% of the ${num7.n} contradicted answers.` },
+], { x: 5.85, y: 3.25, w: 3.5, h: 1.6, fontSize: 12 });
 s.addNotes(`Llama-2-7B: score ${f3(rob7.contradictory.score_shift_vs_accurate)} (p=${rob7.contradictory.score_shift_wilcoxon_p.toExponential(1)}), ECS rises ${f3(rob7.accurate.E_A_mean)} to ${f3(rob7.contradictory.E_A_mean)}. TinyLlama: +${f3(robT.contradictory.score_shift_vs_accurate)}, p=${robT.contradictory.score_shift_wilcoxon_p.toFixed(2)}.`);
 
 // 9 Interpretation ------------------------------------------------------
